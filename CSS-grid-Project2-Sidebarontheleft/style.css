@@ -52,6 +52,7 @@ nav {
     color: #fff;
     text-transform: uppercase;
     padding: 1rem;
+    display: block;
 }
 
 .main-content {
@@ -65,4 +66,45 @@ nav {
 .footer {
     grid-area: footer;
     background-image: linear-gradient(315deg, #fabc3c 0%, #facc6b 75%);
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.panc-notice {
+    height: inherit;
+    width: 40%;
+    max-width: 40rem;
+    background-color: #fff;
+    display: flex;
+}
+
+.panc-notice h1 {
+    margin: auto;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.panc-notice h1::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1.5rem;
+    width: 5.5rem;
+    height: 3px;
+    background-image: linear-gradient(315deg, #fabc3c 0%, #facc6b 75%);
+}
+
+.statistics {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 4rem;
+}
+
+.statistics .item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.7);
 }
