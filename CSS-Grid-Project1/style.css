@@ -24,6 +24,14 @@ body {
     padding: 0.6rem 1.3rem;
     text-decoration: none;
     border: 0;
+    margin-bottom: 12px;
+}
+
+.logo {
+    width: 5%;
+    position: fixed;
+    top: 0;
+    z-index: 2;
 }
 
 img {
@@ -33,28 +41,184 @@ img {
 .wrapper {
     display: grid;
     grid-gap: 20px;
+    grid-auto-rows: auto;
+    margin-top: 7rem;
+}
+
+.main-nav {
+    background-color: rgb(31, 25, 31);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
 }
 
 .main-nav ul {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: "logo home about services contact .";
     list-style: none;
     justify-items: center;
+    align-items: center;
     padding: 0;
 }
 
+.home {
+    grid-area: home;
+}
+
+.about {
+    grid-area: about;
+}
+
+.services {
+    grid-area: services;
+}
+
+.contact {
+    grid-area: contact;
+}
+
 .main-nav ul li {
-    border: 2px solid var(--dark);
+    border: 2px solid white;
     box-shadow: var(--shadow);
-    padding: 6px 15%;
+    padding: 6px 5%;
+    margin: 0 1rem;
     background: #333;
 }
 
 .main-nav ul li a {
     text-decoration: none;
-    color:white
+    color:white;
 }
 
 .top-container {
     display: grid;
+    grid-gap: 0.5rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas: 
+                    "side side side boxa"
+                    "side side side boxb";
+}
+
+.showcase {
+    grid-area: side;
+    justify-self: center;
+    align-self: center;
+    width: 100%;
+    height: 100%;
+    background-image: url(https://picsum.photos/1280/853);
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    box-shadow: var(--shadow);
+}
+
+.showcase h1,
+.showcase p {
+    padding-left: 7%;
+    color: var(--light);
+}
+
+.showcase h1 {
+    font-size: 3rem;
+}
+
+.showcase a {
+    margin-left: 7%;
+}
+
+
+.top-box-a {
+    grid-area: boxa;
+    align-self: space-around;
+    justify-self: center;
+}
+
+.top-box-b {
+    grid-area: boxb;
+}
+
+.top-box {
+    width: 100%;
+    height: 100%;
+    background-color: (var(--primary));
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: var(--shadow);
+}
+
+.top-box .price {
+    font-size: 2rem;
+    padding: 0;
+}
+
+
+.boxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 0.5rem;
+}
+
+.boxes img {
+    padding: 0;
+    margin: 0;
+    flex-shrink: 5;
+}
+
+.boxes .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: var(--shadow);
+    padding: 15px;
+}
+
+.boxes p {
+    margin-top: 0;
+}
+
+.info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2rem;
+    box-shadow: var(--shadow);
+    padding: 3rem;
+}
+
+.info div {
+    justify-self: center;
+    align-self: flex-start;
+}
+
+.info img {
+    justify-self: center;
+    align-self: center;
+}
+
+
+.portfolio {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.portfolio img {
+    box-shadow: var(--shadow);
+    margin: 1rem;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--dark);
+    color: var(--light);
 }
