@@ -1,5 +1,70 @@
+* {
+    box-sizing: border-box;
+}
+
 .main-container {
     height: 100%;
     display: grid;
     grid-template-columns: 15% 1fr;
+    grid-template-rows: 150px 3.6fr 1fr;
+    grid-template-areas: 
+        "Logo title"
+        ". main"
+        ". footer";
+}
+
+.logo {
+    z-index: 2;
+    background-image: url(https://picsum.photos/200/300);
+    background-size: cover;
+    background-position: center;
+}
+
+.main-title {
+    grid-area: title;
+    justify-self: center;
+}
+
+
+.main-content {
+    grid-area: main;
+    justify-self: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.main-section {
+    display: flex;
+    flex-flow: column nowrap;
+    border: 6px solid black;
+    border-radius: 8px;
+    margin: 0 1.1rem;
+    align-content: center;
+    padding: 8px;
+    justify-content: center;
+    text-align: center;
+    box-shadow: rgb(1, 1, 1) 4px 0px 10px -3px;
+    position: relative;
+}
+
+.main-section__best-choice {
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translateX(30px) translateY(-15px) rotateZ(45deg);
+    background-color: #ff1b68;
+    color: white;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.main-section h2 {
+    background-color: black;
+    color: white;
+    line-height: 45pt;
+}
+
+.main-section a {
+    color: black;
+    padding: 15px;
 }
