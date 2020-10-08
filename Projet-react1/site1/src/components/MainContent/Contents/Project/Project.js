@@ -5,7 +5,7 @@ const project = (props) => {
     return (
         <div className="project-container">
             <div className="project-logo"></div>
-            <div className="project-title">Project</div>
+            <div className="project-title"><h1>Project</h1></div>
             <section className="project-section">
                 <section className="project-section__section">
                     <h3 className="project-section__title">Project X</h3>
