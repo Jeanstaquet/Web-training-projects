@@ -7,15 +7,15 @@ const navigationBar = (props) => (
     <div className="container">
         <nav className="nav-nav">
             <ul className="nav-list">
-                <li className="Resume" onClick={props.click} value="resume">
+                <li className="Resume" onClick={() => props.data.changeValue("Resume")}>
                     <FontAwesomeIcon icon={faFile}/>
                     <span>Resume</span>
                 </li>
-                <li className="AboutMe" onClick={props.click} value="aboutme">
+                <li className="AboutMe" onClick={() => props.data.changeValue("AboutMe")}>
                     <FontAwesomeIcon icon={faAddressCard} />
                    <span>About Me</span>
                 </li>
-                <li className="Project" onClick={props.click} value="project">
+                <li className="Project" onClick={() => props.data.changeValue("Project")}>
                     <FontAwesomeIcon icon={faTasks} />
                     <span>Project</span>
                 </li>

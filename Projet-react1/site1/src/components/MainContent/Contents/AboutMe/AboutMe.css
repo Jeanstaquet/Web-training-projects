@@ -1,0 +1,55 @@
+*{
+    box-sizing: border-box;
+}
+
+.about-me-container {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 15% 1fr;
+    grid-template-rows: 150px 8fr 1fr;
+    grid-template-areas: 
+        "Logo title"
+        ". main"
+        ". footer";
+}
+
+
+.about-me__logo {
+    z-index: 2;
+    background-image: url(https://picsum.photos/400/300);
+    background-size: cover;
+    background-position: center;
+    grid-area: Logo;
+}
+
+.about-me__title {
+    grid-area: title;
+    justify-self: center;
+    align-self: center;
+}
+
+.about-me__section {
+    grid-area: main;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    padding: 12px;
+}
+
+.about-me__image {
+    height: 35%;
+    width: 80%;
+    background-image: url(https://picsum.photos/900/700);
+    background-position: center;
+    background-size: cover;
+}
+
+.about-me__section p {
+    text-align: center;
+    background-color: black;
+    font-weight: bold;
+    color: white;
+    line-height: 20pt;
+}

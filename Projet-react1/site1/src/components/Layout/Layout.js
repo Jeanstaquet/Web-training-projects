@@ -6,13 +6,17 @@ import MainContent from "../MainContent/MainContent";
 
 class Layout extends Component {
     state = {
-        value: ""
+        value: "Project"
+    };
+
+    changeValue = (element) => {
+        this.setState({value: element})
     }
     render() {
         return (
         <div>
-            <NavigationBar/>
-            <MainContent/>
+            <NavigationBar data= {{changeValue: this.changeValue.bind(this)}}/>
+            <MainContent data={this.state.value}/>
         </div>
         )
     }
