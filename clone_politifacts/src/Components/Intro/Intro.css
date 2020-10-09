@@ -1,0 +1,50 @@
+
+
+.intro-container {
+    padding-top: 201px;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+}
+
+.image_intro {
+    height: 70%;
+    width: 80%;
+    background-image: url(../../images/6e5717d547a02b5b7ed9e2ba9ebaa9b6.jpg);
+    margin-left: 2.5%;
+}
+
+.intro-rectangle {
+    position: absolute;
+    width: 30%;
+    height: 100px;
+    background-color: white;
+    right: 150px;
+    bottom: 250px;
+    padding: 24px;
+}
+
+.intro-qupte-wrapper {
+    position: relative;
+}
+
+.intro-rect__title {
+    margin: 16px 1rem;
+    font-size: 1.4rem;
+}
+
+.intro-rect__title::after {
+    width: 0.5rem;
+    border-radius: 8px;
+    height: 3rem;
+    content: "";
+    position: absolute;
+    top: 42px;
+    left: 24px;
+    background-color: black;
+}
+
+.intro-rect__footer {
+    color: grey;
+    font-size: 0.9rem;
+}
