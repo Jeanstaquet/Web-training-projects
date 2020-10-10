@@ -1,0 +1,52 @@
+
+.next,
+.prev {
+    font-size: 1.6rem;
+    padding: 4px;
+    padding-bottom: 6px;
+}
+
+
+
+.next {
+    position: absolute;
+    top: 45%;
+    right: 5px;
+    padding-left: 6px;
+}
+
+.prev {
+    position: absolute;
+    top: 45%;
+    left: 5px;
+    padding-right: 6px;
+}
+
+.next:hover,
+.prev:hover {
+    background-color: black;
+    border-radius: 2px;
+    color: white;
+    cursor: pointer;
+}
+
+.dot {
+    width: 0.7rem;
+    height: 0.7rem;
+    content: "";
+    background-color: #d0d0d1;
+    border-radius: 50%;
+    margin: 12px 0;
+    transition: background-color 0.6s ease
+}
+
+.dot-container {
+    display: flex;
+    justify-content: space-evenly;
+    width: 25%;
+    margin: auto;
+}
+
+.dot:active {
+    background-color: black;
+}

@@ -104,7 +104,7 @@ const dropdown = (props) => {
                         </li>
                     </ul>
                 </section>
-            <div className="test23">
+            {/* <div className="test23">
                 <section>
                     <h3>FOLLOW US</h3>
                     <FontAwesomeIcon icon={faSearch} />
@@ -115,7 +115,7 @@ const dropdown = (props) => {
                     <input type="text" value="Enter your email"></input>
                     <button type="submit">Sign up</button>
                 </section>
-            </div>
+            </div> */}
             </div>
         </div>
     )

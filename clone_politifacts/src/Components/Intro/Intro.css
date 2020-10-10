@@ -3,8 +3,9 @@
 .intro-container {
     padding-top: 201px;
     height: 100vh;
-    width: 100vw;
+    width: 90vw;
     position: relative;
+    margin-bottom: -125px;
 }
 
 .image_intro {
@@ -12,6 +13,9 @@
     width: 80%;
     background-image: url(../../images/6e5717d547a02b5b7ed9e2ba9ebaa9b6.jpg);
     margin-left: 2.5%;
+    background-size: cover;
+    background-position: center top 20%;
+
 }
 
 .intro-rectangle {

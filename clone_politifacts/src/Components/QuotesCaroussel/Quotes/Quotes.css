@@ -1,0 +1,99 @@
+.quotes_container {
+    width: 80%;
+    height: 350px;
+    margin: auto;
+    margin-bottom: 5%;
+    position: relative;
+}
+
+.quotes_slides {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-around;
+    border: 1px solid #d8dbe0;
+}
+
+.slides_image {
+    background-image: url(https://picsum.photos/300/500);
+    width: 150px;
+    height: 150px;
+    border-radius: 40%;
+    background-position: center;
+    background-size: cover;
+    align-self: flex-start;
+    margin-top: 1.2rem;
+}
+
+.slides_container_quote {
+    height: 80%;
+    width: 65%;
+    display: grid;
+    grid-template-rows: 15% 10% auto;
+    grid-template-areas: 
+        "name"
+        "details"
+        "quote";
+    position: relative;
+}
+
+
+.slide_name {
+    background-color: #e7effd;
+    color: #2270fd;
+    width: auto;
+    padding: 8px;
+    border-radius: 2px;
+    cursor: pointer;
+    margin: 0;
+    z-index: 10;
+    justify-self: start;
+    align-self: start;
+}
+
+.slide_name:hover{
+    background-color:#bcd3ff;
+}
+
+.slide_source {
+    margin: 0;
+    font-size: .8rem;
+}
+
+.slide_quotemeter {
+    background-image: url(https://picsum.photos/301/500);
+    width: 150px;
+    height: 150px;
+    border-radius: 40%;
+    background-position: center;
+    background-size: cover;
+}
+
+.slide_quote {
+    font-weight: bold;
+    font-size: 2rem;
+    margin-left: 2rem;
+}
+
+.slide_quote:hover {
+    text-decoration: underline;
+}
+
+.slide_quote::after {
+    width: 0.5rem;
+    border-radius: 8px;
+    height: 8rem;
+    content: "";
+    position: absolute;
+    bottom: 55px;
+    left: 0px;
+    background-color: #fd4c4c;
+}
+
+.active {
+    display: flex;
+}
+
+.non-active {
+    display: none;
+}
