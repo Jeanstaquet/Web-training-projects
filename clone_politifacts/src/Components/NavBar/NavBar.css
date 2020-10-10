@@ -68,14 +68,8 @@
     margin-left: 12px;
 }
 
-.donate {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
 .nav-bar__donate {
-    margin-right: 20px;
+    margin-right: 35px;
     grid-area: button;
     padding: 6px;
     font-size: 1.2rem;
@@ -84,4 +78,14 @@
     color: white;
     border:#ff1b68;
     border-radius: 6px;
+    cursor: pointer;
+    z-index: 100;
+    justify-self: flex-end;
+    align-self: center;
+    transition: transform 400ms;
 }
+
+.nav-bar__donate:hover {
+    transform: scale(1.2);
+}
+

@@ -47,6 +47,6 @@
     margin: auto;
 }
 
-.dot:active {
-    background-color: black;
+.dot-active {
+    background-color: black; 
 }

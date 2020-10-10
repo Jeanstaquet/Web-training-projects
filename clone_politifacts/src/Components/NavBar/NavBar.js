@@ -3,6 +3,13 @@ import "./NavBar.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
+const scaleUp = () => {
+    document.querySelector(".nav-bar__donate").style.transform = "scale(0.8)";
+}
+
+const scaleDown = () => {
+    document.querySelector(".nav-bar__donate").style.transform = "scale(1)";
+}
 
 const navBar = (props) => {
     return (
@@ -11,18 +18,18 @@ const navBar = (props) => {
                 <div className="nav-bar__container">
                     <div className="nav-bar__menu">
                         <div className="nav-bar__toggle-container" onClick={props.click}>  
-                            <div class="bar1"></div>
-                            <div class="bar2"></div>
-                            <div class="bar3"></div>
+                            <div className="bar1"></div>
+                            <div className="bar2"></div>
+                            <div className="bar3"></div>
                         </div>
                         <div className="nav-bar__toggle__menu">Menu</div>
                         <div>
                             <FontAwesomeIcon icon={faSearch} />
-                            <input type="text" id="search" name="name" value="Search..."></input>
+                            <input type="text" id="search" name="name"></input>
                         </div>
                     </div>
                     <img className="nav-bar__logo" src="https://picsum.photos/300/101"></img>
-                    <div className="donate"><button className="nav-bar__donate">Donate</button></div>
+                    <button className="nav-bar__donate">Donate</button>
                 </div>
             </div>
             {props.children}

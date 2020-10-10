@@ -4,7 +4,7 @@ import "./Quotes.css";
 const quotes = (props) => {
     return (
         <div className="quotes_container">
-            <div className="quotes_slides">
+            <div className="quotes_slides active">
                 <div className="slides_image"></div>
                     <div className="slides_container_quote">
                         <h2 className="slide_name">Joe Biden</h2>
@@ -13,7 +13,7 @@ const quotes = (props) => {
                     </div>
                 <div className="slide_quotemeter"></div>
             </div>
-            <div className="quotes_slides">
+            <div className="quotes_slides non-active">
                     <div className="slides_image"></div>
                         <div className="slides_container_quote">
                             <h2 className="slide_name">Brit Hume</h2>
@@ -22,7 +22,7 @@ const quotes = (props) => {
                         </div>
                 <div className="slide_quotemeter"></div>
             </div>
-            <div className="quotes_slides">
+            <div className="quotes_slides non-active">
                 <div className="slides_image"></div>
                 <div className="slides_container_quote">
                     <h2 className="slide_name">Donald Trump</h2>
@@ -31,7 +31,7 @@ const quotes = (props) => {
                 </div>
                 <div className="slide_quotemeter"></div>
             </div>
-            <div className="quotes_slides">
+            <div className="quotes_slides non-active">
                 <div className="slides_image"></div>
                 <div className="slides_container_quote">
                     <h2 className="slide_name">John Cornyn</h2>

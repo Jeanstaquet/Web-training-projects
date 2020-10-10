@@ -9,7 +9,7 @@ import QuotesCarrousel from "../../Components/QuotesCaroussel/QuotesCarrousel"
 class Layout extends Component {
     state = {
         menu: false,
-        index: 0
+        index: 2
     }
 
     toggleMenu = () => {
@@ -17,14 +17,7 @@ class Layout extends Component {
     }
 
     nextHandler = () => {
-        let current = this.state.index;
-        if(current == 3) {
-            current = 0
-        } else {
-            current += 1;
-        }
-        this.setState({index: current});
-        console.log(this.state.index)
+
     }
 
     prevHandler = () => {
@@ -38,12 +31,17 @@ class Layout extends Component {
         console.log(this.state.index)
     }
 
+    changeIndex(arg, funct) {
+        let newIndex = funct(arg)
+        this.setState({index: newIndex})
+    }
+
     render() {
         return (
             <div>
                 <NavBar click={this.toggleMenu}><DropDown show={this.state.menu}/></NavBar>
                 <Intro/>
-                <QuotesCarrousel next={this.nextHandler} prev={this.prevHandler}/>
+                <QuotesCarrousel next={this.nextHandler} prev={this.prevHandler} index={this.state.index} data={{changeIndex: this.changeIndex.bind(this)}}/>
             </div>
         )
     }
