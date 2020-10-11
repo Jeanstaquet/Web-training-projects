@@ -29,7 +29,7 @@ const navBar = (props) => {
                         </div>
                     </div>
                     <img className="nav-bar__logo" src="https://picsum.photos/300/101"></img>
-                    <button className="nav-bar__donate">Donate</button>
+                    <button className="nav-bar__donate" onClick={props.open}>Donate</button>
                 </div>
             </div>
             {props.children}

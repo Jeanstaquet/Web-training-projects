@@ -1,0 +1,121 @@
+.backdrop-super-container {
+    width: 60vw;
+    height: 50vh;
+    margin: auto;
+    background-color: white;
+    margin-top: 20vh;
+    z-index: 9999;
+    border-radius: 4px;
+}
+
+.backdrop-container {
+    padding: 2rem;
+    padding-top: 0;
+    display: grid;
+    grid-template-rows: 10% 1fr 1.5fr auto;
+    grid-template-areas: 
+        "title"
+        "freqeuncy"
+        "time"
+        "submit";
+}
+
+.backdrop-title {
+    grid-area: title;
+    justify-self: stretch;
+    text-align: center;
+    background-color: #0242b7;
+    padding: 12px;
+    border-radius: 8px;
+    color: white;
+}
+
+.frequency-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-bottom: 1px solid #e1e3e4;
+}
+
+.frequency-title {
+    margin-bottom: 8px;
+}
+
+.frequency-type {
+    margin-top: 0;
+    
+}
+
+.freqeuncy-radio-container {
+    display: flex;
+    align-items: center;
+}
+
+label {
+    margin: 0 12px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.time-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #e1e3e4;
+}
+
+.time-title {
+    margin-bottom: 0;
+}
+
+.time-details {
+    margin-top: 0;
+}
+
+.time-container-amounts {
+    display: flex;
+}
+
+.time-button {
+    margin: 0 10px;
+    font-size: 1.2rem;
+    padding: 8px 10px;
+    background-color: #efefef;
+    color: black;
+    border: 1px solid #c3c3c3;
+    border-radius: 4px;
+}
+
+.time-special-container {
+    position: relative;
+}
+
+.time-dollar {
+    position: absolute;
+    top: 28%;
+    left: 12px;
+}
+
+.time-other {
+    height: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    margin-left: 10px;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+}
+
+.time-other::placeholder {
+    font-size: 1rem;
+    padding-left: 20px;
+}
+
+.time-time {
+    position: absolute;
+    right: 0;
+    top: 28%;
+    
+}
