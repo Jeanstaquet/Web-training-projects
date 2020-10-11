@@ -22,7 +22,7 @@ const backdrop = () => {
                     </div>
                 </section>
                 <section className="time-container">
-                    <h3 className="time-title">One-time Amount</h3>
+                    <h3 className="time-title">One time Amount</h3>
                     <p className="time-details">Select how much you'd like to contribute</p>
                     <div className="time-container-amounts">
                         <button className="time-button">$ 200</button>
