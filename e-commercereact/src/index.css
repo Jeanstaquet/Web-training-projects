@@ -3,6 +3,7 @@ body {
   font-family: 'Major Mono Display', monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #2a35a8;
 }
 
 code {

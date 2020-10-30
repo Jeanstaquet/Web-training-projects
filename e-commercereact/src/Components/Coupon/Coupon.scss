@@ -1,0 +1,34 @@
+.coupon-container {
+    width: 100%;
+    height: 75px;
+    display: flex;
+    justify-content: center;
+
+    .coupon-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 22px;
+        border: 2px dashed black;
+
+        label {
+            margin-right: 10px;
+        }
+
+        input {
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            font-family: inherit;
+        }
+
+        button {
+            margin-left: 5px;
+            padding: 11px;
+            font-family: inherit;
+            background-color: #ff1b68;
+            border: 4px solid #ff1b68;
+            cursor: pointer;
+        }
+    }
+}
