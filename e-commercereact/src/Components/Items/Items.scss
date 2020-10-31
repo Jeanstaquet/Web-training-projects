@@ -2,5 +2,12 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
+}
 
+.output-button {
+    width: 60%;
+    margin: 26px auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }

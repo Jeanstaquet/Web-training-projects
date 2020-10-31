@@ -5,7 +5,7 @@ class Layout extends Component {
     render() {
         return (
             <React.Fragment>
-                <NavigationBar/>
+                <NavigationBar number={this.props.number}/>
                 <main className="Content">
                     {this.props.children}
                 </main>

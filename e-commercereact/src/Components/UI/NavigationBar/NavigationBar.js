@@ -1,6 +1,6 @@
 import React from "react";
 import "./NavigationBar.scss"
-const navigationBar = () => {
+const navigationBar = (props) => {
     return (
         <div className="toolbar-container">
             <section className="toolbar-logo">
@@ -9,7 +9,7 @@ const navigationBar = () => {
             <section className="toolbar-navitems">
                 <ul>
                     <li>
-                        <a href="/">Basket (n items)</a>
+                        <a href="/">Basket ({props.number} item(s))</a>
                     </li>
                     <li>
                         <a href="/">Articles</a>

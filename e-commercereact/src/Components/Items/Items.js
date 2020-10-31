@@ -1,6 +1,7 @@
 import React from "react";
 import Item from "./Item/Item";
-import "./Items.scss"
+import "./Items.scss";
+import Button from "../UI/Button/Button";
 
 const items = (props) => {
     const products = [...props.products];
@@ -15,9 +16,15 @@ const items = (props) => {
                      minus={() => props.minus(index)}/>
     })
     return (
-        <div className="output-containers">
-            {productsOutput}
-        </div>
+        <React.Fragment>
+            <div className="output-containers">
+                {productsOutput}
+            </div>
+            <div className="output-button">
+                <Button click={props.click}>Order ({props.number})</Button>
+                <Button type="Danger">Cancel</Button>
+            </div>
+        </React.Fragment>
     )
 }
 
