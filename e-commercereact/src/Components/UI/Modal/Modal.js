@@ -19,7 +19,7 @@ const modal = (props) => {
             <ul>
                 {products}
             </ul>
-            <p>Total Price: $$</p>
+            <p>Total Price: {props.totalPrice}$</p>
             <div>
                 <Button>Order!</Button>
                 <Button type="Danger" click={props.click}>Cancel</Button>

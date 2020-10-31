@@ -9,7 +9,7 @@ const navigationBar = (props) => {
             <section className="toolbar-navitems">
                 <ul>
                     <li>
-                        <a href="/">Basket ({props.number} item(s))</a>
+                        <a >Basket ({props.number} item(s))</a>
                     </li>
                     <li>
                         <a href="/">Articles</a>

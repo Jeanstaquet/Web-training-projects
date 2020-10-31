@@ -13,8 +13,7 @@ class OrderPage extends Component {
         loading: true,
         qqt: [0, 0, 0, 0, 0, 0],
         numberOfItems: 0,
-        showModal: true,
-
+        showModal: false,
         orderedProducts: {
             Jeans: 0,
             Pull: 0,
@@ -22,7 +21,8 @@ class OrderPage extends Component {
             Sneakers: 0,
             Socks: 0,
             Tshirt: 0
-        }
+        },
+        totalPrice: 0
     }
 
     componentDidMount() {
@@ -50,6 +50,7 @@ class OrderPage extends Component {
         for(let i = 0; i < currentState.length; i++) {
             quantity += currentState[i];
         }
+
         this.setState({numberOfItems: quantity});
         if(quantity === -1) {
             quantity = 0;
@@ -60,13 +61,16 @@ class OrderPage extends Component {
     plusHandler = (index) => {
         const prevState = [...this.state.qqt];
         prevState[index] += 1;
-        // const currentState = [...this.state.qqt];
-        // let quantity = 1;
-        // for(let i = 0; i < currentState.length; i++) {
-        //     quantity += currentState[i]
-        // }
         this.totalHandler("plus");
-        this.setState({qqt: prevState});
+
+        let totalPrice = 0;
+        const prices = [99, 54, 82, 299, 12, 88];
+        for(let i = 0; i < this.state.qqt.length; i++) {
+            totalPrice = totalPrice + prevState[i] * prices[i];
+        }
+        console.log(totalPrice)
+        
+        this.setState({qqt: prevState, totalPrice: totalPrice});
     }
 
     minusHandler = (index) => {
@@ -114,7 +118,11 @@ class OrderPage extends Component {
         }
         return (
             <React.Fragment>
-                <Modal show={this.state.showModal} click={this.modalCloseHandler} datas={this.state.orderedProducts} nbr={this.state.numberOfItems}/>
+                <Modal show={this.state.showModal} 
+                       click={this.modalCloseHandler} 
+                       datas={this.state.orderedProducts} 
+                       nbr={this.state.numberOfItems}
+                       totalPrice={this.state.totalPrice}/>
                 <Coupon/>
                 {products}
             </React.Fragment>
