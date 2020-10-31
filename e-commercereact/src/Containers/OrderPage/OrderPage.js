@@ -4,7 +4,7 @@ import Items from "../../Components/Items/Items";
 import Spinner from "../../Components/UI/Spinner/Spinner";
 import Modal from "../../Components/UI/Modal/Modal";
 
-
+import {withRouter} from "react-router-dom";
 import axios from "../../axios-orders";
 
 class OrderPage extends Component {
@@ -68,7 +68,6 @@ class OrderPage extends Component {
         for(let i = 0; i < this.state.qqt.length; i++) {
             totalPrice = totalPrice + prevState[i] * prices[i];
         }
-        console.log(totalPrice)
         
         this.setState({qqt: prevState, totalPrice: totalPrice});
     }
@@ -103,6 +102,21 @@ class OrderPage extends Component {
         this.setState({orderedProducts: remainingProducts})
     }
 
+    continueHandler = () => {
+        const queryParameter = [];
+        for(let i in this.state.orderedProducts) {
+            if(this.state.orderedProducts[i] !== 0) {
+                queryParameter.push(encodeURIComponent(i) + "=" + encodeURIComponent(this.state.orderedProducts[i]));
+            }
+        }
+        queryParameter.push("price" + "=" + this.state.totalPrice);
+        const queryString = queryParameter.join("&")
+        this.props.history.push({
+            pathname:"/checkout",
+            search: "?" + queryString
+        })
+    }
+
     render() {
         let products = "";
         if(this.state.products && this.state.qqt) {
@@ -122,7 +136,8 @@ class OrderPage extends Component {
                        click={this.modalCloseHandler} 
                        datas={this.state.orderedProducts} 
                        nbr={this.state.numberOfItems}
-                       totalPrice={this.state.totalPrice}/>
+                       totalPrice={this.state.totalPrice}
+                       continue={this.continueHandler}/>
                 <Coupon/>
                 {products}
             </React.Fragment>
@@ -130,4 +145,4 @@ class OrderPage extends Component {
     }
 }
 
-export default OrderPage;
+export default withRouter(OrderPage);

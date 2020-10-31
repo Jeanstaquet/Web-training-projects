@@ -1,5 +1,7 @@
 import React from "react";
-import "./NavigationBar.scss"
+import "./NavigationBar.scss";
+import {NavLink} from "react-router-dom";
+
 const navigationBar = (props) => {
     return (
         <div className="toolbar-container">
@@ -9,10 +11,10 @@ const navigationBar = (props) => {
             <section className="toolbar-navitems">
                 <ul>
                     <li>
-                        <a >Basket ({props.number} item(s))</a>
+                        <a href="/" >Basket ({props.number} item(s))</a>
                     </li>
                     <li>
-                        <a href="/">Articles</a>
+                        <NavLink to="/previous_orders">Articles</NavLink>
                     </li>
                     <li>
                         <a href="/">Orders</a>

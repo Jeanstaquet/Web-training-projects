@@ -1,0 +1,58 @@
+.Checkout-container {
+    width: 80%;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px auto;
+
+    h2 {
+        &:hover {
+            background-color: black;
+            color: white;
+        }
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        background-color: khaki;
+    }
+
+    p {
+        margin-bottom: 0;
+        &:hover {
+            background-color: black;
+            color: white;
+        }
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+
+        label {
+            font-size: 1.2rem;
+            background-color: khaki;
+            margin-top: 12px;
+        }
+        input {
+            padding: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+    }
+}
+
+.btn {
+    width: 35%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.price {
+    background-color: khaki;
+}

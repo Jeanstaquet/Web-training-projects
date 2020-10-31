@@ -21,7 +21,7 @@ const modal = (props) => {
             </ul>
             <p>Total Price: {props.totalPrice}$</p>
             <div>
-                <Button>Order!</Button>
+                <Button click={props.continue}>Order!</Button>
                 <Button type="Danger" click={props.click}>Cancel</Button>
             </div>
             <span onClick={props.click}>x</span>

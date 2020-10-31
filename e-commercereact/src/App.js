@@ -1,8 +1,9 @@
 import React, {Component} from "react";
 import Layout from "./Containers/Layout/Layout";
 import OrderPage from "./Containers/OrderPage/OrderPage";
-import Orders from "./Containers/Orders/Orders";
-import {Route} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
+import Checkout from "./Containers/Checkout/Checkout";
+import PreviousOrders from "./Containers/PreviousOrders/PreviousOrders";
 
 class App extends Component {
   state = {
@@ -16,9 +17,9 @@ class App extends Component {
   render() {
     return (
       <Layout number={this.state.numberOfItems}>
-        <Route path="/" render={() => <OrderPage data={{changeValue: this.changeValue.bind(this)}}/>}></Route>
-          
-          <Orders/>
+          <Route path="/" exact render={() => <OrderPage data={{changeValue: this.changeValue.bind(this)}}/>}></Route>
+          <Route path="/checkout" component={Checkout}/>
+          <Route path="/previous_orders" component={PreviousOrders} />
       </Layout>
     )
   }
