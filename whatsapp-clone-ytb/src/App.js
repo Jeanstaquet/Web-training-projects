@@ -1,25 +1,34 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import {BrowserRouter, Route, Router, Switch} from "react-router-dom"
 import './App.css';
 import Sidebar from "./Components/UI/Sidebar/Sidebar";
 import Chat from "./Containers/Chat/Chat";
-function App {
+import Login from "./Containers/Login/Login"
+import {useStateValue} from "./StateProvider";
+
+function App() {
+  const [{user}, dispatch] = useStateValue();
     return (
       <div className="app">
-        <div className="app__body">
-        <BrowserRouter>
-        <Sidebar/>
-          <Switch>
-            <Route path="/rooms/:roomId">
-              <Chat/>
-            </Route>
-            <Route path="/">
-              <Chat/>
-            </Route>
 
-          </Switch>
-        </BrowserRouter>
-        </div>
+        {!user ? (
+          <Login/>
+        ): (
+          <div className="app__body">
+          <BrowserRouter>
+          <Sidebar/>
+            <Switch>
+              <Route path="/rooms/:roomId">
+                <Chat/>
+              </Route>
+              <Route path="/">
+                <Chat/>
+              </Route>
+  
+            </Switch>
+          </BrowserRouter>
+          </div>
+        )}
       </div>
   )
 }
