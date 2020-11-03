@@ -16,7 +16,7 @@ const SidebarChat = ({ id, name, addNewChat }) => {
                         doc.data()))
                 ))
         }
-    }, [])
+    }, [id])
 
     useEffect(() => {
         setSeed(Math.floor(Math.random() * 5000))
@@ -50,5 +50,5 @@ const SidebarChat = ({ id, name, addNewChat }) => {
         </div>
     )
 };
-
+//3h17
 export default SidebarChat;
