@@ -1,0 +1,14 @@
+.app {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  background-color: rgb(149, 158, 167);
+}
+
+.app__body {
+  height: 95vh;
+  width: 95vw;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.7);
+}
