@@ -8,6 +8,8 @@ import React, { useEffect, useState } from 'react';
 import {useParams} from "react-router-dom"
 import "./Chat.css";
 import db from "../../firebase"
+import { useStateValue } from "../../StateProvider";
+import firebase from "firebase"
 
 function Chat() {
     const [input, setInput] = useState("");
@@ -15,7 +17,7 @@ function Chat() {
     const { roomId } = useParams();
     const [roomName, setRoomName] = useState("");
     const [messages, setMessages] = useState([]);
-
+    const [{user}, dispatch] = useStateValue();
     useEffect(() => {
         if(roomId) {
             db.collection("Rooms")
@@ -39,7 +41,16 @@ function Chat() {
     }, []);
 
     const sendMessage = (e) => {
+        console.log(messages)
         e.preventDefault()
+        console.log("kk")
+        //send a message to the db
+        db.collection("Rooms").doc(roomId).collection
+        ("messages").add({
+            messages: input,
+            name: user.displayName,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        })
         setInput("")
     }
 
@@ -51,7 +62,10 @@ function Chat() {
                 <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`}/>
                 <div className="chat__headerInfo">
                     <h3>{roomName}</h3>
-                    <p>Last seen at...</p>
+                    <p>Last seen at {""} {new Date(
+                        messages[messages.length - 1]?.
+                        timestamp?.toDate()).toUTCString()
+                    }</p>
                 </div>
                 <div className="chat__headerRight">
                 <IconButton>
@@ -67,7 +81,7 @@ function Chat() {
             </div>
             <div className="chat__body">
                 {messages.map((message) => (
-                    <p className={`chat__message ${true && "chat__reciever"}`}><span className="chat__name">{message.name}</span>{message.message}<span className="chat__timestamp">{new Date(message.timestamp?.toDate()).toUTCString()}</span></p>
+                    <p className={`chat__message ${message.name === user.displayName && "chat__reciever"}`}><span className="chat__name">{message.name}</span>{message.message}<span className="chat__timestamp">{new Date(message.timestamp?.toDate()).toUTCString()}</span></p>
                 ))}
                 
             </div>
