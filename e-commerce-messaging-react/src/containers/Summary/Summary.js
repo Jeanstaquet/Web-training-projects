@@ -21,7 +21,7 @@ const summary = (props) => {
             </div>
             <div className="summary__graphContainer">
                 <h4>Summary of KPIs</h4>
-                <img src="https://picsum.photos/200/200"></img>
+                <img src="https://picsum.photos/200/200" alt=""></img>
                 
             </div>
         </div>
