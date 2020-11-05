@@ -7,10 +7,10 @@ $bck-lgrey: #f6f6f6;
 
 .chat__container {
     flex: 1;
-    height: 50vh;
+    height: 40vh;
     display: grid;
-    grid-template-columns: 1fr 10fr;
-    grid-template-rows: 0.7fr 3.7fr 0.7fr;
+    grid-template-columns: 0.6fr 12fr;
+    grid-template-rows: 0.6fr 300px 0.5fr;
     grid-template-areas: 
         "logo header"
         "contact messages"
@@ -58,11 +58,13 @@ $bck-lgrey: #f6f6f6;
     padding: 20px;
     grid-area: contact;
     display: flex;
+    min-width: 250px;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     background-color: $bck-lgrey;
     border-bottom: $border;
+    overflow: scroll;
 }
 
 

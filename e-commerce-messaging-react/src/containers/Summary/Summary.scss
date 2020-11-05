@@ -1,0 +1,32 @@
+.summary__container {
+    display: flex;
+    flex: 1;
+    background-color: #f6f6f6;
+}
+
+.summary__produtsContainer {
+    flex: 0.5;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+    h4 {
+        margin: 0;
+        justify-self: flex-start;
+        background-color: #f6f6f6;
+    }
+
+    .summary__productsI{
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-evenly;
+        align-content: space-between;
+        align-items: center;
+
+    }
+}
+
+.summary__graphContainer {
+    flex: 0.5;
+}

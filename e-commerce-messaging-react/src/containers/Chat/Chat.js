@@ -17,7 +17,7 @@ class Chat extends Component {
                    {message: "Sorry it was a typo", author: "Jean S.", time:"11:55"}],
 
         currentMessage: "",
-        //
+        
     }
     
     currentMessageHandler = (input) => {
