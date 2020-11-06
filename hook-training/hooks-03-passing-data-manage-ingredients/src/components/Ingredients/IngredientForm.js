@@ -9,7 +9,7 @@ const IngredientForm = React.memo(props => {
 
   const submitHandler = event => {
     event.preventDefault();
-    props.addIngredientHandler({title: enteredTitle, ammount: enteredAmount});
+    props.onAddIngredient({ title: enteredTitle, amount: enteredAmount });
   };
 
   return (
@@ -39,7 +39,7 @@ const IngredientForm = React.memo(props => {
             />
           </div>
           <div className="ingredient-form__actions">
-            <button type="submit" onClick={submitHandler}>Add Ingredient</button>
+            <button type="submit">Add Ingredient</button>
           </div>
         </form>
       </Card>
