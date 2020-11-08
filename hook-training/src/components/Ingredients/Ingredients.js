@@ -1,4 +1,4 @@
-import React, {useCallback, useReducer } from 'react';
+import React, {useCallback, useEffect, useReducer, useMemo } from 'react';
 
 import IngredientForm from './IngredientForm';
 import IngredientList from './IngredientList';
@@ -37,6 +37,7 @@ const Ingredients = () => {
   const [userIngredients, dispatch] = useReducer(ingredientReducer, [])
   const [httpState, dispatchHttp] = useReducer(httpReducer, {loading: false, error: null})
 
+  useEffect(() => console.log("render"))
   // const [userIngredients, setUserIngredients] = useState([]);
   //const [isLoading, setIsLoading] = useState(false);
   //const [error, setError] = useState();
@@ -47,7 +48,7 @@ const Ingredients = () => {
     dispatch({type: "SET", ingredients: filteredIngredients})
   }, [])
 
-  const addIngredientHandler = ingredient => {
+  const addIngredientHandler = useCallback(ingredient => {
     //setIsLoading(true)
     dispatchHttp({type: "SEND"});
     fetch("https://react-burger-app-ffe1a.firebaseio.com/ingredients.json", 
@@ -68,9 +69,9 @@ const Ingredients = () => {
         dispatch({type:"ADD", ingredient: {id: responseData.name, ...ingredient}})
       }
       ) 
-  }
+  }, [])
 
-  const removeItemHandler = ingredientId => {
+  const removeItemHandler = useCallback(ingredientId => {
     dispatchHttp({type: "SEND"});
     fetch(`https://react-burger-app-ffe1a.firebaseio.com/ingredients/${ingredientId}.json`, 
       {method: "DELETE"}
@@ -84,11 +85,16 @@ const Ingredients = () => {
          //setError("Something went wrong");
          //setIsLoading(false);
        })
-  }
+  }, [])
 
-  const clearError = () => {
+  const clearError = useCallback(() => {
     dispatchHttp({type:"CLEAR"})
-  }
+  }, [])
+
+  const ingredientList = useMemo(() => {
+    return <IngredientList ingredients={userIngredients} onRemoveItem={removeItemHandler}/>
+
+  }, [userIngredients, removeItemHandler])
 
   return (
     <div className="App">
@@ -99,7 +105,7 @@ const Ingredients = () => {
 
       <section>
         <Search onLoadIngredients={filterIngredientsHandler}/>
-        <IngredientList ingredients={userIngredients} onRemoveItem={removeItemHandler}/>
+        {ingredientList}
       </section>
     </div>
   );
