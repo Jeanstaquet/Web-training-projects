@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+//npm install node-sass@4.14.1
 ReactDOM.render(
   <React.StrictMode>
     <App />
