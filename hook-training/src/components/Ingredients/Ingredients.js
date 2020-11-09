@@ -4,6 +4,7 @@ import IngredientForm from './IngredientForm';
 import IngredientList from './IngredientList';
 import Search from './Search';
 import ErrorModal from "../UI/ErrorModal";
+import useHttp from "../../hooks/https";
 
 const ingredientReducer = (currentIngredients, action) => {
   switch (action.type) {
@@ -14,28 +15,16 @@ const ingredientReducer = (currentIngredients, action) => {
     case "DELETE":
       return currentIngredients.filter(ing => ing.id !== action.id);
     default: 
-      throw new Error("Should not get there!")
+      throw new Error("Should not get there!");
   }
 }
 
-const httpReducer = (currHttpState, action) => {
-  switch(action.type) {
-    case "SEND":
-      return {loading: true, error: null};
-    case "RESPONSE":
-      return {...currHttpState, loading: false}
-    case "ERROR":
-      return {loading: false, error: action.errorMessage}
-    case "CLEAR":
-      return {...currHttpState, error: null}
-    default: 
-      throw new Error("Should not be reached!")
-  }
-}
 
 const Ingredients = () => {
+  const {isLoading, error, data, sendRequest} =  useHttp();
+
   const [userIngredients, dispatch] = useReducer(ingredientReducer, [])
-  const [httpState, dispatchHttp] = useReducer(httpReducer, {loading: false, error: null})
+
 
   useEffect(() => console.log("render"))
   // const [userIngredients, setUserIngredients] = useState([]);
@@ -50,45 +39,34 @@ const Ingredients = () => {
 
   const addIngredientHandler = useCallback(ingredient => {
     //setIsLoading(true)
-    dispatchHttp({type: "SEND"});
-    fetch("https://react-burger-app-ffe1a.firebaseio.com/ingredients.json", 
-      {method: "POST",
-       body: JSON.stringify(ingredient),
-       headers: {"Content-Type": "application/json"}}
-       ).then(response => { 
-        //setIsLoading(false)
-        dispatchHttp({type: "RESPONSE"});
-        //extraire le body et le convertir en JSON 
-        return response.json();
-      }).then( responseData => {
+    // dispatchHttp({type: "SEND"});
+    // fetch("https://react-burger-app-ffe1a.firebaseio.com/ingredients.json", 
+    //   {method: "POST",
+    //    body: JSON.stringify(ingredient),
+    //    headers: {"Content-Type": "application/json"}}
+    //    ).then(response => { 
+    //     //setIsLoading(false)
+    //     dispatchHttp({type: "RESPONSE"});
+    //     //extraire le body et le convertir en JSON 
+    //     return response.json();
+    //   }).then( responseData => {
 
 
-        // setUserIngredients(prevIngredients => [
-        //   ...prevIngredients, {id: responseData.name, ...ingredient}
-        // ])
-        dispatch({type:"ADD", ingredient: {id: responseData.name, ...ingredient}})
-      }
-      ) 
+    //     // setUserIngredients(prevIngredients => [
+    //     //   ...prevIngredients, {id: responseData.name, ...ingredient}
+    //     // ])
+    //     dispatch({type:"ADD", ingredient: {id: responseData.name, ...ingredient}})
+    //   }
+    //   ) 
   }, [])
 
   const removeItemHandler = useCallback(ingredientId => {
-    dispatchHttp({type: "SEND"});
-    fetch(`https://react-burger-app-ffe1a.firebaseio.com/ingredients/${ingredientId}.json`, 
-      {method: "DELETE"}
-       ).then(response => {
-        //setIsLoading(false) 
-        //setUserIngredients(prevIngredients => prevIngredients.filter((ingredient) => ingredient.id !== ingredientId));
-        dispatch({type:"DELETE", id: ingredientId})
-      }
-       ).catch(error => {
-        dispatchHttp({type: "ERROR", errorMessage: error.message});
-         //setError("Something went wrong");
-         //setIsLoading(false);
-       })
-  }, [])
+    //dispatchHttp({type: "SEND"});
+    sendRequest(`https://react-burger-app-ffe1a.firebaseio.com/ingredients/${ingredientId}.json`, "DELETE")
+  }, [sendRequest])
 
   const clearError = useCallback(() => {
-    dispatchHttp({type:"CLEAR"})
+    //dispatchHttp({type:"CLEAR"})
   }, [])
 
   const ingredientList = useMemo(() => {
@@ -98,10 +76,10 @@ const Ingredients = () => {
 
   return (
     <div className="App">
-      {httpState.error && <ErrorModal onClose={clearError}>{httpState.error}</ErrorModal>}
+      {error && <ErrorModal onClose={clearError}>{error}</ErrorModal>}
       <IngredientForm 
         onAddIngredient={addIngredientHandler}
-        loading={httpState.loading}/>
+        loading={isLoading}/>
 
       <section>
         <Search onLoadIngredients={filterIngredientsHandler}/>
