@@ -21,10 +21,14 @@ function App() {
       })
   }, []);
 
-  let display = null;
+  const addTask = (item) => {
+    axios.post("Jean/TaskToDo.json", item)
+      .then(resp => console.log(resp))
+  }
 
+  let display = null;
   if(data) {
-    display= <Dashboard dataStats={data.Stats.Activity}/>
+    display= <Dashboard dataStats={data} add={addTask}/>
   }
   return (
     <div className="App">
