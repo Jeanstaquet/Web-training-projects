@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./Dashboard.scss"
 import Numbers from "./Numbers/Numbers"
 import Growth from "../../../images/growth.svg";
@@ -9,7 +9,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import TaskToDo from "./Tasks/TasksToDo/TasksToDo"
 
 function Dashboard(props) {
-    const [task, setTask] = useState();
+    const [task, setTask] = useState("");
     return (
         <div className="dashboard__container">
             <img src={Growth} alt="."/>
@@ -20,8 +20,12 @@ function Dashboard(props) {
                 <form>
                     <label>Add a new task/goal to achieve</label>
                     <div>
-                        <input type="text" placeholder="New Task" value={task} onChange={event => setTask(event.target.value)}/>
-                        <IconButton onClick={props.add({name: task})}>
+                        <input type="text" placeholder="New Task" value={task} onChange={event => setTask(event.target.value)} />
+                        <IconButton 
+                        onClick={() => {
+                            setTask("")
+                            props.add({name: task})
+                            }}>
                             <AddIcon/>
                         </IconButton>
                     </div>
@@ -29,7 +33,7 @@ function Dashboard(props) {
                 <div className="dashboard__listContainer">
                     <h3>Tasks to do:</h3>
                     <ul>
-                        <TaskToDo data={props.dataStats.TaskToDo}/>
+                        <TaskToDo data={props.dataStats.TaskToDo} delete={props.delete}/>
                     </ul>
                 </div>
                 <div className="dashboard__doneContainer">
