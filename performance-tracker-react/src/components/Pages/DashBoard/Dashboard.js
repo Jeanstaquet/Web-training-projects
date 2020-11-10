@@ -1,21 +1,48 @@
 import React from 'react';
 import "./Dashboard.scss"
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import Numbers from "./Numbers/Numbers"
+import Growth from "../../../images/growth.svg";
+import AddIcon from '@material-ui/icons/Add';
+import { IconButton } from '@material-ui/core';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import DoneIcon from '@material-ui/icons/Done';
+
 
 function Dashboard(props) {
+    console.log(props.dataStats)
     return (
         <div className="dashboard__container">
+            <img src={Growth} alt="."/>
             <h2> My Dashboard</h2>
-            <section className="number__container">
-                <div><span>A</span><p>Time worked</p><a href="/">Register a new performance</a></div>
-                <div><span>A</span><p>Activity achieved</p><a href="/">Register a new performance</a></div>
-                <div><span>A</span><p># Ranking</p><a href="/">Register a new performance</a></div>
-                <div><span>A</span><p>Old performances</p><a href="/">Register a new performance</a></div>
-            </section>
-            <section>
+            <Numbers/>
+            <section className="summary__container">
                 <h3>TO DOs for today/this week/this month</h3>
-                <div>List...</div>
+                <form>
+                    <label>Add a new task/goal to achieve</label>
+                    <div>
+                        <input type="text" placeholder="New Task"/>
+                        <IconButton>
+                            <AddIcon/>
+                        </IconButton>
+                        <button type="submit">Add</button>
+                    </div>
+                </form>
+                <div className="dashboard__listContainer">
+                    <h3>Tasks to do:</h3>
+                    <ul>
+                        <li className="dashboard__li achieved"><DoneIcon className="done"/>Item<DeleteOutlineIcon className="bin"/></li>
+                        <li className="dashboard__li achieved"><DoneIcon className="done"/>Item<DeleteOutlineIcon className="bin"/></li>
+                        <li className="dashboard__li achieved"><DoneIcon className="done"/>Item<DeleteOutlineIcon className="bin"/></li>
+                    </ul>
+                </div>
+                <div className="dashboard__doneContainer">
+                    <h3>Tasks done:</h3>
+                    <ul>
+                        <li className="dashboard__li">Item<DeleteOutlineIcon className="bin"/></li>
+                        <li className="dashboard__li">Item<DeleteOutlineIcon className="bin"/></li>
+                        <li className="dashboard__li">Item<DeleteOutlineIcon className="bin"/></li>
+                    </ul>
+                </div>
             </section>
             <section>
                 <p>Graph made with canvajs</p>

@@ -9,3 +9,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.active {
+  color: #61dafb;
+  text-decoration: underline;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+
+  &:hover,
+  &:active {
+    color: #61dafb;
+    text-decoration: underline;
+
+  }
+}

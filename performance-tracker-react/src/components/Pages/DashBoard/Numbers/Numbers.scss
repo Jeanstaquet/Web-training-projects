@@ -1,0 +1,37 @@
+.numbers__container {
+    width: 85%;
+    background-color: goldenrod;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    border-radius: 4px;
+    box-shadow: -1px 4px 10px -6px rgba(0, 0, 0, 0.7);
+}
+
+.number__container {
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    flex: 0.25;
+    border: 2px solid black;
+    align-items: center;
+    border-radius: 4px;
+
+    p {
+        margin-top: 0;
+        background-color: #61dafb;
+    }
+
+    span {
+        font-size: 3.5rem;
+    }
+
+    a {
+        font-size: 0.8rem;
+
+        &:hover {
+            color: black;
+        }
+    }
+}
