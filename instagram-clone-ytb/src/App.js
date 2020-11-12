@@ -64,7 +64,7 @@ function App() {
   useEffect(() => {
     //nom de la collection
     //Onsnapshot: Si quelqu'un ajoute un n'importe quoi à cette collection, on va runner ce morceau de code:
-    db.collection("posts").onSnapshot(snapshot => {
+    db.collection("posts").orderBy("timestamp", "desc").onSnapshot(snapshot => {
       //Va sur tout les docs re retourne les données
       setPosts(snapshot.docs.map(doc => ({
         //Get all the id
