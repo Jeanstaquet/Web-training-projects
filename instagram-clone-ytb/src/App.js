@@ -5,7 +5,7 @@ import {db, auth} from "./firebase";
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { Button, Input } from '@material-ui/core';
-
+import ImageUpload from "./ImageUpload";
 
 function getModalStyle() {
   const top = 50;
@@ -34,6 +34,7 @@ function App() {
   const [modalStyle] = useState(getModalStyle)
   const [posts, setPosts] = useState([]);
   const [open, setOpen] = useState(false);
+  const [openSignIn, setOpenSignIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -44,16 +45,8 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if(authUser) {
         //user had logged in...
-        console.log(authUser);
+        console.log(authUser.displayName);
         setUser(authUser)
-
-        if(authUser.displayName) {
-          // dont update username
-        } else {
-          return authUser.updateProfile( {
-            displayName: username
-          })
-        }
 
       } else {
         //user has logged out
@@ -85,12 +78,36 @@ function App() {
 
     //data from the state
     auth.createUserWithEmailAndPassword(email, password)
+      .then((authUser) => {
+        console.log(user)
+        return authUser.user.updateProfile({
+          displayName: username
+        })
+      })
       .catch((error) => alert(error.message))
+  }
+
+  const signIn = (event) => {
+    event.preventDefault();
+
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .catch((error) => alert(error.message))
+    
+      setOpenSignIn(false);
   }
 
   return (
     //BEM convention
-    <div className="App">
+    <div className="app">
+
+      {user?.displayName ? (
+        <ImageUpload username={user.displayName}/>
+      ): (
+        <h3>Sorry you need to login to upload</h3>
+      )}
+      
+
         <Modal open={open} onClose={() => setOpen(false)}>
           <div style={modalStyle} className={classes.paper}>
             <form className="app__signup">
@@ -104,10 +121,26 @@ function App() {
             </form>
           </div>
       </Modal>
+      <Modal open={openSignIn} onClose={() => setOpenSignIn(false)}>
+          <div style={modalStyle} className={classes.paper}>
+            <form className="app__signup">
+              <center>
+                <img className="app__headerImage" src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Instagram_logo.svg" alt="/"/>
+              </center>
+              <Input placeholder="email" type="text" value={email} onChange={(e) => setEmail(e.target.value)}></Input>
+              <Input placeholder="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}></Input>
+              <Button type="submit" onClick={signIn}>SignIn</Button>
+            </form>
+          </div>
+      </Modal>
       <div className="app__header">
         <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Instagram_logo.svg" alt=""/>
       </div>
-      <Button onClick={() => setOpen(true)}>Sign up</Button>
+      {user ? (<Button onClick={() => auth.signOut()}>Logout</Button> ) : 
+              ( <div className="app__loginContainer">
+                  <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
+                  <Button onClick={() => setOpen(true)}>Sign Up</Button>
+                </div>)}
       {
         posts.map(({id, post}) => (
           <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl}/>
