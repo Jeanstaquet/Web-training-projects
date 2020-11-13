@@ -34,7 +34,8 @@
         justify-content: space-evenly;
         align-items: center;
         flex: 1;
-        background-color: rgba(128, 128, 128, 0.144);
+        padding: 16px;
+        background-color: #61dafb75;
 
         input {
             margin: 0 16px;
@@ -50,8 +51,7 @@
 .dashboard__doneContainer {
     text-align: center;
     width: 80%;
-    min-height: 150px;
-    max-height: 230px;
+    margin-top: 20px;
     
     overflow-y: scroll;
     h3 {
@@ -63,6 +63,8 @@
         padding: 0;
         list-style: none;
         flex: 1;
+        min-height: 150px;
+        max-height: 230px;
     }
 }
 

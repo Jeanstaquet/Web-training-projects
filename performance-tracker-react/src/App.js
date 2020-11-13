@@ -8,22 +8,12 @@ import {Route, Switch} from "react-router-dom";
 import {useEffect, useState } from 'react';
 import {db} from "./firebase";
 import firebase from "firebase";
-import axios from "./axios"
 
 function App() {
   const [data, setData] = useState();
-  const [newData, setNewData] = useState([])
-  const [reload, setReload] = useState([]);
-
-  useEffect(() => {
-    axios.get("Jean.json")
-      .then(res => {
-        return res.data
-      })
-      .then(resp => {
-        setData(resp);
-      })
-  }, []);
+  const [newData, setNewData] = useState([]);
+  const [taskDone, setTaskDone] = useState([]);
+  const [stats, setStats] = useState([]);
 
   useEffect(() => {
     db        
@@ -37,6 +27,31 @@ function App() {
 
   }, [])
 
+  useEffect(() => {
+    db        
+      .collection("Activity")
+      .onSnapshot(snapshot => {
+        setStats(snapshot.docs.map(doc => ({
+          id: doc.id,
+          task: doc.data()
+        })))
+      })
+
+  }, [])
+
+  useEffect(() => {
+    db        
+      .collection("TasksDone")
+      .onSnapshot(snapshot => {
+        setTaskDone(snapshot.docs.map(doc => ({
+          id: doc.id,
+          task: doc.data()
+        })))
+      })
+
+  }, [])
+
+
   const addNewTask = (task) => {
       db.collection("Tasks").add({
         timestamp:  firebase.firestore.FieldValue.serverTimestamp(),
@@ -45,31 +60,31 @@ function App() {
       });
   } 
 
-  useEffect(() => {
-    deleteNewTask();
-    console.log(newData[1].id)
-  }, [])
-
-  const deleteNewTask = () => {
-    //à terminer
-    db.collection("Tasks").doc("igYVgx3fuzcsLVLLbn7b").delete()
+  const deleteNewTask = (id, status) => {
+    if(status === "notdone") {
+      db.collection("Tasks").doc(id).delete()
+    } else if(status === "done") {
+      db.collection("TasksDone").doc(id).delete()
+    }
+    
   }
 
-  const deleteTask = (postId) => {
-    axios.delete(`Jean/TaskToDo/${postId}.json`)
-      .then(resp => console.log(resp.data))
-      .then(setReload([...reload, "ok"]))
-  }
 
-  let display = null;
-  if(data) {
-    display= <Dashboard dataStats={data} add={addNewTask} delete={deleteTask}/>
+  let display = <h1>Error</h1>
+  if(newData && data) {
+    display= <Dashboard 
+                  dataStats={data} 
+                  Stats={stats}
+                  add={addNewTask} 
+                  delete={deleteNewTask} 
+                  newData={newData}
+                  taskDone={taskDone}/>
   }
   return (
     <div className="App">
       <NavigationBar>
         <Switch>
-          <Route path="/" exact>{display}</Route>
+          <Route path="/">{display}</Route>
           <Route path="/MyBestTime" exact component={MyBestTime}/>
           <Route path="/Benchmark" exact component={Benchmark}/>
           <Route path="/NewActivity" exact component={NewActivity}/>

@@ -1,18 +1,21 @@
 import React from 'react';
 import "./Numbers.scss";
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import {Link, withRouter} from "react-router-dom";
 
 
 function Numbers(props) {
-    
-    const data = Object.values(props.data).map((num, index) => {
-        return <div key={index} className="number__container"><p>{num.name}</p><span style={{color: num.good ? "green" : "red"}} className="number__amount">{num.number}</span><Link to="/NewActivity">Register a new performance</Link></div>
-    })
+    let newData = null;
+    if(props.stats === undefined || props.stats.length === 0) {
+        //nothing  
+    } else {
+        newData = props.stats.map(({id, task}) => {
+
+            return  <div key={id} className="number__container"><p>{task.name}</p><span style={{color: task.good ? "green" : "red"}} className="number__amount">{task.number}</span><Link to="/NewActivity">Register a new performance</Link></div>
+        })
+    }
     return (
         <div className="numbers__container">
-            {data}
+            {newData}
         </div>
     );
 }

@@ -2,26 +2,30 @@ import React, {useEffect, useState} from 'react';
 import "./TasksToDo.scss";
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import DoneIcon from '@material-ui/icons/Done';
+import {db} from "../../../../../firebase";
+import firebase from "firebase"
 
 
 function TasksToDo(props) {
-
-    const [key, setKey] = useState(Object.keys(props.data));
-    useEffect(() => {
-
-    }, [key])
-    let data = null 
-    if(props.data) {
-        data = Object.values(props.data).map((item, index) => {
-            return <li key={index} className="dashboard__li achieved"><DoneIcon className="done"/>{item.name}<DeleteOutlineIcon 
-            onClick={() => {
-                const newArray = [...key]
-                newArray.splice(index, 1)
-                setKey(newArray)
-                props.delete(key[index])
-            }} className="bin"/></li>
+    
+    const taskFinish = (id, taskName) => {
+        db.collection("Tasks").doc(id).delete();
+        db.collection("TasksDone").add({
+          timestamp:  firebase.firestore.FieldValue.serverTimestamp(),
+          name: taskName,
+          done: true
         })
     }
+
+    const data = props.newData.map(({id, task}) => {
+        return <li 
+            key={id} 
+            className="dashboard__li achieved">
+            <DoneIcon className="done" onClick={() => taskFinish(id, "test")}/>
+            <p>{task.name}</p>
+            <DeleteOutlineIcon className="bin" 
+            onClick={() => props.delete(id, "notdone")}/></li>
+        })
 
     
     return (
@@ -32,3 +36,7 @@ function TasksToDo(props) {
 }
 
 export default TasksToDo;
+
+// onClick={() => {
+//     props.delete(id)
+// }}
