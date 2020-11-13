@@ -15,7 +15,7 @@ function TasksDone(props) {
 
     return (
         <div>
-            {data}
+            {(data.length !== 0) ? data : <h4>Nothing to display, finish a new task...</h4>}
         </div>
     );
 }

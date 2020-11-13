@@ -21,7 +21,7 @@ function TasksToDo(props) {
         return <li 
             key={id} 
             className="dashboard__li achieved">
-            <DoneIcon className="done" onClick={() => taskFinish(id, "test")}/>
+            <DoneIcon className="done" onClick={() => taskFinish(id, task.name)}/>
             <p>{task.name}</p>
             <DeleteOutlineIcon className="bin" 
             onClick={() => props.delete(id, "notdone")}/></li>
@@ -30,7 +30,7 @@ function TasksToDo(props) {
     
     return (
         <div>
-            {data}
+            {(data.length !== 0) ? data : <h4>Nothing to display, add a new task...</h4>}
         </div>
     );
 }

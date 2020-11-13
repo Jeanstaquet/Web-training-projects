@@ -9,7 +9,6 @@ function Numbers(props) {
         //nothing  
     } else {
         newData = props.stats.map(({id, task}) => {
-
             return  <div key={id} className="number__container"><p>{task.name}</p><span style={{color: task.good ? "green" : "red"}} className="number__amount">{task.number}</span><Link to="/NewActivity">Register a new performance</Link></div>
         })
     }

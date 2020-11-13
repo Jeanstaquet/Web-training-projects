@@ -52,7 +52,11 @@ function App() {
   }, [])
 
 
-  const addNewTask = (task) => {
+  const addNewTask = (task, event) => {
+      if(event) {
+        event.preventDefault();
+      }
+  
       db.collection("Tasks").add({
         timestamp:  firebase.firestore.FieldValue.serverTimestamp(),
         name: task,
@@ -71,7 +75,7 @@ function App() {
 
 
   let display = <h1>Error</h1>
-  if(newData && data) {
+  if(newData) {
     display= <Dashboard 
                   dataStats={data} 
                   Stats={stats}
@@ -84,7 +88,7 @@ function App() {
     <div className="App">
       <NavigationBar>
         <Switch>
-          <Route path="/">{display}</Route>
+          <Route path="/" exact>{display}</Route>
           <Route path="/MyBestTime" exact component={MyBestTime}/>
           <Route path="/Benchmark" exact component={Benchmark}/>
           <Route path="/NewActivity" exact component={NewActivity}/>
