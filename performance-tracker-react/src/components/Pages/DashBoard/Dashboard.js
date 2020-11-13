@@ -24,7 +24,7 @@ function Dashboard(props) {
                         <IconButton 
                         onClick={() => {
                             setTask("")
-                            props.add({name: task})
+                            props.add(task)
                             }}>
                             <AddIcon/>
                         </IconButton>

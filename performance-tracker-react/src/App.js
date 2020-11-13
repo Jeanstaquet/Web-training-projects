@@ -5,12 +5,15 @@ import MyBestTime from "./components/Pages/MyBestTime/MyBestTime";
 import Benchmark from "./components/Pages/Benchmark/Benchmark";
 import NewActivity from "./components/Pages/NewActivity/NewActivity";
 import {Route, Switch} from "react-router-dom";
-import { useCallback, useEffect, useState } from 'react';
+import {useEffect, useState } from 'react';
+import {db} from "./firebase";
+import firebase from "firebase";
 import axios from "./axios"
 
 function App() {
   const [data, setData] = useState();
-  const [reload, setReload] = useState([])
+  const [newData, setNewData] = useState([])
+  const [reload, setReload] = useState([]);
 
   useEffect(() => {
     axios.get("Jean.json")
@@ -22,11 +25,34 @@ function App() {
       })
   }, []);
 
-  useEffect(() => console.log(reload))
+  useEffect(() => {
+    db        
+      .collection("Tasks")
+      .onSnapshot(snapshot => {
+        setNewData(snapshot.docs.map(doc => ({
+          id: doc.id,
+          task: doc.data()
+        })))
+      })
 
-  const addTask = (item) => {
-    axios.post("Jean/TaskToDo.json", item)
-      .then(resp => setReload(([...reload, "ok"])))
+  }, [])
+
+  const addNewTask = (task) => {
+      db.collection("Tasks").add({
+        timestamp:  firebase.firestore.FieldValue.serverTimestamp(),
+        name: task,
+        done: false
+      });
+  } 
+
+  useEffect(() => {
+    deleteNewTask();
+    console.log(newData[1].id)
+  }, [])
+
+  const deleteNewTask = () => {
+    //à terminer
+    db.collection("Tasks").doc("igYVgx3fuzcsLVLLbn7b").delete()
   }
 
   const deleteTask = (postId) => {
@@ -37,7 +63,7 @@ function App() {
 
   let display = null;
   if(data) {
-    display= <Dashboard dataStats={data} add={addTask} delete={deleteTask}/>
+    display= <Dashboard dataStats={data} add={addNewTask} delete={deleteTask}/>
   }
   return (
     <div className="App">
