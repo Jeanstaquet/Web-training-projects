@@ -27,12 +27,12 @@ function Dashboard(props) {
     return (
         <div className="dashboard__container">
             <img src={Growth} alt="."/>
-            <h2> My Dashboard</h2>
+            <h2>🚀 My Dashboard 🚀</h2>
             <Numbers stats={fecthedStats}/>
             <section className="summary__container">
-                <h3>TO DOs for today/this week/this month</h3>
+                <h3>🔥TO DOs for today/this week/this month</h3>
                 <form>
-                    <label>Add a new task/goal to achieve</label>
+                    <label>Add a new task/goal to achieve </label>
                     <div>
                         <input type="text" placeholder="Add a new task ..." value={task} onChange={event => setTask(event.target.value)} />
                         <button style={{display: "none"}} type="submit" 
