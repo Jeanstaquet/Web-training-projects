@@ -1,5 +1,5 @@
 import firebase from "firebase";
-
+//FB settings
 const firebaseApp = firebase.initializeApp({
     apiKey: "AIzaSyCmhvYiZbaWvXzf0poLYLmSW__qk1G63V8",
     authDomain: "react-burger-app-ffe1a.firebaseapp.com",

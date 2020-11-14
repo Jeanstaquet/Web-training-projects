@@ -7,6 +7,7 @@ import NewActivity from "./components/Pages/NewActivity/NewActivity";
 import {Route, Switch} from "react-router-dom";
 import {useEffect, useState } from 'react';
 import {db} from "./firebase";
+
 import firebase from "firebase";
 
 function App() {
