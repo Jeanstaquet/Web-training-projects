@@ -3,9 +3,7 @@ import "./Spinner.scss";
 
 function Spinner(props) {
     return (
-        <div>
-            
-        </div>
+        <div className="loader">Loading...</div>
     );
 }
 
