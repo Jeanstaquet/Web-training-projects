@@ -71,7 +71,6 @@ function App() {
     } else if(status === "done") {
       db.collection("TasksDone").doc(id).delete()
     }
-    
   }
 
 
