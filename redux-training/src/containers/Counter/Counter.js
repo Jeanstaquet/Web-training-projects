@@ -31,8 +31,13 @@ const Counter = (props) => {
                 <CounterOutput value={props.ctr} />
                 <CounterControl label="Increment" clicked={props.onIncrementCounter} />
                 <CounterControl label="Decrement" clicked={props.onDecrementCounter}  />
-                <CounterControl label="Add 5" clicked={props.onAddCounter}  />
-                <CounterControl label="Subtract 5" clicked={props.onSubstractCounter}  />
+                <CounterControl label="Add 10" clicked={props.onAddCounter}  />
+                <CounterControl label="Subtract 15" clicked={props.onSubstractCounter}  />
+                <hr/>
+                <button>Store Result</button>
+                <ul>
+                    <li></li>
+                </ul>
             </div>
         );
 }
