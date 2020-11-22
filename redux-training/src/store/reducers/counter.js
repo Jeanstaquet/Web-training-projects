@@ -1,6 +1,6 @@
 //actionTypes est mnt un obj
 import * as actionTypes from "../actions";
-//
+//todo
 const initialState = {
     counter: 0
 }
