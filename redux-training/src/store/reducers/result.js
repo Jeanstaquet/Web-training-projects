@@ -1,5 +1,5 @@
 //actionTypes est mnt un obj
-import * as actionTypes from "../actions";
+import * as actionTypes from "../actions/actions";
 
 const initialState = {
     results: []
