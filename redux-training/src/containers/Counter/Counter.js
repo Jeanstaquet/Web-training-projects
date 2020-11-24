@@ -4,7 +4,7 @@ import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
 import * as actionTypes from "../../store/actions/actions";
 
-import * as actionCreators from "../../store/actions/actions";
+import * as actionCreators from "../../store/actions/index";
 
 const Counter = (props) => {
     const [counter, setCounter] = useState(0)
