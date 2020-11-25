@@ -63,6 +63,8 @@ export const fetchOrdersStart = () => {
 
 export const fetchOrders = () => {
     return dispatch => {
+        //pour afficher le spinner
+        dispatch(fetchOrdersStart())
         axios.get('/orders.json')
         .then(res => {
             const fetchedOrders = [];
