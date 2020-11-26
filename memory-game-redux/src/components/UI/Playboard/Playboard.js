@@ -1,21 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./Playboard.scss";
+import Card from "./Card/Card";
 
 function Playboard(props) {
+    const [shouldTurn, setShouldturn] = useState(false)
+
+    const flipHandler = () => {
+        setShouldturn(!shouldTurn)
+    }
+
     return (
         <div className="playboard__container">
-           <div className="playboard__cartContainer">
-                   <div className="flipCard">
-                       <div className="flipCard__inner">
-                           <div className="flipCard__front">
-                               <img src="https://picsum.photos/200/300" alt="ss"/>
-                           </div>
-                           <div className="flipCard__back">
-                                <h1>1</h1>
-                           </div>
-                       </div>
-                   </div>
-            </div> 
+            <Card number="1" turn={flipHandler} doTurn={shouldTurn}/>
+            <Card number="1" turn={flipHandler} doTurn={shouldTurn}/>
         </div>
     );
 }
