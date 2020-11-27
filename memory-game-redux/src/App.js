@@ -35,7 +35,7 @@ function App() {
         crd[index + 1].finded = true;
         setCards(crd)
       }
-    }, [currentCard, nextCard, index])
+    }, [index, currentCard, nextCard])
 
   const swipeHandler = (id, index) => {
     if(count === 0) {
@@ -45,6 +45,7 @@ function App() {
       setNextCard(id);
       setCounter(0)
     }
+    setIndex(index);
     const newState = [...cards]
     newState[index].turn = true;
     setCards(newState)
