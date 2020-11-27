@@ -8,9 +8,9 @@ function Playboard(props) {
             {props.cards.map((card, index) => {
                 return <Card 
                             number={card.number} 
-                            turn={card.turn} 
+                            turn={card.turn || card.finded} 
                             key={index} 
-                            click={() => props.clicked(index)}/>
+                            click={() => props.clicked(card.number, index)}/>
             })}
         </div>
     );

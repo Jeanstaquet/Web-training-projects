@@ -3,9 +3,10 @@ import React, {useState, useEffect} from "react"
 import NavBar from "./components/UI/NavBar/NavBar";
 import PlayBoard from "./components/UI/Playboard/Playboard";
 function App() {
-  const [currentCard, setCurrentCard] = useState("");
-  const [nextCard, setNextCard] = useState("");
-  const [find, setFind] = useState(false)
+  const [currentCard, setCurrentCard] = useState(null);
+  const [nextCard, setNextCard] = useState(null);
+  const [count, setCounter] = useState(0);
+  const [index, setIndex] = useState(null)
   const [cards, setCards] = useState(
           [{number: 1, turn: false, finded: false},
           {number: 1, turn: false, finded: false},
@@ -28,17 +29,32 @@ function App() {
           )
 
     useEffect(() => {
-      if(currentCard === nextCard) {
-        setCards([...cards, cards[0].number = currentCard])
+      if(currentCard === nextCard && currentCard !== null && index !== null) {
+        const crd = [...cards];
+        crd[index].finded = true;
+        crd[index + 1].finded = true;
+        setCards(crd)
       }
-      console.log(cards[0].number)
-    }, [currentCard, nextCard])
+    }, [currentCard, nextCard, index])
 
-  const swipeHandler = (id) => {
-    setCurrentCard(id);
-    setNextCard(id)
-    console.log(currentCard)
+  const swipeHandler = (id, index) => {
+    if(count === 0) {
+      setCurrentCard(id);
+      setCounter(1)
+    } else {
+      setNextCard(id);
+      setCounter(0)
+    }
+    const newState = [...cards]
+    newState[index].turn = true;
+    setCards(newState)
+    setTimeout(() => {
+      const nS = [...cards];
+      nS[index].turn = false;
+      setCards(nS)
+      }, 2000)
   }
+
 
   return (
     <div className="App">
