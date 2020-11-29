@@ -43,21 +43,31 @@ const reducer = (state = initialState, action) => {
             }    
         case actionTypes.TURN_HANDLER:
             const newState = [...state.cards];
-            newState[state.index].turn = true;
+            if(action.bool === true) {
+                newState[action.index].turn = true;
+            } else if(action.bool === false) {
+                newState[action.index].turn = false;
+            }
+            
             return {
                 ...state,
-                cards : {...newState, 
-                    } 
+                cards : [...newState, 
+                    ] 
             }
         case actionTypes.FINDED_HANDLER:
             const newSt = [...state.cards];
-            newSt[state.index].finded = true;
-            newSt[state.index + 1].finded = true;
+            newSt[action.index].finded = true;
+            newSt[action.index + 1].finded = true;
             return {
                 ...state,
-                cards: {
+                cards: [
                     ...newSt
-                }
+                ]
+            }
+        case actionTypes.INDEX_ADD:
+            return {
+                ...state,
+                index: action.index
             }
         default:
             return state;

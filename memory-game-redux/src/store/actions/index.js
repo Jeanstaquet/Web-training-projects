@@ -3,5 +3,6 @@ export {
     nextCardAdd,
     counterHandler,
     turnHandler,
-    findedHandler
+    findedHandler,
+    indexAdd
 } from "./playboard"

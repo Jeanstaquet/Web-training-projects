@@ -21,14 +21,24 @@ export const counterHandler = (counter) => {
     }
 }
 
-export const turnHandler = () => {
+export const turnHandler = (idx, b) => {
     return {
         type: actionTypes.TURN_HANDLER,
+        index: idx,
+        bool: b
     }
 }
 
-export const findedHandler = () => {
+export const findedHandler = (idx) => {
     return {
-        type: actionTypes.FINDED_HANDLER
+        type: actionTypes.FINDED_HANDLER,
+        index: idx,
+    }
+}
+
+export const indexAdd = (idx) => {
+    return {
+        type: actionTypes.INDEX_ADD,
+        index: idx
     }
 }

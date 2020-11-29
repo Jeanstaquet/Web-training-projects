@@ -3,3 +3,4 @@ export const NEXTCARD_ADD = "NEXTCARD_ADD";
 export const COUNTER_HANDLER = "COUNTER_HANDLER";
 export const TURN_HANDLER = "TURN_HANDLER";
 export const FINDED_HANDLER = "FINDED_HANDLER";
+export const INDEX_ADD = "INDEX_ADD"
