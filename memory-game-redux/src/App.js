@@ -2,7 +2,9 @@ import './App.css';
 import React, {useState, useEffect} from "react"
 import NavBar from "./components/UI/NavBar/NavBar";
 import PlayBoard from "./components/UI/Playboard/Playboard";
-function App() {
+import {connect} from "react-redux";
+import * as actionq from "./store/actions/index";
+function App(props) {
   const [currentCard, setCurrentCard] = useState(null);
   const [nextCard, setNextCard] = useState(null);
   const [count, setCounter] = useState(0);
@@ -68,4 +70,21 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    currentCard: state.currentCard,
+    nextCard: state.nextCard,
+    cards: state.cards,
+    index: state.index,
+    count: state.counter
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    
+  }
+}
+
+
+export default connect(mapStateToProps, )(App);

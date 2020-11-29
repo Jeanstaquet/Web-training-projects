@@ -1,3 +1,4 @@
+import * as actionTypes from "../actions/actionTypes";
 const initialState = {
     currentCard: null,
     nextCard: null,
@@ -25,38 +26,42 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
-        case "CURRENTCARD_ADD":
+        case actionTypes.CURRENTCARD_ADD:
             return {
                 ...state,
                 currentCard: action.currentCard
             }
-        case "NEXTCARD_ADD":
+        case actionTypes.NEXTCARD_ADD:
             return {
                 ...state,
                 nextCard: action.nextCard
             }
-        case "COUNTER_HANDLER":
+        case actionTypes.COUNTER_HANDLER:
             return {
                 ...state,
                 counter: action.count
             }    
-        case "CARDS_TURN_HANDLER":
+        case actionTypes.TURN_HANDLER:
             const newState = [...state.cards];
-            newState[index].turn = true;
+            newState[state.index].turn = true;
             return {
                 ...state,
                 cards : {...newState, 
                     } 
             }
-        case "FOUND_HANDLER":
+        case actionTypes.FINDED_HANDLER:
             const newSt = [...state.cards];
-            newSt[index].finded = true;
-            newSt[index + 1].finded = true;
+            newSt[state.index].finded = true;
+            newSt[state.index + 1].finded = true;
             return {
                 ...state,
                 cards: {
-                    ...newSt;
+                    ...newSt
                 }
             }
+        default:
+            return state;
     }
 }
+
+export default reducer;
