@@ -5,8 +5,7 @@ import PlayBoard from "./components/UI/Playboard/Playboard";
 import {connect} from "react-redux";
 import * as action from "./store/actions/index";
 function App(props) {
-  const [nextCard, setNextCard] = useState(null);
-  const [count, setCounter] = useState(0);
+
   const [index, setIndex] = useState(null)
   const [cards, setCards] = useState(
           [{number: 1, turn: false, finded: false},
@@ -31,21 +30,21 @@ function App(props) {
 
     useEffect(() => {
       console.log(props.currentCard)
-      if(props.currentCard === nextCard && props.currentCard !== null && index !== null) {
+      if(props.currentCard === props.nextCard && props.currentCard !== null && index !== null) {
         const crd = [...cards];
         crd[index].finded = true;
         crd[index + 1].finded = true;
         setCards(crd)
       }
-    }, [index, props.currentCard, nextCard])
+    }, [index, props.currentCard, props.nextCard])
 
   const swipeHandler = (id, index) => {
-    if(count === 0) {
+    if(props.count === 0) {
       props.currentCardAdd(id);
-      setCounter(1)
+      props.counterHandler(1)
     } else {
-      setNextCard(id);
-      setCounter(0)
+      props.nextCardAdd(id);
+      props.counterHandler(0)
     }
     setIndex(index);
     const newState = [...cards]
@@ -62,7 +61,7 @@ function App(props) {
   return (
     <div className="App">
       <NavBar>
-  <h2 style={{textAlign:"center", width:"100%"}}>{props.currentCard} ///// {nextCard}</h2>
+  <h2 style={{textAlign:"center", width:"100%"}}>{props.currentCard} ///// {props.nextCard}</h2>
         <button onClick={() => props.currentCardAdd(props.currentCard + 1)}>Push</button>
         <PlayBoard clicked={swipeHandler} cards={cards}/>
       </NavBar>
@@ -83,8 +82,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     currentCardAdd: (c) => dispatch(action.currentCardAdd(c)),
-    nextCardAdd: () => dispatch(action.nextCardAdd()),
-    counterHandler: () => dispatch(action.counterHandler()),
+    nextCardAdd: (c) => dispatch(action.nextCardAdd(c)),
+    counterHandler: (c) => dispatch(action.counterHandler(c)),
     turnHandler: () => dispatch(action.turnHandler()),
     findedHandler: () => dispatch(action.findedHandler()),
 

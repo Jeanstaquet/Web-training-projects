@@ -17,7 +17,7 @@ export const nextCardAdd = (nextCard) => {
 export const counterHandler = (counter) => {
     return {
         type: actionTypes.COUNTER_HANDLER,
-        counter: counter
+        count: counter
     }
 }
 
