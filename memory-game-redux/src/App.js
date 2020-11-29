@@ -3,9 +3,8 @@ import React, {useState, useEffect} from "react"
 import NavBar from "./components/UI/NavBar/NavBar";
 import PlayBoard from "./components/UI/Playboard/Playboard";
 import {connect} from "react-redux";
-import * as actionq from "./store/actions/index";
+import * as action from "./store/actions/index";
 function App(props) {
-  const [currentCard, setCurrentCard] = useState(null);
   const [nextCard, setNextCard] = useState(null);
   const [count, setCounter] = useState(0);
   const [index, setIndex] = useState(null)
@@ -31,17 +30,18 @@ function App(props) {
           )
 
     useEffect(() => {
-      if(currentCard === nextCard && currentCard !== null && index !== null) {
+      console.log(props.currentCard)
+      if(props.currentCard === nextCard && props.currentCard !== null && index !== null) {
         const crd = [...cards];
         crd[index].finded = true;
         crd[index + 1].finded = true;
         setCards(crd)
       }
-    }, [index, currentCard, nextCard])
+    }, [index, props.currentCard, nextCard])
 
   const swipeHandler = (id, index) => {
     if(count === 0) {
-      setCurrentCard(id);
+      props.currentCardAdd(id);
       setCounter(1)
     } else {
       setNextCard(id);
@@ -62,8 +62,8 @@ function App(props) {
   return (
     <div className="App">
       <NavBar>
-  <h2 style={{textAlign:"center", width:"100%"}}>{currentCard} ///// {nextCard}</h2>
-        <button onClick={() => setCurrentCard(currentCard + 1)}>Push</button>
+  <h2 style={{textAlign:"center", width:"100%"}}>{props.currentCard} ///// {nextCard}</h2>
+        <button onClick={() => props.currentCardAdd(props.currentCard + 1)}>Push</button>
         <PlayBoard clicked={swipeHandler} cards={cards}/>
       </NavBar>
     </div>
@@ -82,9 +82,14 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    
+    currentCardAdd: (c) => dispatch(action.currentCardAdd(c)),
+    nextCardAdd: () => dispatch(action.nextCardAdd()),
+    counterHandler: () => dispatch(action.counterHandler()),
+    turnHandler: () => dispatch(action.turnHandler()),
+    findedHandler: () => dispatch(action.findedHandler()),
+
   }
 }
 
 
-export default connect(mapStateToProps, )(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
