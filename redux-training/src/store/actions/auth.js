@@ -61,3 +61,9 @@ export const auth = (email, password, isSignup) => {
             });
     }
 }
+
+export const setAuthRedirect = () => {
+    return {
+
+    }
+}
