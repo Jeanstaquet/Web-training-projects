@@ -181,5 +181,5 @@ const mapDispatchToProps = (dispatch) => {
         onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirect("/"))
     }
 }
-/
+
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);
