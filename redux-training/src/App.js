@@ -32,4 +32,3 @@ const mapDispatchToProps = () => {
 }
 
 export default withRouter(connect(null, mapDispatchToProps)(App));
-//
