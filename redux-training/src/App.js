@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import Auth from "./containers/Auth/Auth";
 import Layout from './hoc/Layout/Layout';
 import {connect} from "react-redux";
@@ -25,7 +25,7 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = () => {
+const mapDispatchToProps = (dispatch) => {
   return {
     onTryAutoSignup: () => dispatch(actions.authCheckState())
   }
