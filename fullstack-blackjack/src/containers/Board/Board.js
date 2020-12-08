@@ -7,6 +7,7 @@ const Board = (props) => {
     const [cardValues, setCardValues] = useState(["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]);
     const [cardDealer, setCardDealer] = useState([]);
     const [cardPlayer, setCardPlayer] = useState([]);
+    const [playerPoints, setPlayerPoints] = useState(0)
 
     const cardDistributor = (nbr) => {
         const arr = []
@@ -17,6 +18,24 @@ const Board = (props) => {
             arr.push({cardVal: randomCardVal, suits: randomSuits})
         }
         return arr
+    }
+
+    const aceHandler = () => {
+        //
+    }
+
+    const playerPointsHandler = () => {
+        let points = 0
+        for(let i = 0; i < cardPlayer.length; i++) {
+            if(!isNaN(cardPlayer[i].cardVal)) {
+                points += Number(cardPlayer[i].cardVal)
+            } else if(cardPlayer[i].cardVal === "A"){
+                //something
+            } else {
+                points += 10
+            }
+        }
+        setPlayerPoints(points)
     }
 
     const newCardHandler = (add) => {
@@ -33,8 +52,12 @@ const Board = (props) => {
     const newGame = () => {
         let arr = []
         setCardPlayer(arr)
-        newCardHandler("two")
+        newCardHandler("two");
     }
+
+    useEffect(() => {
+        playerPointsHandler()
+    }, [cardPlayer])
 
     return (
         <div className="board__container">
@@ -50,7 +73,7 @@ const Board = (props) => {
                         })}
                     </div>
                     <div className="player__button">
-                        <h2>Acutal Points: XX</h2>
+                        <h2>Acutal Points: {playerPoints}</h2>
                         <div>
                         <button>💲 Bet</button>
                         <label>Amount:</label>
