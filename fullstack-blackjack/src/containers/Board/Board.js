@@ -8,27 +8,32 @@ const Board = (props) => {
     const [cardDealer, setCardDealer] = useState([]);
     const [cardPlayer, setCardPlayer] = useState([]);
 
-    const newCardHandler = (add) => {
-        let randomSuits =  suits[Math.floor(Math.random() * suits.length)];
-        let randomCardVal = cardValues[Math.floor(Math.random() * cardValues.length)];
+    const cardDistributor = (nbr) => {
+        const arr = []
+        for(let i = 0; i < nbr; i++) {
+            let randomSuits =  suits[Math.floor(Math.random() * suits.length)];
+            let randomCardVal = cardValues[Math.floor(Math.random() * cardValues.length)];
 
-        let randomSuits1 =  suits[Math.floor(Math.random() * suits.length)];
-        let randomCardVal1 = cardValues[Math.floor(Math.random() * cardValues.length)];
-        setCardPlayer([{cardVal: randomCardVal, suits: randomSuits},
-                       {cardVal: randomCardVal1, suits: randomSuits1}])
+            arr.push({cardVal: randomCardVal, suits: randomSuits})
+        }
+        return arr
+    }
+
+    const newCardHandler = (add) => {
+        if(add === "two") {
+            setCardPlayer(cardDistributor(2))
+        }
 
         if(add === "one") {
-            let randomSuits2 =  suits[Math.floor(Math.random() * suits.length)];
-            let randomCardVal2 = cardValues[Math.floor(Math.random() * cardValues.length)];
             setCardPlayer([...cardPlayer, 
-                            {cardVal: randomCardVal2, suits: randomSuits2}])
+                            ...cardDistributor(1)])
         }
     }
 
     const newGame = () => {
         let arr = []
         setCardPlayer(arr)
-        newCardHandler()
+        newCardHandler("two")
     }
 
     return (

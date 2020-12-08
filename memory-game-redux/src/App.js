@@ -1,5 +1,5 @@
 import './App.css';
-import React, {useState, useEffect} from "react"
+import React, {useEffect} from "react"
 import NavBar from "./components/UI/NavBar/NavBar";
 import PlayBoard from "./components/UI/Playboard/Playboard";
 import {connect} from "react-redux";
@@ -22,7 +22,7 @@ function App(props) {
     }
     props.indexAdd(index)
     props.turnHandler(index, true)
-    
+
     setTimeout(() => {
       props.turnHandler(index, false)
       }, 2000)
