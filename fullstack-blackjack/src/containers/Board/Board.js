@@ -7,7 +7,12 @@ const Board = (props) => {
     const [cardValues, setCardValues] = useState(["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]);
     const [cardDealer, setCardDealer] = useState([]);
     const [cardPlayer, setCardPlayer] = useState([]);
-    const [playerPoints, setPlayerPoints] = useState(0)
+
+    const [aceClicked, setAceClicked] = useState(false);
+    const [valueAce, setValueAce] = useState(0);
+    const [aceAppeard, setAceAppeard] = useState(false)
+
+    const [playerPoints, setPlayerPoints] = useState(0);
 
     const cardDistributor = (nbr) => {
         const arr = []
@@ -16,12 +21,25 @@ const Board = (props) => {
             let randomCardVal = cardValues[Math.floor(Math.random() * cardValues.length)];
 
             arr.push({cardVal: randomCardVal, suits: randomSuits})
+            
+            
         }
+
         return arr
     }
 
-    const aceHandler = () => {
-        //
+
+    const aceHandler = (type) => {
+        if(type === 11) {
+            const points  = playerPoints + 11;
+            setPlayerPoints(points);
+            setValueAce(11);
+            setAceClicked(true)
+        } else if(type === 1) {
+            const points  = playerPoints + 1;
+            setPlayerPoints(points);
+            setAceClicked(true)
+        }
     }
 
     const playerPointsHandler = () => {
@@ -30,7 +48,7 @@ const Board = (props) => {
             if(!isNaN(cardPlayer[i].cardVal)) {
                 points += Number(cardPlayer[i].cardVal)
             } else if(cardPlayer[i].cardVal === "A"){
-                //something
+                points += valueAce
             } else {
                 points += 10
             }
@@ -51,6 +69,8 @@ const Board = (props) => {
 
     const newGame = () => {
         let arr = []
+        setAceClicked(false);
+        setValueAce(0);
         setCardPlayer(arr)
         newCardHandler("two");
     }
@@ -69,7 +89,12 @@ const Board = (props) => {
                     </div>
                     <div className="card__container">
                         {cardPlayer.map((c, index) => {
-                            return <Card key={index} cardValues={c.cardVal} suits={c.suits}/>
+                            return <Card
+                                aceClicked={aceClicked} 
+                                addAce={aceHandler} 
+                                key={index} 
+                                cardValues={c.cardVal} 
+                                suits={c.suits}/>
                         })}
                     </div>
                     <div className="player__button">

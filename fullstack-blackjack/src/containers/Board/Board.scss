@@ -103,3 +103,13 @@
         }
     }
 }
+
+button[disabled] {
+    background-color: lightgray !important;
+    cursor: not-allowed !important;
+
+    &:hover {
+        font-style: normal !important;
+    }
+}
+
