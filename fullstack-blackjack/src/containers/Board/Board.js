@@ -54,6 +54,8 @@ const Board = (props) => {
         }
     }
 
+
+
     const playerPointsHandler = useCallback(() => {
         let points = 0
         for(let i = 0; i < cardPlayer.length; i++) {
@@ -65,17 +67,13 @@ const Board = (props) => {
                 points += 10
             }
         }
-        console.log(cardDealer.length)
         let dealerPoint = 0;
         for(let i = 0; i < cardDealer.length; i++) {
             if(!isNaN(cardDealer[i].cardVal)) {
-                console.log(dealerPoint)
                 dealerPoint += Number(cardDealer[i].cardVal)
             } else if(cardDealer[i].cardVal === "A"){
                 dealerPoint += valueAce;
-                console.log(dealerPoint)
             } else {
-                console.log(dealerPoint)
                 dealerPoint += 10
             }
         }
@@ -88,10 +86,18 @@ const Board = (props) => {
             setGameFinished(true);
             setPlayerMoney(amount);
             setDealerMoney(Number(dealerMoney) + Number(playerBet))
-        } else if(points === 21) {
+        } else if(points === 21 || dealerPoint < points) {
             setGameFinished(true);
             setDealerMoney(Number(dealerMoney) - Number(playerBet))
             setPlayerMoney(gains);
+        } else if(dealerPoint === 21) {
+            setGameFinished(true);
+            setPlayerMoney(amount);
+            setDealerMoney(Number(dealerMoney) + Number(playerBet))
+        } else if((dealerPoint > points) && dealerPoint <= 21) {
+            setGameFinished(true);
+            setPlayerMoney(amount);
+            setDealerMoney(Number(dealerMoney) + Number(playerBet))
         }
     }, [cardPlayer, playerPoints, dealerPoints, cardDealer])
 
@@ -111,7 +117,7 @@ const Board = (props) => {
             }
     
             if(add === "one") {
-                setCardDealer([...cardPlayer, 
+                setCardDealer([...cardDealer, 
                                 ...cardDistributor(1)]);
             }
         }
@@ -132,9 +138,21 @@ const Board = (props) => {
 
 
     const stopHandler = () => {
-        newCardHandler("one", "dealer")
-    }
+        if (dealerPoints < 10) {
+            newCardHandler("one", "dealer");
+            if(dealerPoints < 12) {
+                newCardHandler("one", "dealer");
+            }
+        } else if (dealerPoints <= 13) {
+            newCardHandler("one", "dealer");
+            if(dealerPoints < 15) {
+                newCardHandler("one", "dealer");
+            }
+        } else if(dealerPoints > 15) {
 
+        }
+    }
+    
     useEffect(() => {
         playerPointsHandler();
     }, [cardPlayer, playerPointsHandler, cardDealer, dealerPoints, stopHandler])
