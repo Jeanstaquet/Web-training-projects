@@ -21,7 +21,9 @@ const Board = (props) => {
             let randomCardVal = cardValues[Math.floor(Math.random() * cardValues.length)];
 
             arr.push({cardVal: randomCardVal, suits: randomSuits})
-            
+            if(randomCardVal === "A") {
+                setAceAppeard(true)
+            }
             
         }
 
@@ -35,10 +37,12 @@ const Board = (props) => {
             setPlayerPoints(points);
             setValueAce(11);
             setAceClicked(true)
+            setAceAppeard(false)
         } else if(type === 1) {
             const points  = playerPoints + 1;
             setPlayerPoints(points);
-            setAceClicked(true)
+            setAceClicked(true);
+            setAceAppeard(false)
         }
     }
 
@@ -63,12 +67,13 @@ const Board = (props) => {
 
         if(add === "one") {
             setCardPlayer([...cardPlayer, 
-                            ...cardDistributor(1)])
+                            ...cardDistributor(1)]);
         }
     }
 
     const newGame = () => {
-        let arr = []
+        let arr = [];
+        setAceAppeard(false);
         setAceClicked(false);
         setValueAce(0);
         setCardPlayer(arr)
@@ -103,7 +108,7 @@ const Board = (props) => {
                         <button>💲 Bet</button>
                         <label>Amount:</label>
                         <input type="number" step="25" placeholder="Insert money" min="0"/>
-                        <button onClick={() => newCardHandler("one")}>Card</button>
+                        <button onClick={() => newCardHandler("one")} disabled={aceAppeard}>Card</button>
                         <button onClick={newGame}>New Game</button>
                         </div>
 
