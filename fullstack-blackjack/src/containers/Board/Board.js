@@ -20,6 +20,8 @@ const Board = (props) => {
     const [playerBet, setPlayerBet] = useState(0)
     const [playerPoints, setPlayerPoints] = useState(0);
 
+    const [finished, setFinished] = useState(false)
+
     const [gameFinished, setGameFinished] = useState(false);
 
 
@@ -82,24 +84,27 @@ const Board = (props) => {
         
         let amount = playerMoney - (playerBet)/2;
         let gains = playerMoney + (Number(playerBet) * 2)
-        if(points > 21) {
-            setGameFinished(true);
-            setPlayerMoney(amount);
-            setDealerMoney(Number(dealerMoney) + Number(playerBet))
-        } else if(points === 21 || dealerPoint < points) {
-            setGameFinished(true);
-            setDealerMoney(Number(dealerMoney) - Number(playerBet))
-            setPlayerMoney(gains);
-        } else if(dealerPoint === 21) {
-            setGameFinished(true);
-            setPlayerMoney(amount);
-            setDealerMoney(Number(dealerMoney) + Number(playerBet))
-        } else if((dealerPoint > points) && dealerPoint <= 21) {
-            setGameFinished(true);
-            setPlayerMoney(amount);
-            setDealerMoney(Number(dealerMoney) + Number(playerBet))
+        if(finished) {
+            if(points > 21) {
+                setGameFinished(true);
+                setPlayerMoney(amount);
+                setDealerMoney(Number(dealerMoney) + Number(playerBet))
+            } else if(points === 21 || dealerPoint < points) {
+                setGameFinished(true);
+                setDealerMoney(Number(dealerMoney) - Number(playerBet))
+                setPlayerMoney(gains);
+            } else if(dealerPoint === 21) {
+                setGameFinished(true);
+                setPlayerMoney(amount);
+                setDealerMoney(Number(dealerMoney) + Number(playerBet))
+            } else if((dealerPoint > points) && dealerPoint <= 21) {
+                setGameFinished(true);
+                setPlayerMoney(amount);
+                setDealerMoney(Number(dealerMoney) + Number(playerBet))
+            }
         }
-    }, [cardPlayer, playerPoints, dealerPoints, cardDealer])
+
+    }, [cardPlayer, playerPoints, dealerPoints, cardDealer, finished])
 
     const newCardHandler = (add, type) => {
         if(type === "player") {
@@ -126,6 +131,7 @@ const Board = (props) => {
 
     const newGame = () => {
         let arr = [];
+        setFinished(false)
         setGameFinished(false)
         setAceAppeard(false);
         setAceClicked(false);
@@ -148,8 +154,11 @@ const Board = (props) => {
             if(dealerPoints < 15) {
                 newCardHandler("one", "dealer");
             }
-        } else if(dealerPoints > 15) {
-
+        } else if(dealerPoints >= 15 && dealerPoints < playerPoints) {
+            setFinished(true)
+            newCardHandler("one", "dealer")
+        } else if(dealerPoints >= 21) {
+            setFinished(true)
         }
     }
     
