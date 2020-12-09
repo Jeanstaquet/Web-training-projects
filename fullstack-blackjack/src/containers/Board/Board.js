@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "./Board.scss"
 import Card from "../../components/Card/Card";
+import Banner from "../../components/UI/Banner";
 
 const Board = (props) => {
     const [suits, setSuits] = useState(["spades", "diamonds", "clubs", "hearts"]);
@@ -14,6 +15,7 @@ const Board = (props) => {
 
     const [playerPoints, setPlayerPoints] = useState(0);
 
+
     const cardDistributor = (nbr) => {
         const arr = []
         for(let i = 0; i < nbr; i++) {
@@ -23,10 +25,8 @@ const Board = (props) => {
             arr.push({cardVal: randomCardVal, suits: randomSuits})
             if(randomCardVal === "A") {
                 setAceAppeard(true)
-            }
-            
+            }   
         }
-
         return arr
     }
 
@@ -57,7 +57,11 @@ const Board = (props) => {
                 points += 10
             }
         }
-        setPlayerPoints(points)
+        setPlayerPoints(points);
+
+        if(points <= 21) {
+            //
+        }
     }
 
     const newCardHandler = (add) => {
@@ -81,12 +85,13 @@ const Board = (props) => {
     }
 
     useEffect(() => {
-        playerPointsHandler()
+        playerPointsHandler();
     }, [cardPlayer])
 
     return (
         <div className="board__container">
             <div className="board__game">
+                <Banner/>
                 <div className="player__board">
                     <div>
                         <h3>You</h3>
