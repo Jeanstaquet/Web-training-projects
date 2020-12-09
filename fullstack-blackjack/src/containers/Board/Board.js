@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import "./Board.scss"
 import Card from "../../components/Card/Card";
 import Banner from "../../components/UI/Banner";
@@ -13,7 +13,11 @@ const Board = (props) => {
     const [valueAce, setValueAce] = useState(0);
     const [aceAppeard, setAceAppeard] = useState(false)
 
+    const [playerMoney, setPlayerMoney] = useState(1500);
+    const [playerBet, setPlayerBet] = useState(0)
     const [playerPoints, setPlayerPoints] = useState(0);
+
+    const [gameFinished, setGameFinished] = useState(false);
 
 
     const cardDistributor = (nbr) => {
@@ -42,11 +46,12 @@ const Board = (props) => {
             const points  = playerPoints + 1;
             setPlayerPoints(points);
             setAceClicked(true);
-            setAceAppeard(false)
+            setAceAppeard(false);
+            setValueAce(1)
         }
     }
 
-    const playerPointsHandler = () => {
+    const playerPointsHandler = useCallback(() => {
         let points = 0
         for(let i = 0; i < cardPlayer.length; i++) {
             if(!isNaN(cardPlayer[i].cardVal)) {
@@ -58,44 +63,68 @@ const Board = (props) => {
             }
         }
         setPlayerPoints(points);
-
-        if(points <= 21) {
-            //
+        let amount = playerMoney - (playerBet)/2;
+        let gains = playerMoney + playerBet * 1.1
+        if(points > 21) {
+            setGameFinished(true);
+            setPlayerMoney(amount);
+        } else if(points === 21) {
+            setGameFinished(true);
+            setPlayerMoney(gains);
         }
-    }
+    }, [cardPlayer, playerPoints])
 
-    const newCardHandler = (add) => {
-        if(add === "two") {
-            setCardPlayer(cardDistributor(2))
+    const newCardHandler = (add, type) => {
+        if(type === "player") {
+            if(add === "two") {
+                setCardPlayer(cardDistributor(2))
+            }
+    
+            if(add === "one") {
+                setCardPlayer([...cardPlayer, 
+                                ...cardDistributor(1)]);
+            }
+        } else if(type === "dealer") {
+            if(add === "two") {
+                setCardDealer(cardDistributor(2))
+            }
+    
+            if(add === "one") {
+                setCardDealer([...cardPlayer, 
+                                ...cardDistributor(1)]);
+            }
         }
 
-        if(add === "one") {
-            setCardPlayer([...cardPlayer, 
-                            ...cardDistributor(1)]);
-        }
     }
 
     const newGame = () => {
         let arr = [];
+        setGameFinished(false)
         setAceAppeard(false);
         setAceClicked(false);
         setValueAce(0);
         setCardPlayer(arr)
-        newCardHandler("two");
+        newCardHandler("two", "player");
+        newCardHandler("two", "dealer");
     }
 
     useEffect(() => {
         playerPointsHandler();
-    }, [cardPlayer])
+    }, [cardPlayer, playerPointsHandler])
 
+
+    let banner = null;
+    if(gameFinished) {
+        banner = <Banner/>
+    }
     return (
         <div className="board__container">
             <div className="board__game">
-                <Banner/>
+                {banner}
                 <div className="player__board">
                     <div>
                         <h3>You</h3>
-                        <p>💰 Money available: <span className="moneyAvailable">1500$</span></p>
+                    <p>💰 Money available: <span className="moneyAvailable">{playerMoney}$</span></p>
                     </div>
                     <div className="card__container">
                         {cardPlayer.map((c, index) => {
@@ -110,10 +139,10 @@ const Board = (props) => {
                     <div className="player__button">
                         <h2>Acutal Points: {playerPoints}</h2>
                         <div>
-                        <button>💲 Bet</button>
+                        <button disabled={gameFinished}>💲 Bet</button>
                         <label>Amount:</label>
-                        <input type="number" step="25" placeholder="Insert money" min="0"/>
-                        <button onClick={() => newCardHandler("one")} disabled={aceAppeard}>Card</button>
+                        <input disabled={!gameFinished} value={playerBet} onChange={(e) => setPlayerBet(e.target.value)} type="number" step="25" placeholder="Insert money" min="0"/>
+                        <button onClick={() => newCardHandler("one")} disabled={aceAppeard || gameFinished}>Card</button>
                         <button onClick={newGame}>New Game</button>
                         </div>
 
@@ -126,7 +155,12 @@ const Board = (props) => {
                     </div>
                     <div className="card__container">
                     {cardDealer.map((c, index) => {
-                            return <Card key={index} cardValues={c.cardVal} suits={c.suits}/>
+                            return <Card
+                                aceClicked={aceClicked} 
+                                addAce={aceHandler} 
+                                key={index} 
+                                cardValues={c.cardVal} 
+                                suits={c.suits}/>
                         })}
                         </div>
                     <div className="dealer__button">

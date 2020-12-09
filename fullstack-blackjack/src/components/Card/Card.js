@@ -7,7 +7,7 @@ function Card(props) {
         ace =             
         <div className="ace">
             <button onClick={!props.aceClicked ? () => props.addAce(11) : null}>+11</button>
-            <button  onClick={!props.aceClicked ?() => props.addAce(1) : null}>+1</button>
+            <button  onClick={!props.aceClicked ? () => props.addAce(1) : null}>+1</button>
         </div>
     }
     return (
