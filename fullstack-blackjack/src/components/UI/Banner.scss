@@ -1,0 +1,29 @@
+.banner__container {
+    position: fixed;
+    top: 27%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #320a53;
+    color: white;
+    display: flex;
+    flex-direction: column;
+
+    h2 {
+        padding: 6px;
+        margin: 0;
+    }
+
+    button {
+        border: 1px solid transparent;
+        font-family: inherit;
+        cursor: pointer;
+        padding: 6px;
+        &:hover {
+            border: 1px solid black;
+        }
+    }
+}
+
+.noSee {
+    display: none;
+}

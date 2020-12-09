@@ -13,6 +13,9 @@ const Board = (props) => {
     const [valueAce, setValueAce] = useState(0);
     const [aceAppeard, setAceAppeard] = useState(false)
 
+    const [dealerMoney, setDealerMoney] = useState(1000000);
+    const [dealerPoints, setDealerPoints] = useState(0)
+
     const [playerMoney, setPlayerMoney] = useState(1500);
     const [playerBet, setPlayerBet] = useState(0)
     const [playerPoints, setPlayerPoints] = useState(0);
@@ -62,17 +65,35 @@ const Board = (props) => {
                 points += 10
             }
         }
+        console.log(cardDealer.length)
+        let dealerPoint = 0;
+        for(let i = 0; i < cardDealer.length; i++) {
+            if(!isNaN(cardDealer[i].cardVal)) {
+                console.log(dealerPoint)
+                dealerPoint += Number(cardDealer[i].cardVal)
+            } else if(cardDealer[i].cardVal === "A"){
+                dealerPoint += valueAce;
+                console.log(dealerPoint)
+            } else {
+                console.log(dealerPoint)
+                dealerPoint += 10
+            }
+        }
+        setDealerPoints(dealerPoint)
         setPlayerPoints(points);
+        
         let amount = playerMoney - (playerBet)/2;
-        let gains = playerMoney + playerBet * 1.1
+        let gains = playerMoney + (Number(playerBet) * 2)
         if(points > 21) {
             setGameFinished(true);
             setPlayerMoney(amount);
+            setDealerMoney(Number(dealerMoney) + Number(playerBet))
         } else if(points === 21) {
             setGameFinished(true);
+            setDealerMoney(Number(dealerMoney) - Number(playerBet))
             setPlayerMoney(gains);
         }
-    }, [cardPlayer, playerPoints])
+    }, [cardPlayer, playerPoints, dealerPoints, cardDealer])
 
     const newCardHandler = (add, type) => {
         if(type === "player") {
@@ -103,14 +124,20 @@ const Board = (props) => {
         setAceAppeard(false);
         setAceClicked(false);
         setValueAce(0);
-        setCardPlayer(arr)
+        setCardPlayer(arr);
+        setCardDealer(arr)
         newCardHandler("two", "player");
         newCardHandler("two", "dealer");
     }
 
+
+    const stopHandler = () => {
+        newCardHandler("one", "dealer")
+    }
+
     useEffect(() => {
         playerPointsHandler();
-    }, [cardPlayer, playerPointsHandler])
+    }, [cardPlayer, playerPointsHandler, cardDealer, dealerPoints, stopHandler])
 
 
     let banner = null;
@@ -139,10 +166,10 @@ const Board = (props) => {
                     <div className="player__button">
                         <h2>Acutal Points: {playerPoints}</h2>
                         <div>
-                        <button disabled={gameFinished}>💲 Bet</button>
+                        <button disabled={gameFinished} onClick={stopHandler}>💲 Stop</button>
                         <label>Amount:</label>
                         <input disabled={!gameFinished} value={playerBet} onChange={(e) => setPlayerBet(e.target.value)} type="number" step="25" placeholder="Insert money" min="0"/>
-                        <button onClick={() => newCardHandler("one")} disabled={aceAppeard || gameFinished}>Card</button>
+                        <button onClick={() => newCardHandler("one", "player")} disabled={aceAppeard || gameFinished}>Card</button>
                         <button onClick={newGame}>New Game</button>
                         </div>
 
@@ -151,7 +178,7 @@ const Board = (props) => {
                 <div className="dealer__board">
                     <div>
                         <h3>The Dealer</h3>
-                        <p>💰 Cash available in the bank: <span className="moneyAvailable">1M$</span></p>
+                        <p>💰 Cash available in the bank: <span className="moneyAvailable">{dealerMoney}$</span></p>
                     </div>
                     <div className="card__container">
                     {cardDealer.map((c, index) => {
@@ -164,7 +191,7 @@ const Board = (props) => {
                         })}
                         </div>
                     <div className="dealer__button">
-                        <h2>Actual Points: XX</h2>
+                        <h2>Actual Points: {dealerPoints}</h2>
                     </div>
                 </div>
             </div>
