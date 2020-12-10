@@ -1,7 +1,28 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import "./Board.scss"
 import Card from "../../components/Card/Card";
 import Banner from "../../components/UI/Banner";
+
+const initalState = {
+    gameFinished: false,
+    playerMoney: 1500,
+    dealerMoney: 100000,
+    message: "",
+    playerBet: 0
+}
+
+const reducer = (state, action) => {
+    switch(action.type) {
+        case "BET":
+            return {
+                ...state, playerBet: action.payload
+            }
+        case "WIN":
+            return {
+                ...state, gameFinished: true
+            }
+    }
+}
 
 const Board = (props) => {
     const [suits, setSuits] = useState(["spades", "diamonds", "clubs", "hearts"]);
@@ -23,7 +44,25 @@ const Board = (props) => {
     const [finished, setFinished] = useState(false)
 
     const [gameFinished, setGameFinished] = useState(false);
-    const [displayMessage, setDisplayMessage] = useState("")
+    const [displayMessage, setDisplayMessage] = useState("");
+
+    const [state, dispatch] = useReducer(reducer, initalState);
+
+
+
+    const gainHandler = (type) => {
+        if(type === "win") {
+            setGameFinished(true);
+            setPlayerMoney(Number(playerMoney) + Number(playerBet)/2);
+            setDealerMoney(Number(dealerMoney) - Number(playerBet) *2)
+            setDisplayMessage("You win 👍")
+        } else if(type === "lost") {
+            setGameFinished(true);
+            setPlayerMoney(Number(playerMoney) - Number(playerBet)/2);
+            setDealerMoney(Number(dealerMoney) + Number(playerBet) *2)
+            setDisplayMessage("You lost 👎")
+        }
+    }
 
 
     const cardDistributor = (nbr) => {
@@ -57,19 +96,6 @@ const Board = (props) => {
         }
     }
 
-    const gainHandler = (type) => {
-        if(type === "win") {
-            setGameFinished(true);
-            setPlayerMoney(Number(playerMoney) + Number(playerBet)/2);
-            setDealerMoney(Number(dealerMoney) - Number(playerBet) *2)
-            setDisplayMessage("You win 👍")
-        } else if(type === "lost") {
-            setGameFinished(true);
-            setPlayerMoney(Number(playerMoney) - Number(playerBet)/2);
-            setDealerMoney(Number(dealerMoney) + Number(playerBet) *2)
-            setDisplayMessage("You lost 👎")
-        }
-    }
 
     const playerPointsHandler = useCallback(() => {
         let points = 0
@@ -105,7 +131,6 @@ const Board = (props) => {
         } else if(dealerPoint > 21) {
             gainHandler("win")
         } else if((dealerPoint > playerPoints) && playerPoints <= 18){
-            console.log(playerPoints, "end", points, "deal", dealerPoints, dealerPoint)
             gainHandler("lost")
         }
 
@@ -168,6 +193,7 @@ const Board = (props) => {
     
     useEffect(() => {
         playerPointsHandler();
+        console.log(playerBet)
     }, [cardPlayer, playerPointsHandler, cardDealer, dealerPoints, stopHandler])
 
 
@@ -199,7 +225,7 @@ const Board = (props) => {
                         <div>
                         <button disabled={gameFinished} onClick={stopHandler}>💲 Stop</button>
                         <label>Amount:</label>
-                        <input disabled={!gameFinished} value={playerBet} onChange={(e) => setPlayerBet(e.target.value)} type="number" step="25" placeholder="Insert money" min="0"/>
+                        <input disabled={!gameFinished} value={state.playerBet} onChange={(e) => dispatch({type: "BET", payload: e.target.value})} type="number" step="25" placeholder="Insert money" min="0"/>
                         <button onClick={() => newCardHandler("one", "player")} disabled={aceAppeard || gameFinished}>Card</button>
                         <button onClick={newGame}>New Game</button>
                         </div>
