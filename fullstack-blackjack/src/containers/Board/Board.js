@@ -23,6 +23,7 @@ const Board = (props) => {
     const [finished, setFinished] = useState(false)
 
     const [gameFinished, setGameFinished] = useState(false);
+    const [displayMessage, setDisplayMessage] = useState("")
 
 
     const cardDistributor = (nbr) => {
@@ -56,7 +57,19 @@ const Board = (props) => {
         }
     }
 
-
+    const gainHandler = (type) => {
+        if(type === "win") {
+            setGameFinished(true);
+            setPlayerMoney(Number(playerMoney) + Number(playerBet)/2);
+            setDealerMoney(Number(dealerMoney) - Number(playerBet) *2)
+            setDisplayMessage("You win 👍")
+        } else if(type === "lost") {
+            setGameFinished(true);
+            setPlayerMoney(Number(playerMoney) - Number(playerBet)/2);
+            setDealerMoney(Number(dealerMoney) + Number(playerBet) *2)
+            setDisplayMessage("You lost 👎")
+        }
+    }
 
     const playerPointsHandler = useCallback(() => {
         let points = 0
@@ -81,27 +94,19 @@ const Board = (props) => {
         }
         setDealerPoints(dealerPoint)
         setPlayerPoints(points);
-        
-        let amount = playerMoney - (playerBet)/2;
-        let gains = playerMoney + (Number(playerBet) * 2)
-        if(finished) {
-            if(points > 21) {
-                setGameFinished(true);
-                setPlayerMoney(amount);
-                setDealerMoney(Number(dealerMoney) + Number(playerBet))
-            } else if(points === 21 || dealerPoint < points) {
-                setGameFinished(true);
-                setDealerMoney(Number(dealerMoney) - Number(playerBet))
-                setPlayerMoney(gains);
-            } else if(dealerPoint === 21) {
-                setGameFinished(true);
-                setPlayerMoney(amount);
-                setDealerMoney(Number(dealerMoney) + Number(playerBet))
-            } else if((dealerPoint > points) && dealerPoint <= 21) {
-                setGameFinished(true);
-                setPlayerMoney(amount);
-                setDealerMoney(Number(dealerMoney) + Number(playerBet))
-            }
+        if(points > 21) {
+            gainHandler("lost")
+            console.log(playerPoints, " >21", points)
+        } else if(playerPoints === 21) {
+            gainHandler("win")
+        } else if(dealerPoint === 21) {
+            console.log(dealerPoint)
+            gainHandler("lost")
+        } else if(dealerPoint > 21) {
+            gainHandler("win")
+        } else if((dealerPoint > playerPoints) && playerPoints <= 18){
+            console.log(playerPoints, "end", points, "deal", dealerPoints, dealerPoint)
+            gainHandler("lost")
         }
 
     }, [cardPlayer, playerPoints, dealerPoints, cardDealer, finished])
@@ -139,7 +144,6 @@ const Board = (props) => {
         setCardPlayer(arr);
         setCardDealer(arr)
         newCardHandler("two", "player");
-        newCardHandler("two", "dealer");
     }
 
 
@@ -169,7 +173,7 @@ const Board = (props) => {
 
     let banner = null;
     if(gameFinished) {
-        banner = <Banner/>
+        banner = <Banner mess={displayMessage} amount={playerBet}/>
     }
     return (
         <div className="board__container">
