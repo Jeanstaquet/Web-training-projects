@@ -8,7 +8,10 @@ const initalState = {
     playerMoney: 1500,
     dealerMoney: 100000,
     message: "",
-    playerBet: 0
+    playerBet: 0,
+    aceAppeard: false,
+    aceValue: 0,
+    aceClicked: false
 }
 
 const reducer = (state, action) => {
@@ -17,9 +20,40 @@ const reducer = (state, action) => {
             return {
                 ...state, playerBet: action.payload
             }
+        case "NEW_GAME":
+            return {
+                ...state,
+                gameFinished: false,
+                aceAppeard: false,
+                aceValue: 0,
+                aceClicked: false
+            }
         case "WIN":
             return {
-                ...state, gameFinished: true
+                ...state, 
+                gameFinished: true, 
+                dealerMoney: state.dealerMoney - state.playerBet,
+                playerMoney: state.playerBet + state.playerMoney,
+                message: "You win 👍"
+            }
+        case "LOST":
+            return {
+                ...state,
+                gameFinished: true,
+                dealerMoney: state.dealerMoney + state.playerBet,
+                playerMoney: state.playerBet - state.playerMoney,
+                message: "You lost 👎"
+            }
+        case "ACE_APPEARED":
+            return {
+                ...state,
+                aceAppeard: true
+            }
+        case "ACE_VALUE":
+            return {
+                ...state,
+                aceValue: action.payload,
+                aceClicked: true
             }
     }
 }
@@ -46,6 +80,7 @@ const Board = (props) => {
     const [gameFinished, setGameFinished] = useState(false);
     const [displayMessage, setDisplayMessage] = useState("");
 
+    //Reducer state
     const [state, dispatch] = useReducer(reducer, initalState);
 
 
