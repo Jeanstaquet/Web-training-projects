@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import React, { useCallback, useEffect, useReducer } from 'react';
 import "./Board.scss"
 import Card from "../../components/Card/Card";
 import Banner from "../../components/UI/Banner";
@@ -11,7 +11,14 @@ const initalState = {
     playerBet: 0,
     aceAppeard: false,
     aceValue: 0,
-    aceClicked: false
+    aceClicked: false,
+    playerPoints: 0,
+    dealerPoints: 0,
+    finished: false,
+    suits: ["spades", "diamonds", "clubs", "hearts"],
+    cardValues: ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"],
+    cardPlayer: [],
+    cardDealer: [],
 }
 
 const reducer = (state, action) => {
@@ -26,7 +33,10 @@ const reducer = (state, action) => {
                 gameFinished: false,
                 aceAppeard: false,
                 aceValue: 0,
-                aceClicked: false
+                aceClicked: false,
+                finished: false,
+                cardDealer: [],
+                cardPlayer: []
             }
         case "WIN":
             return {
@@ -55,186 +65,177 @@ const reducer = (state, action) => {
                 aceValue: action.payload,
                 aceClicked: true
             }
+        case "ACE_CLICKED":
+            return {
+                ...state,
+                aceClicked: true
+            }
+        case "ACE_HANDLER":
+            let p = 0
+            if(action.payload === 11) {
+                return {
+                    ...state,
+                    aceAppeard: false,
+                    aceValue: 11,
+                    playerPoints: p,
+                    aceClicked: true
+                }
+            } else {
+                return {
+                    ...state,
+                    aceAppeard: false,
+                    aceValue: 1,
+                    playerPoints: p,
+                    aceClicked: true
+                }
+            }
+        case "PLAYER_POINTS":
+            return {
+                ...state,
+                playerPoints: action.payload
+            }
+        case "DEALER_POINTS":
+            return {
+                ...state,
+                dealerPoint: action.payload
+            }
+        case "FINISHED":
+            return {
+                ...state,
+                finished: action.payload
+            }
+        case "CARD_PLAYER":
+            return {
+                ...state,
+                cardPlayer: [action.payload]
+            }
+        case "CARD_DEALER":
+            return {
+                ...state,
+                cardDealer: [action.payload]
+            }
+        case "CARD_DISTRIBUTOR":
+            if(action.persona === "player"){
+                if(action.number === "one") {
+                    return {...state,
+                            cardPlayer:[...state.cardPlayer, ...action.newCard]}
+                } else if(action.number === "two") {
+                    return {
+                        ...state,
+                        cardPlayer: [...action.newCard]
+                    }
+                }
+            } else if(action.persona === "dealer") {
+                if(action.number === "one") {
+                    return {
+                        ...state,
+                        cardDealer: [...state.cardDealer, ...action.newCard]
+                    }
+                } else if(action.number === "two") {
+                    return {
+                        ...state,
+                        cardDealer: [...action.newCard]
+                    }
+                }
+            }
+        default:
+            return {
+                ...state
+            }
     }
 }
 
 const Board = (props) => {
-    const [suits, setSuits] = useState(["spades", "diamonds", "clubs", "hearts"]);
-    const [cardValues, setCardValues] = useState(["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]);
-    const [cardDealer, setCardDealer] = useState([]);
-    const [cardPlayer, setCardPlayer] = useState([]);
-
-    const [aceClicked, setAceClicked] = useState(false);
-    const [valueAce, setValueAce] = useState(0);
-    const [aceAppeard, setAceAppeard] = useState(false)
-
-    const [dealerMoney, setDealerMoney] = useState(1000000);
-    const [dealerPoints, setDealerPoints] = useState(0)
-
-    const [playerMoney, setPlayerMoney] = useState(1500);
-    const [playerBet, setPlayerBet] = useState(0)
-    const [playerPoints, setPlayerPoints] = useState(0);
-
-    const [finished, setFinished] = useState(false)
-
-    const [gameFinished, setGameFinished] = useState(false);
-    const [displayMessage, setDisplayMessage] = useState("");
-
     //Reducer state
     const [state, dispatch] = useReducer(reducer, initalState);
 
 
-
-    const gainHandler = (type) => {
-        if(type === "win") {
-            setGameFinished(true);
-            setPlayerMoney(Number(playerMoney) + Number(playerBet)/2);
-            setDealerMoney(Number(dealerMoney) - Number(playerBet) *2)
-            setDisplayMessage("You win 👍")
-        } else if(type === "lost") {
-            setGameFinished(true);
-            setPlayerMoney(Number(playerMoney) - Number(playerBet)/2);
-            setDealerMoney(Number(dealerMoney) + Number(playerBet) *2)
-            setDisplayMessage("You lost 👎")
-        }
-    }
-
-
-    const cardDistributor = (nbr) => {
+    const cardDistributor = useCallback((nbr) => {
         const arr = []
         for(let i = 0; i < nbr; i++) {
-            let randomSuits =  suits[Math.floor(Math.random() * suits.length)];
-            let randomCardVal = cardValues[Math.floor(Math.random() * cardValues.length)];
+            let randomSuits =  state.suits[Math.floor(Math.random() * state.suits.length)];
+            let randomCardVal = state.cardValues[Math.floor(Math.random() * state.cardValues.length)];
 
             arr.push({cardVal: randomCardVal, suits: randomSuits})
             if(randomCardVal === "A") {
-                setAceAppeard(true)
+                dispatch({type: "ACE_APPEARED"})
             }   
         }
         return arr
-    }
-
-
-    const aceHandler = (type) => {
-        if(type === 11) {
-            const points  = playerPoints + 11;
-            setPlayerPoints(points);
-            setValueAce(11);
-            setAceClicked(true)
-            setAceAppeard(false)
-        } else if(type === 1) {
-            const points  = playerPoints + 1;
-            setPlayerPoints(points);
-            setAceClicked(true);
-            setAceAppeard(false);
-            setValueAce(1)
-        }
-    }
+    }, [state.suits, state.cardValues])
 
 
     const playerPointsHandler = useCallback(() => {
         let points = 0
-        for(let i = 0; i < cardPlayer.length; i++) {
-            if(!isNaN(cardPlayer[i].cardVal)) {
-                points += Number(cardPlayer[i].cardVal)
-            } else if(cardPlayer[i].cardVal === "A"){
-                points += valueAce
+        for(let i = 0; i < state.cardPlayer.length; i++) {
+            if(!isNaN(state.cardPlayer[i].cardVal)) {
+                points += Number(state.cardPlayer[i].cardVal)
+            } else if(state.cardPlayer[i].cardVal === "A"){
+                points += state.aceValue
             } else {
                 points += 10
             }
         }
         let dealerPoint = 0;
-        for(let i = 0; i < cardDealer.length; i++) {
-            if(!isNaN(cardDealer[i].cardVal)) {
-                dealerPoint += Number(cardDealer[i].cardVal)
-            } else if(cardDealer[i].cardVal === "A"){
-                dealerPoint += valueAce;
+        for(let i = 0; i < state.cardDealer.length; i++) {
+            if(!isNaN(state.cardDealer[i].cardVal)) {
+                dealerPoint += Number(state.cardDealer[i].cardVal)
+            } else if(state.cardDealer[i].cardVal === "A"){
+                dealerPoint += state.aceValue;
             } else {
                 dealerPoint += 10
             }
         }
-        setDealerPoints(dealerPoint)
-        setPlayerPoints(points);
+        dispatch({type: "DEALER_POINTS", payload: dealerPoint})
+        dispatch({type:"PLAYER_POINTS", payload: points})
         if(points > 21) {
-            gainHandler("lost")
-            console.log(playerPoints, " >21", points)
-        } else if(playerPoints === 21) {
-            gainHandler("win")
-        } else if(dealerPoint === 21) {
-            console.log(dealerPoint)
-            gainHandler("lost")
-        } else if(dealerPoint > 21) {
-            gainHandler("win")
-        } else if((dealerPoint > playerPoints) && playerPoints <= 18){
-            gainHandler("lost")
+            dispatch({type: "LOST"})
+        } else if(state.playerPoints === 21) {
+            dispatch({type: "WIN"})
+        } else if(state.dealerPoints === 21) {
+            dispatch({type: "LOST"})
+        } else if(state.dealerPoints > 21) {
+            dispatch({type: "WIN"})
+        } else if((state.dealerPoints > state.playerPoints) && state.playerPoints <= 18){
+            dispatch({type: "LOST"})
         }
 
-    }, [cardPlayer, playerPoints, dealerPoints, cardDealer, finished])
+    }, [state.cardPlayer, state.playerPoints, state.dealerPoints, state.cardDealer, state.aceValue])
 
-    const newCardHandler = (add, type) => {
-        if(type === "player") {
-            if(add === "two") {
-                setCardPlayer(cardDistributor(2))
-            }
-    
-            if(add === "one") {
-                setCardPlayer([...cardPlayer, 
-                                ...cardDistributor(1)]);
-            }
-        } else if(type === "dealer") {
-            if(add === "two") {
-                setCardDealer(cardDistributor(2))
-            }
-    
-            if(add === "one") {
-                setCardDealer([...cardDealer, 
-                                ...cardDistributor(1)]);
-            }
-        }
-
-    }
 
     const newGame = () => {
-        let arr = [];
-        setFinished(false)
-        setGameFinished(false)
-        setAceAppeard(false);
-        setAceClicked(false);
-        setValueAce(0);
-        setCardPlayer(arr);
-        setCardDealer(arr)
-        newCardHandler("two", "player");
+        dispatch({type: "NEW_GAME"})
+        dispatch({type: "CARD_DISTRIBUTOR", persona: "player", number: "two", newCard: cardDistributor(2)})
     }
 
 
-    const stopHandler = () => {
-        if (dealerPoints < 10) {
-            newCardHandler("one", "dealer");
-            if(dealerPoints < 12) {
-                newCardHandler("one", "dealer");
+    const stopHandler = useCallback(() => {
+        if (state.dealerPoints < 10) {
+            dispatch({type: "CARD_DISTRIBUTOR", persona: "dealer", number: "one", newCard: cardDistributor(1)});
+            if(state.dealerPoints < 12) {
+                dispatch({type: "CARD_DISTRIBUTOR", persona: "dealer", number: "one", newCard: cardDistributor(1)});
             }
-        } else if (dealerPoints <= 13) {
-            newCardHandler("one", "dealer");
-            if(dealerPoints < 15) {
-                newCardHandler("one", "dealer");
+        } else if (state.dealerPoints <= 13) {
+            dispatch({type: "CARD_DISTRIBUTOR", persona: "dealer", number: "one", newCard: cardDistributor(1)});
+            if(state.dealerPoints < 15) {
+                dispatch({type: "CARD_DISTRIBUTOR", persona: "dealer", number: "one", newCard: cardDistributor(1)});
             }
-        } else if(dealerPoints >= 15 && dealerPoints < playerPoints) {
-            setFinished(true)
-            newCardHandler("one", "dealer")
-        } else if(dealerPoints >= 21) {
-            setFinished(true)
+        } else if(state.dealerPoints >= 15 && state.dealerPoints < state.playerPoints) {
+            dispatch({type: "FINISHED", payload: true})
+            dispatch({type: "CARD_DISTRIBUTOR", persona: "dealer", number: "one", newCard: cardDistributor(1)});
+        } else if(state.dealerPoints >= 21) {
+            dispatch({type: "FINISHED", payload: true})
         }
-    }
+    }, [state.dealerPoints, state.playerPoints, cardDistributor])
     
     useEffect(() => {
         playerPointsHandler();
-        console.log(playerBet)
-    }, [cardPlayer, playerPointsHandler, cardDealer, dealerPoints, stopHandler])
+    }, [state.cardPlayer, playerPointsHandler, state.cardDealer, state.dealerPoints, stopHandler])
 
 
     let banner = null;
-    if(gameFinished) {
-        banner = <Banner mess={displayMessage} amount={playerBet}/>
+    if(state.gameFinished) {
+        banner = <Banner mess={state.message} amount={state.playerBet}/>
     }
     return (
         <div className="board__container">
@@ -243,25 +244,25 @@ const Board = (props) => {
                 <div className="player__board">
                     <div>
                         <h3>You</h3>
-                    <p>💰 Money available: <span className="moneyAvailable">{playerMoney}$</span></p>
+                    <p>💰 Money available: <span className="moneyAvailable">{state.playerMoney}$</span></p>
                     </div>
                     <div className="card__container">
-                        {cardPlayer.map((c, index) => {
+                        {state.cardPlayer.map((c, index) => {
                             return <Card
-                                aceClicked={aceClicked} 
-                                addAce={aceHandler} 
+                                aceClicked={state.aceClicked} 
+                                addAce={dispatch({type: "ACE_HANDLER"})}
                                 key={index} 
                                 cardValues={c.cardVal} 
                                 suits={c.suits}/>
                         })}
                     </div>
                     <div className="player__button">
-                        <h2>Acutal Points: {playerPoints}</h2>
+                        <h2>Acutal Points: {state.playerPoints}</h2>
                         <div>
-                        <button disabled={gameFinished} onClick={stopHandler}>💲 Stop</button>
+                        <button disabled={state.gameFinished} onClick={stopHandler}>💲 Stop</button>
                         <label>Amount:</label>
-                        <input disabled={!gameFinished} value={state.playerBet} onChange={(e) => dispatch({type: "BET", payload: e.target.value})} type="number" step="25" placeholder="Insert money" min="0"/>
-                        <button onClick={() => newCardHandler("one", "player")} disabled={aceAppeard || gameFinished}>Card</button>
+                        <input disabled={!state.gameFinished} value={state.playerBet} onChange={(e) => dispatch({type: "BET", payload: e.target.value})} type="number" step="25" placeholder="Insert money" min="0"/>
+                        <button onClick={() =>             dispatch({type: "CARD_DISTRIBUTOR", persona: "player", number: "one", newCard: cardDistributor(1)})} disabled={state.aceAppeard || state.gameFinished}>Card</button>
                         <button onClick={newGame}>New Game</button>
                         </div>
 
@@ -270,20 +271,20 @@ const Board = (props) => {
                 <div className="dealer__board">
                     <div>
                         <h3>The Dealer</h3>
-                        <p>💰 Cash available in the bank: <span className="moneyAvailable">{dealerMoney}$</span></p>
+                        <p>💰 Cash available in the bank: <span className="moneyAvailable">{state.dealerMoney}$</span></p>
                     </div>
                     <div className="card__container">
-                    {cardDealer.map((c, index) => {
+                    {state.cardDealer.map((c, index) => {
                             return <Card
-                                aceClicked={aceClicked} 
-                                addAce={aceHandler} 
+                                aceClicked={state.aceClicked} 
+                                addAce={dispatch({type: "ACE_HANDLER"})} 
                                 key={index} 
                                 cardValues={c.cardVal} 
                                 suits={c.suits}/>
                         })}
                         </div>
                     <div className="dealer__button">
-                        <h2>Actual Points: {dealerPoints}</h2>
+                        <h2>Actual Points: {state.dealerPoints}</h2>
                     </div>
                 </div>
             </div>
