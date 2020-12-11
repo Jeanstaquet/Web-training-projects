@@ -122,7 +122,7 @@ const Board = (props) => {
                     <div className="player__button">
                         <h2>Acutal Points: {props.playerPoints}</h2>
                         <div>
-                        <button disabled={props.gameFinished} onClick={() => stopHandler}>💲 Stop</button>
+                        <button disabled={props.gameFinished} onClick={() => stopHandler()}>💲 Stop</button>
                         <label>Amount:</label>
                         <input disabled={!props.gameFinished} value={props.playerBet} onChange={(e) => props.bet(e.target.value)} type="number" step="25" placeholder="Insert money" min="0"/>
                         <button onClick={() => props.cardDHandler("player", "one", cardDistributor(1))} disabled={props.aceAppeard || props.gameFinished}>Card</button>

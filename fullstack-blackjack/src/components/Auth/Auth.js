@@ -13,7 +13,8 @@ function Auth(props) {
                 <label>Re-type your password</label>
                 <input type="password" placeholder="Type your password here !  🚀"/>
                 <button type="submit" onClick={(e) => e.preventDefault()}>Register</button>
-                <p onClick={() => props.click}>Already an account ? Choose to log-in instead</p>
+                <button type="submit" onClick={(e) => e.preventDefault()}>Register with whatsapp</button>
+                <p onClick={() => props.click()}>Already an account ? Choose to log-in instead</p>
             </form>
         </div>
 
@@ -26,7 +27,8 @@ function Auth(props) {
             <label>Password</label>
             <input type="password" name="password" placeholder="Type your password here ! 🚀"/>
             <button type="submit" onClick={(e) => e.preventDefault()}>Login</button>
-            <p onClick={() => props.click}>New on this app ? Choose to create an account</p>
+            <button type="submit" onClick={(e) => e.preventDefault()}>Login with Whatsapp</button>
+            <p onClick={() => props.click()}>New on this app ? Choose to create an account</p>
         </form>
     </div>
     }

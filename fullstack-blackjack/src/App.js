@@ -15,8 +15,14 @@ const App = () => {
     }
   }
 
+  let statusAuth = 
+    <div className="login__textContainer">
+      <p className="login__text">Login</p>
+      <p className="login__text">Logout</p>
+    </div>
   return (
     <div className="App">
+      {statusAuth}
       <Switch>
         <Route path="/auth">
           <Auth type={type} click={loginHandler}/>

@@ -41,3 +41,24 @@
         }
     }
 }
+
+
+
+.login__textContainer {
+    position: fixed;
+    display: flex;
+    right: 25px;
+    .login__text {
+        right: 25px;
+        color: black;
+        background-color: #90ee90;
+        padding: 10px;
+        margin: 15px 7px;
+        border: 2px solid transparent;
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+            border: 2px solid black;
+        }
+    }
+}
