@@ -2,148 +2,7 @@ import React, { useCallback, useEffect, useReducer } from 'react';
 import "./Board.scss"
 import Card from "../../components/Card/Card";
 import Banner from "../../components/UI/Banner";
-
-const initalState = {
-    gameFinished: false,
-    playerMoney: 1500,
-    dealerMoney: 100000,
-    message: "",
-    playerBet: 0,
-    aceAppeard: false,
-    aceValue: 0,
-    aceClicked: false,
-    playerPoints: 0,
-    dealerPoints: 0,
-    finished: false,
-    suits: ["spades", "diamonds", "clubs", "hearts"],
-    cardValues: ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"],
-    cardPlayer: [],
-    cardDealer: [],
-}
-
-const reducer = (state, action) => {
-    switch(action.type) {
-        case "BET":
-            return {
-                ...state, playerBet: action.payload
-            }
-        case "NEW_GAME":
-            return {
-                ...state,
-                gameFinished: false,
-                aceAppeard: false,
-                aceValue: 0,
-                aceClicked: false,
-                finished: false,
-                cardDealer: [],
-                cardPlayer: []
-            }
-        case "WIN":
-            return {
-                ...state, 
-                gameFinished: true, 
-                dealerMoney: state.dealerMoney - state.playerBet,
-                playerMoney: state.playerBet + state.playerMoney,
-                message: "You win 👍"
-            }
-        case "LOST":
-            return {
-                ...state,
-                gameFinished: true,
-                dealerMoney: state.dealerMoney + state.playerBet,
-                playerMoney: state.playerBet - state.playerMoney,
-                message: "You lost 👎"
-            }
-        case "ACE_APPEARED":
-            return {
-                ...state,
-                aceAppeard: true
-            }
-        case "ACE_VALUE":
-            return {
-                ...state,
-                aceValue: action.payload,
-                aceClicked: true
-            }
-        case "ACE_CLICKED":
-            return {
-                ...state,
-                aceClicked: true
-            }
-        case "ACE_HANDLER":
-            let p = 0
-            if(action.payload === 11) {
-                return {
-                    ...state,
-                    aceAppeard: false,
-                    aceValue: 11,
-                    playerPoints: p,
-                    aceClicked: true
-                }
-            } else {
-                return {
-                    ...state,
-                    aceAppeard: false,
-                    aceValue: 1,
-                    playerPoints: p,
-                    aceClicked: true
-                }
-            }
-        case "PLAYER_POINTS":
-            return {
-                ...state,
-                playerPoints: action.payload
-            }
-        case "DEALER_POINTS":
-            return {
-                ...state,
-                dealerPoint: action.payload
-            }
-        case "FINISHED":
-            return {
-                ...state,
-                finished: action.payload
-            }
-        case "CARD_PLAYER":
-            return {
-                ...state,
-                cardPlayer: [action.payload]
-            }
-        case "CARD_DEALER":
-            return {
-                ...state,
-                cardDealer: [action.payload]
-            }
-        case "CARD_DISTRIBUTOR":
-            if(action.persona === "player"){
-                if(action.number === "one") {
-                    return {...state,
-                            cardPlayer:[...state.cardPlayer, ...action.newCard]}
-                } else if(action.number === "two") {
-                    return {
-                        ...state,
-                        cardPlayer: [...action.newCard]
-                    }
-                }
-            } else if(action.persona === "dealer") {
-                if(action.number === "one") {
-                    return {
-                        ...state,
-                        cardDealer: [...state.cardDealer, ...action.newCard]
-                    }
-                } else if(action.number === "two") {
-                    return {
-                        ...state,
-                        cardDealer: [...action.newCard]
-                    }
-                }
-            }
-        default:
-            return {
-                ...state
-            }
-    }
-}
+import {connect} from "react-redux"
 
 const Board = (props) => {
     //Reducer state
@@ -166,6 +25,7 @@ const Board = (props) => {
 
 
     const playerPointsHandler = useCallback(() => {
+        console.log("player")
         let points = 0
         for(let i = 0; i < state.cardPlayer.length; i++) {
             if(!isNaN(state.cardPlayer[i].cardVal)) {
@@ -210,6 +70,7 @@ const Board = (props) => {
 
 
     const stopHandler = useCallback(() => {
+        console.log("stop")
         if (state.dealerPoints < 10) {
             dispatch({type: "CARD_DISTRIBUTOR", persona: "dealer", number: "one", newCard: cardDistributor(1)});
             if(state.dealerPoints < 12) {
@@ -226,10 +87,11 @@ const Board = (props) => {
         } else if(state.dealerPoints >= 21) {
             dispatch({type: "FINISHED", payload: true})
         }
-    }, [state.dealerPoints, state.playerPoints, cardDistributor])
+    }, [state.dealerPoints, state.playerPoints, cardDistributor, state.cardDealer, state.cardPlayer])
     
     useEffect(() => {
         playerPointsHandler();
+        console.log("ueffect")
     }, [state.cardPlayer, playerPointsHandler, state.cardDealer, state.dealerPoints, stopHandler])
 
 
@@ -259,11 +121,11 @@ const Board = (props) => {
                     <div className="player__button">
                         <h2>Acutal Points: {state.playerPoints}</h2>
                         <div>
-                        <button disabled={state.gameFinished} onClick={stopHandler}>💲 Stop</button>
+                        <button disabled={state.gameFinished} onClick={() => stopHandler}>💲 Stop</button>
                         <label>Amount:</label>
                         <input disabled={!state.gameFinished} value={state.playerBet} onChange={(e) => dispatch({type: "BET", payload: e.target.value})} type="number" step="25" placeholder="Insert money" min="0"/>
-                        <button onClick={() =>             dispatch({type: "CARD_DISTRIBUTOR", persona: "player", number: "one", newCard: cardDistributor(1)})} disabled={state.aceAppeard || state.gameFinished}>Card</button>
-                        <button onClick={newGame}>New Game</button>
+                        <button onClick={() => dispatch({type: "CARD_DISTRIBUTOR", persona: "player", number: "one", newCard: cardDistributor(1)})} disabled={state.aceAppeard || state.gameFinished}>Card</button>
+                        <button onClick={() => newGame}>New Game</button>
                         </div>
 
                     </div>
