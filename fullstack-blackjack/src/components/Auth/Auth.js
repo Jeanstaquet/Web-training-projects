@@ -1,5 +1,7 @@
 import React from 'react';
 import "./Auth.scss";
+import {connect} from "react-redux";
+import * as actions from "../../store/actions/index"
 
 function Auth(props) {
     
@@ -36,5 +38,7 @@ function Auth(props) {
         ui
     );
 }
+
+
 
 export default Auth;
