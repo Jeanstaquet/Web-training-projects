@@ -2,6 +2,7 @@ import './App.css';
 import React, {useEffect, useState} from "react";
 import Board from "./containers/Board/Board";
 import Auth from "./components/Auth/Auth";
+import NavBar from "./components/UI/NavBar/NavBar";
 import {Route, Switch, Redirect, Link } from "react-router-dom";
 import {connect} from "react-redux";
 
@@ -20,18 +21,10 @@ const App = (props) => {
   useEffect(() => {
     console.log(props.token, props.userId, props.isLoggin)
   }, [props.token, props.userId, props.isLoggin])
-
-
-  let statusAuth = 
-    <div className="login__textContainer">
-      <Link className="login__text" to="/auth">Login
-      </Link>
-      <Link className="login__text" to="/auth">Register
-      </Link>
-    </div>
+      
   return (
     <div className="App">
-      {statusAuth}
+      <NavBar email={props.emailAddress} connected={props.isLoggin}/>
       <Switch>
         <Route path="/auth">
           <Auth type={type} click={loginHandler}/>
@@ -46,7 +39,8 @@ const mapStateToProps = state => {
   return {
     token: state.auth.token,
     userId: state.auth.userId,
-    isLoggin: state.auth.token ? true : false
+    isLoggin: state.auth.token ? true : false,
+    emailAddress: state.auth.email
   }
 }
 
