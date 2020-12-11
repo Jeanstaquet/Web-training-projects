@@ -157,21 +157,21 @@ const Board = (props) => {
 
 const mapStateToProps = state => {
     return {
-        gameFinished: state.gameFinished,
-        playerMoney: state.playerMoney,
-        dealerMoney: state.dealerMoney,
-        message: state.message,
-        playerBet: state.playerBet,
-        aceAppeard: state.aceAppeard,
-        aceValue: state.aceValue,
-        aceClicked: state.aceClicked,
-        playerPoints: state.playerPoints,
-        dealerPoints: state.dealerPoints,
-        finished: state.finished,
-        suits: state.suits,
-        cardValues: state.cardValues,
-        cardPlayer: state.cardPlayer,
-        cardDealer: state.cardDealer
+        gameFinished: state.board.gameFinished,
+        playerMoney: state.board.playerMoney,
+        dealerMoney: state.board.dealerMoney,
+        message: state.board.message,
+        playerBet: state.board.playerBet,
+        aceAppeard: state.board.aceAppeard,
+        aceValue: state.board.aceValue,
+        aceClicked: state.board.aceClicked,
+        playerPoints: state.board.playerPoints,
+        dealerPoints: state.board.dealerPoints,
+        finished: state.board.finished,
+        suits: state.board.suits,
+        cardValues: state.board.cardValues,
+        cardPlayer: state.board.cardPlayer,
+        cardDealer: state.board.cardDealer
     }
 }
 

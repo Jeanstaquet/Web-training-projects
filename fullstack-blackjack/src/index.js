@@ -3,15 +3,23 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {createStore, compose} from "redux";
+import {createStore, compose, applyMiddleware, combineReducers} from "redux";
 import {Provider} from "react-redux";
-import reducer from "./store/board"
+import thunk from "redux-thunk"
+
+import boardR from "./store/reducer/board";
+import authR from "./store/reducer/auth";
+
 import {BrowserRouter} from "react-router-dom"
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+const rootReducer = combineReducers({
+  auth: authR,
+  board: boardR
+})
 
-const store = createStore(reducer, composeEnhancers(
-  //
+const store = createStore(rootReducer, composeEnhancers(
+  applyMiddleware(thunk)
 ));
 
 ReactDOM.render(

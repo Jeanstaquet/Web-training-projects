@@ -2,7 +2,7 @@ import './App.css';
 import React, {useState} from "react";
 import Board from "./containers/Board/Board";
 import Auth from "./components/Auth/Auth";
-import {Route, Switch, Redirect } from "react-router-dom";
+import {Route, Switch, Redirect, Link } from "react-router-dom";
 
 const App = () => {
   const [type, setType] = useState("Signin");
@@ -17,8 +17,10 @@ const App = () => {
 
   let statusAuth = 
     <div className="login__textContainer">
-      <p className="login__text">Login</p>
-      <p className="login__text">Logout</p>
+      <Link className="login__text" to="/auth">Login
+      </Link>
+      <Link className="login__text" to="/auth">Register
+      </Link>
     </div>
   return (
     <div className="App">

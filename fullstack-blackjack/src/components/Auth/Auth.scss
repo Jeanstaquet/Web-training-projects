@@ -48,6 +48,9 @@
     position: fixed;
     display: flex;
     right: 25px;
+    a {
+        text-decoration: none;
+    }
     .login__text {
         right: 25px;
         color: black;
