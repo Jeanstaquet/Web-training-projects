@@ -2,19 +2,36 @@ import React from 'react';
 import "./Auth.scss";
 
 function Auth(props) {
-    return (
-        <div className="auth__page">
+    
+    let ui = <div className="auth__page">
             <form className="auth__container">
-                <h3>Add your information to sign up</h3>
+                <h3>Add your information to register</h3>
                 <label>Email</label>
                 <input type="email" name="email" placeholder="Type your email here 🚀"/>
                 <label>Password</label>
                 <input type="password" name="password" placeholder="Type your password here ! 🚀"/>
                 <label>Re-type your password</label>
                 <input type="password" placeholder="Type your password here !  🚀"/>
-                <button type="submit" onClick={(e) => e.preventDefault()}>Log-in</button>
+                <button type="submit" onClick={(e) => e.preventDefault()}>Register</button>
+                <p onClick={() => props.click}>Already an account ? Choose to log-in instead</p>
             </form>
         </div>
+
+    if(props.type === "Log-in") {
+        ui = <div className="auth__page">
+        <form className="auth__container">
+            <h3>Login your account</h3>
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Type your email here 🚀"/>
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Type your password here ! 🚀"/>
+            <button type="submit" onClick={(e) => e.preventDefault()}>Login</button>
+            <p onClick={() => props.click}>New on this app ? Choose to create an account</p>
+        </form>
+    </div>
+    }
+    return (
+        ui
     );
 }
 

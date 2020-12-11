@@ -30,5 +30,14 @@
                 border: 2px solid black;
             }
         }
+        p{
+            font-size: 0.6rem;
+            margin: 0;
+            text-align: center;
+            &:hover {
+                text-decoration: underline;
+                cursor:pointer;
+            }
+        }
     }
 }
