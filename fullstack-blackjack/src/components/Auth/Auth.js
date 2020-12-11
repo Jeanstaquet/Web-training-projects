@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import "./Auth.scss";
+import {Redirect} from "react-router-dom"
 import {connect} from "react-redux";
 import * as actions from "../../store/actions/index"
 
@@ -13,7 +14,11 @@ function Auth(props) {
 
         props.onAuth(email, password);
     }
+    let redirect = null;
 
+    if(props.isAuth) {
+        redirect = <Redirect to="/"></Redirect>
+    }
 
     let ui = <div className="auth__page">
             <form className="auth__container">
@@ -45,13 +50,17 @@ function Auth(props) {
     </div>
     }
     return (
-        ui
+        <div>
+            {ui}
+            {redirect}
+        </div>
     );
 }
 
 const mapStateToProps = state => {
     return {
-        loading: state.auth.loading
+        loading: state.auth.loading,
+        isAuth: state.auth.token && true
     }
 }
 

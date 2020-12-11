@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import Board from "./containers/Board/Board";
 import Auth from "./components/Auth/Auth";
 import NavBar from "./components/UI/NavBar/NavBar";
+import * as actions from "./store/actions/index"
 import {Route, Switch, Redirect, Link } from "react-router-dom";
 import {connect} from "react-redux";
 
@@ -16,15 +17,10 @@ const App = (props) => {
       setType("Signin")
     }
   }
-
-
-  useEffect(() => {
-    console.log(props.token, props.userId, props.isLoggin)
-  }, [props.token, props.userId, props.isLoggin])
       
   return (
     <div className="App">
-      <NavBar email={props.emailAddress} connected={props.isLoggin}/>
+      <NavBar email={props.emailAddress} connected={props.isLoggin} logout={() => props.logout()}/>
       <Switch>
         <Route path="/auth">
           <Auth type={type} click={loginHandler}/>
@@ -44,4 +40,10 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, null)(App);
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: () => dispatch(actions.logout())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
