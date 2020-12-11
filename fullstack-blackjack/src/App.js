@@ -1,10 +1,11 @@
 import './App.css';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Board from "./containers/Board/Board";
 import Auth from "./components/Auth/Auth";
 import {Route, Switch, Redirect, Link } from "react-router-dom";
+import {connect} from "react-redux";
 
-const App = () => {
+const App = (props) => {
   const [type, setType] = useState("Signin");
 
   const loginHandler = () => {
@@ -14,6 +15,12 @@ const App = () => {
       setType("Signin")
     }
   }
+
+
+  useEffect(() => {
+    console.log(props.token, props.userId, props.isLoggin)
+  }, [props.token, props.userId, props.isLoggin])
+
 
   let statusAuth = 
     <div className="login__textContainer">
@@ -35,4 +42,12 @@ const App = () => {
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    token: state.auth.token,
+    userId: state.auth.userId,
+    isLoggin: state.auth.token ? true : false
+  }
+}
+
+export default connect(mapStateToProps, null)(App);
