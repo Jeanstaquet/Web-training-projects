@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import "./Board.scss"
 import Card from "../../components/Card/Card";
 import Banner from "../../components/UI/Banner";
-import {connect} from "react-redux"
+import {connect, batch} from "react-redux"
 
 const Board = (props) => {
 
@@ -43,17 +43,21 @@ const Board = (props) => {
                 dealerPoint += 10
             }
         }
-        props.dealerPointsHandler(dealerPoint)
-        props.playerPointsHandler(points)
+
+        batch(() => {
+            props.dealerPointsHandler(dealerPoint)
+            props.playerPointsHandler(points)
+        })
+
         if(points > 21) {
             props.lost()
-        } else if(props.playerPoints === 21) {
+        } else if(points === 21) {
             props.win()
-        } else if(props.dealerPoints === 21) {
+        } else if(dealerPoint === 21) {
             props.lost()
-        } else if(props.dealerPoints > 21) {
+        } else if(dealerPoint > 21) {
             props.win()
-        } else if((props.dealerPoints > props.playerPoints) && props.playerPoints <= 18){
+        } else if((dealerPoint > points) && points <= 18){
             props.lost()
         }
 
@@ -87,9 +91,9 @@ const Board = (props) => {
     }
     
     useEffect(() => {
-        //playerPointsHandler();
+        playerPointsHandler();
         console.log("ueffect")
-    }, [props.cardPlayer, playerPointsHandler, props.cardDealer, props.dealerPoints, stopHandler])
+    }, [props.cardPlayer, playerPointsHandler, props.cardDealer, props.dealerPoints, props.gameFinished])
 
 
     let banner = null;
@@ -122,7 +126,7 @@ const Board = (props) => {
                         <label>Amount:</label>
                         <input disabled={!props.gameFinished} value={props.playerBet} onChange={(e) => props.bet(e.target.value)} type="number" step="25" placeholder="Insert money" min="0"/>
                         <button onClick={() => props.cardDHandler("player", "one", cardDistributor(1))} disabled={props.aceAppeard || props.gameFinished}>Card</button>
-                        <button onClick={() => newGame}>New Game</button>
+                        <button onClick={() => newGame()}>New Game</button>
                         </div>
 
                     </div>
