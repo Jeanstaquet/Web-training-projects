@@ -1,0 +1,58 @@
+.chat__container {
+    flex: 1;
+    height: 100vh;
+    background-color: lightgray;
+    background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
+
+    .chat__banner {
+        display: flex;
+        justify-content: space-between;
+        height: 8%;
+        background-color: #e9e8e6;
+    }
+
+
+    .chat__content {
+        height: 84%;
+        overflow-y: scroll;
+    }
+
+
+    .chat__sendMessage {
+        height: 8%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .chat__sendMessageEmoji {
+            margin: 0 10px;
+
+            * {
+                width: 40px;
+            }
+        }
+        
+        .chat__sendMessageContent {
+            width: 100%;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            
+            input {
+                width: 95%;
+                padding: 10px;
+                border-radius: 12px;
+                border: none;
+            }
+            button {
+                display: none;
+            }
+        }
+
+
+        .chat__sendMessageMic {
+            margin: 0 10px;
+            width: 40px;
+        }
+    }
+}
