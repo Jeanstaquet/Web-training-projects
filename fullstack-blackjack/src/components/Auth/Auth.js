@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import "./Auth.scss";
 import {Redirect} from "react-router-dom"
 import {connect} from "react-redux";
+import {auth, provider} from "./../../firebase";
 import * as actions from "../../store/actions/index"
 
 function Auth(props) {
@@ -15,6 +16,14 @@ function Auth(props) {
         props.onAuth(email, password);
     }
     let redirect = null;
+
+
+    const signIn = (e) => {
+        e.preventDefault()
+        auth.signInWithPopup(provider).then(result => {
+            console.log(result)
+        })
+    }
 
     if(props.isAuth) {
         redirect = <Redirect to="/"></Redirect>
@@ -30,7 +39,7 @@ function Auth(props) {
                 <label>Re-type your password</label>
                 <input type="password" placeholder="Type your password here !  🚀"/>
                 <button type="submit" onClick={(e) => registerHandler(e, email, password)}>Register</button>
-                <button type="submit" onClick={(e) => e.preventDefault()}>Register with whatsapp</button>
+                <button type="submit" onClick={(e) => signIn(e)}>Register with google</button>
                 <p onClick={() => props.click()}>Already an account ? Choose to log-in instead</p>
             </form>
         </div>

@@ -43,7 +43,7 @@ const Board = (props) => {
                 dealerPoint += 10
             }
         }
-
+        console.log(props.dealerPoints)
         batch(() => {
             props.dealerPointsHandler(dealerPoint)
             props.playerPointsHandler(points)
