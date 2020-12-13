@@ -5,7 +5,6 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import MicIcon from '@material-ui/icons/Mic';
-import PersonIcon from '@material-ui/icons/Person';
 const Chat = () => {
     return (
         <div className="chat__container">
