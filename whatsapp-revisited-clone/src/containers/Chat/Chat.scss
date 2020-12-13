@@ -7,8 +7,37 @@
     .chat__banner {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         height: 8%;
         background-color: #e9e8e6;
+
+        .chat__bannerInfo {
+            align-items: center;
+            display: flex;
+            .chat__bannerAvatar {
+                margin-left: 10px;
+                margin-right: 25px;
+            }
+
+            .chat__info {
+                display: flex;
+                flex-direction: column;
+
+                p {
+                    margin: 0;
+                }
+
+                p:first-of-type {
+                    margin-bottom: 10px;
+                }
+            }
+        }
+
+        .chat__bannerIcon {
+            * {
+                margin-right: 10px;
+            }
+        }
     }
 
 
