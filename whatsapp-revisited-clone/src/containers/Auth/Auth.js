@@ -5,7 +5,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
 
 const Auth = () => {
-    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
     const [pseudo, setPseudo] = useState("");
     const [password, setPassword] = useState("");
 
@@ -21,11 +21,11 @@ const Auth = () => {
                 
                 <form className="authNormal__container">
                 <h4>Create an account with your informations</h4>
-                    <TextField onChange={(e) => setName(e.target.value)}
+                    <TextField onChange={(e) => setEmail(e.target.value)}
                         id="filled-password-input"
-                        label="Name"
-                        type="name"
-                        value={name}
+                        label="Email"
+                        type="email"
+                        value={email}
                     />
                     <TextField onChange={(e) => setPseudo(e.target.value)}
                         id="filled-password-input"
