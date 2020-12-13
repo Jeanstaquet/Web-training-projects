@@ -44,6 +44,8 @@
     .chat__content {
         height: 84%;
         overflow-y: scroll;
+        box-sizing: border-box;
+        padding: 15px;
     }
 
 
@@ -52,7 +54,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-
+        background-color: #e9e8e6;
         .chat__sendMessageEmoji {
             margin: 0 10px;
 
@@ -66,7 +68,6 @@
             flex: 1;
             display: flex;
             justify-content: center;
-            
             input {
                 width: 95%;
                 padding: 10px;
@@ -74,7 +75,7 @@
                 border: none;
             }
             button {
-                display: none;
+                visibility: hidden;
             }
         }
 
@@ -82,6 +83,7 @@
         .chat__sendMessageMic {
             margin: 0 10px;
             width: 40px;
+            cursor: pointer;
         }
     }
 }
