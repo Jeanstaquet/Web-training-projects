@@ -1,7 +1,7 @@
 .converstations__container {
     flex: 0.43;
     height: 100vh;
-    overflow-y: scroll;
+
     box-sizing: border-box;
     background-color: rgba(211, 211, 211, 0.397);
 
@@ -58,6 +58,11 @@
             position: absolute;
             left: 20px;
         }
+    }
+
+    .conv__list {
+        overflow-y: scroll;
+        height: 81.5vh;
     }
 }
 
