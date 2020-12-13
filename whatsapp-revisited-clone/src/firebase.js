@@ -1,14 +1,13 @@
 import firebase from "firebase"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCmhvYiZbaWvXzf0poLYLmSW__qk1G63V8",
-  authDomain: "react-burger-app-ffe1a.firebaseapp.com",
-  databaseURL: "https://react-burger-app-ffe1a.firebaseio.com",
-  projectId: "react-burger-app-ffe1a",
-  storageBucket: "react-burger-app-ffe1a.appspot.com",
-  messagingSenderId: "1045421883272",
-  appId: "1:1045421883272:web:b698a73925bc0e55b5043d",
-  measurementId: "G-JJT7S976YP"
+  apiKey: "AIzaSyCmXjwaVbRraK5e8ZLQu-P5d-NuO85ramQ",
+  authDomain: "whatsapp-on-steroids.firebaseapp.com",
+  projectId: "whatsapp-on-steroids",
+  storageBucket: "whatsapp-on-steroids.appspot.com",
+  messagingSenderId: "85933631739",
+  appId: "1:85933631739:web:9d00bfe7ab5687ccc0685e",
+  measurementId: "G-HHK7WJ2Y26"
 };
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
