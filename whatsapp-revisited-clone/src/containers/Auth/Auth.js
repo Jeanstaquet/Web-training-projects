@@ -1,13 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
+import { connect } from 'react-redux';
 import "./Auth.scss";
 import TextField from '@material-ui/core/TextField';
 import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
+import * as actions from "../../store/action/index";
 
-const Auth = () => {
+const Auth = (props) => {
     const [email, setEmail] = useState("");
     const [pseudo, setPseudo] = useState("");
     const [password, setPassword] = useState("");
+
+    const authCreateHandler = (e) => {
+        e.preventDefault()
+        props.auth(email, password, true)
+    }
 
     return (
         <div className="auth__background">
@@ -40,7 +47,7 @@ const Auth = () => {
                         type="password"
                         value={password}
                     />
-                    <button type="submit">Subscribe</button>
+                    <button type="submit" onClick={authCreateHandler}>Subscribe</button>
                 </form>
 
             </div>
@@ -48,4 +55,19 @@ const Auth = () => {
     );
 };
 
-export default Auth;
+const mapStateToProps = state => {
+    return {
+        token: state.token,
+        userId: state.userId,
+        expirationTime: state.expirationTime
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        auth: (e, p, registred) => dispatch(actions.auth(e, p, registred))
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);
