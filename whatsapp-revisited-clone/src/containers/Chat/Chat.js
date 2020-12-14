@@ -8,13 +8,29 @@ import MicIcon from '@material-ui/icons/Mic';
 import { Avatar } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import Message from "../../components/Message/Message";
+import db from "../../firebase";
+import firebase from "firebase"
 const Chat = () => {
 
-    const [message, setMessage] = useState([
-        {message: "Hello how are you ?", sender: false, timeStamp: "11-12-20 11:33"},
-        {message: "Hello how are you ?", sender: true, timeStamp: "11-12-20 11:33"},]);
+    const [message, setMessage] = useState("");
 
-    let iconSend = message.length < 1 ? <MicIcon className="chat__sendMessageMic"/> : <SendIcon className="chat__sendMessageMic"/>
+    let iconSend = message.length < 1 ? <MicIcon className="chat__sendMessageMic"/> : <SendIcon onClick={(e) => sendMessage(e, message)} className="chat__sendMessageMic"/>
+
+
+    const sendMessage = (event, message) => {
+        if(event) {
+            event.preventDefault()
+        }
+        
+        setMessage("")
+        db
+            .collection("messages")
+            .add({
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                message: message
+            });
+        
+    }
 
     return (
         <div className="chat__container">
@@ -33,9 +49,7 @@ const Chat = () => {
                 </div>
             </div>
             <div className="chat__content">
-                {message.map((mess, i) => {
-                    return <Message key={i} message={mess.message} timestamp={mess.timeStamp} reciever={mess.sender}/>
-                })}
+                
             </div>
             <div className="chat__sendMessage">
                 <div className="chat__sendMessageEmoji">
@@ -43,8 +57,8 @@ const Chat = () => {
                     <AttachFileIcon/>
                 </div>
                 <form className="chat__sendMessageContent">
-                    <input type="text" onChange={(e) => setMessage(e.target.value)}/>
-                    <button type="submit"></button>
+                    <input type="text" onChange={(e) => setMessage(e.target.value)} value={message}/>
+                    <button type="submit" onClick={(event) =>sendMessage(event, message)}></button>
                 </form>
                 {iconSend}
             </div>
