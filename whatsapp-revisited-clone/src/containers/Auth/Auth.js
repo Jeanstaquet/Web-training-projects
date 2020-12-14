@@ -5,49 +5,70 @@ import TextField from '@material-ui/core/TextField';
 import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
 import * as actions from "../../store/action/index";
+import { Redirect } from 'react-router-dom';
 
 const Auth = (props) => {
     const [email, setEmail] = useState("");
     const [pseudo, setPseudo] = useState("");
     const [password, setPassword] = useState("");
 
+    const [method, setMethod] = useState("Register")
+
     const authCreateHandler = (e) => {
         e.preventDefault()
-        props.auth(email, password, true)
+        let meth = true
+        if(method==="Login") {
+            meth = false
+        }
+        props.auth(email, password, meth)
     }
 
+    const switchMethod = () => {
+        if(method === "Register") {
+            setMethod("Login")
+        } else if (method === "Login") {
+            setMethod("Register")
+        }
+    }
+
+    let redirect = true;
+    if(props.isAuth) {
+        redirect = <Redirect to="/app"/>
+    }
     return (
         <div className="auth__background">
+            {redirect}
             <div className="auth__container">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Whatsapp_logo.svg" alt="whatsapp logo"/>
                 <div className="authW__container">
-                    <h2>Login or create a new account</h2>
-                    <button type="submit">Create an account with Google</button>
+                    <h2><span onClick={switchMethod} className={method==="Register" ? "auth__loginButton": null}>Login</span> or <span onClick={switchMethod} className={!(method==="Register") ? "auth__registerButton": null}>create a new account</span></h2>
+                    <button type="submit">{method==="Register" ? "Create an account with Google" : "Login with Google"}</button>
                 </div>
                 <p>OR</p>
                 
                 <form className="authNormal__container">
-                <h4>Create an account with your informations</h4>
+                <h4>{method==="Register" ? "Create an account with your informations" : "Enter your information"}</h4>
                     <TextField onChange={(e) => setEmail(e.target.value)}
                         id="filled-password-input"
                         label="Email"
                         type="email"
                         value={email}
                     />
-                    <TextField onChange={(e) => setPseudo(e.target.value)}
+                    {method==="Register" ? <TextField onChange={(e) => setPseudo(e.target.value)}
                         id="filled-password-input"
                         label="Pseudo"
                         type="name"
+                        required
                         value={pseudo}
-                    />
-                    <span className="auth__available">Check if it is availble : <CloseIcon className="notOnScreen"/><DoneIcon/></span>
+                    />: null}
+                    {method==="Register" ? <span className="auth__available">Check if it is availble : <CloseIcon className="notOnScreen"/><DoneIcon/></span>: null}
                     <TextField onChange={(e) => setPassword(e.target.value)}
                         id="filled-password-input"
                         label="Password"
                         type="password"
                         value={password}
                     />
-                    <button type="submit" onClick={authCreateHandler}>Subscribe</button>
+                    <button type="submit" onClick={authCreateHandler}>{method==="Register" ? "Create an account" : "Login"}</button>
                 </form>
 
             </div>
@@ -57,9 +78,7 @@ const Auth = (props) => {
 
 const mapStateToProps = state => {
     return {
-        token: state.token,
-        userId: state.userId,
-        expirationTime: state.expirationTime
+        isAuth: state.token && true
     }
 }
 

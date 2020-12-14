@@ -17,6 +17,18 @@
     width: 50%;
     background: rgba(255, 255, 255, 0.514);
 
+    .auth__loginButton {
+        text-decoration: underline;
+        color: #00ba00;
+        cursor: pointer;
+    }
+
+    .auth__registerButton {
+        text-decoration: underline;
+        color: #00ba00;
+        cursor: pointer;
+    }
+
     button {
         width: 100%;
         padding: 10px;
