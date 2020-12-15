@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./Chat.scss";
 import SearchIcon from '@material-ui/icons/Search';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
@@ -13,15 +13,29 @@ import firebase from "firebase"
 const Chat = () => {
 
     const [message, setMessage] = useState("");
+    const [messageCanal, setMessageCanal] = useState([])
 
     let iconSend = message.length < 1 ? <MicIcon className="chat__sendMessageMic"/> : <SendIcon onClick={(e) => sendMessage(e, message)} className="chat__sendMessageMic"/>
 
+    useEffect(() => {
+        const unsubscribe = db.collection("messages").onSnapshot(snapshot => (
+            setMessageCanal(snapshot.docs.map(doc => (
+                {
+                    id: doc.id,
+                    data: doc.data()
+                }
+            )))
+        ))
+
+        return () => {
+            unsubscribe();
+        }
+    }, [])
 
     const sendMessage = (event, message) => {
         if(event) {
             event.preventDefault()
         }
-        
         setMessage("")
         db
             .collection("messages")
@@ -29,7 +43,7 @@ const Chat = () => {
                 timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                 message: message
             });
-        
+        console.log(messageCanal)
     }
 
     return (
@@ -49,7 +63,12 @@ const Chat = () => {
                 </div>
             </div>
             <div className="chat__content">
-                
+                {/* {messageCanal.map(mess => {
+                    return <Message message={mess.message} timestamp={mess.timestamp} reviever={true}/>
+                })} */}
+                {messageCanal.map(room => (
+                    <Message key={room.id} id={room.id} message={room.data.message}/>
+                ))}
             </div>
             <div className="chat__sendMessage">
                 <div className="chat__sendMessageEmoji">
