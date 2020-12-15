@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import "./Auth.scss";
 import TextField from '@material-ui/core/TextField';
@@ -15,21 +15,29 @@ const Auth = (props) => {
     const [method, setMethod] = useState("Register")
 
     const authCreateHandler = (e) => {
-        e.preventDefault()
-        let meth = true
+        e.preventDefault();
+        //props.registerMethod();
+        let meth = true;
         if(method==="Login") {
             meth = false
         }
-        props.auth(email, password, meth)
+        
+        props.auth(email, password, meth);
     }
 
     const switchMethod = () => {
         if(method === "Register") {
-            setMethod("Login")
+            //props.loginMethod();
+            setMethod("Login");
         } else if (method === "Login") {
-            setMethod("Register")
+            setMethod("Register");
+            //props.registerMethod();
         }
     }
+
+    useEffect(() => {
+        console.log(email, password)
+    })
 
     let redirect = true;
     if(props.isAuth) {
@@ -46,7 +54,7 @@ const Auth = (props) => {
                 </div>
                 <p>OR</p>
                 
-                <form className="authNormal__container">
+                <form className="authNormal__container" autoComplete="off">
                 <h4>{method==="Register" ? "Create an account with your informations" : "Enter your information"}</h4>
                     <TextField onChange={(e) => setEmail(e.target.value)}
                         id="filled-password-input"
@@ -79,12 +87,15 @@ const Auth = (props) => {
 const mapStateToProps = state => {
     return {
         isAuth: state.token && true,
+        userId: state.userId
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        auth: (e, p, registred) => dispatch(actions.auth(e, p, registred))
+        auth: (e, p, registred) => dispatch(actions.auth(e, p, registred)),
+        // loginMethod: () => dispatch(actions.loginMethod()),
+        // registerMethod: () => dispatch(actions.registerMethod())
     }
 }
 

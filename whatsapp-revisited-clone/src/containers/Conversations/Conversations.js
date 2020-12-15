@@ -12,11 +12,6 @@ const Conversations = () => {
                                       {Name: "Igor", last: "Hello, how it's going ?", timeStamp: "10:02"},
                                       {Name: "Igor", last: "Hello, how it's going ?", timeStamp: "10:02"},
                                       {Name: "Igor", last: "Hello, how it's going ?", timeStamp: "10:02"},
-                                      {Name: "Igor", last: "Hello, how it's going ?", timeStamp: "10:02"},
-                                      {Name: "Igor", last: "Hello, how it's going ?", timeStamp: "10:02"},
-                                      {Name: "Igor", last: "Hello, how it's going ?", timeStamp: "10:02"},
-                                      {Name: "Igor", last: "Hello, how it's going ?", timeStamp: "10:02"},
-                                      {Name: "Igor", last: "Hello, how it's going ?", timeStamp: "10:02"},
                                       {Name: "Igor", last: "Hello, how it's going ?", timeStamp: "10:02"}]);
 
     const expandMenuHandler = () => {
