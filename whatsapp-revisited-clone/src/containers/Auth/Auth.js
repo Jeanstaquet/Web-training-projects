@@ -6,12 +6,13 @@ import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
 import * as actions from "../../store/action/index";
 import { Redirect } from 'react-router-dom';
+import {auth, provider} from "../../firebase";
+import firebase from "firebase";
 
 const Auth = (props) => {
     const [email, setEmail] = useState("");
     const [pseudo, setPseudo] = useState("");
     const [password, setPassword] = useState("");
-
     const [method, setMethod] = useState("Register")
 
     const authCreateHandler = (e) => {
@@ -35,9 +36,14 @@ const Auth = (props) => {
         }
     }
 
-    useEffect(() => {
-        console.log(email, password)
-    })
+    const signWithGoogle = () => {
+        auth
+            .signInWithPopup(provider)
+            .then(result => (
+                console.log(result)
+            ))
+
+    } 
 
     let redirect = true;
     if(props.isAuth) {
@@ -50,11 +56,11 @@ const Auth = (props) => {
                 <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Whatsapp_logo.svg" alt="whatsapp logo"/>
                 <div className="authW__container">
                     <h2><span onClick={switchMethod} className={method==="Register" ? "auth__loginButton": null}>Login</span> or <span onClick={switchMethod} className={!(method==="Register") ? "auth__registerButton": null}>create a new account</span></h2>
-                    <button type="submit">{method==="Register" ? "Create an account with Google" : "Login with Google"}</button>
+                    <button onClick={signWithGoogle}>{method==="Register" ? "Create an account with Google" : "Login with Google"}</button>
                 </div>
                 <p>OR</p>
                 
-                <form className="authNormal__container" autoComplete="off">
+                <form className="authNormal__container">
                 <h4>{method==="Register" ? "Create an account with your informations" : "Enter your information"}</h4>
                     <TextField onChange={(e) => setEmail(e.target.value)}
                         id="filled-password-input"
@@ -93,7 +99,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        auth: (e, p, registred) => dispatch(actions.auth(e, p, registred)),
+        auth: (e, p, registred) => dispatch(actions.authEP(e, p, registred)),
         // loginMethod: () => dispatch(actions.loginMethod()),
         // registerMethod: () => dispatch(actions.registerMethod())
     }
