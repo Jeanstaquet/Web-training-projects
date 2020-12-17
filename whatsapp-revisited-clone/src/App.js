@@ -15,6 +15,7 @@ const App = (props) => {
   }
   return (
     <div className="app__container">
+
       <Switch>
         <Route  exact path="/">
           {auth}

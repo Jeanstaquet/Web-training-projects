@@ -36,15 +36,6 @@ const Auth = (props) => {
         }
     }
 
-    const signWithGoogle = () => {
-        auth
-            .signInWithPopup(provider)
-            .then(result => (
-                console.log(result)
-            ))
-
-    } 
-
     let redirect = true;
     if(props.isAuth) {
         redirect = <Redirect to="/app"/>
@@ -56,7 +47,7 @@ const Auth = (props) => {
                 <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Whatsapp_logo.svg" alt="whatsapp logo"/>
                 <div className="authW__container">
                     <h2><span onClick={switchMethod} className={method==="Register" ? "auth__loginButton": null}>Login</span> or <span onClick={switchMethod} className={!(method==="Register") ? "auth__registerButton": null}>create a new account</span></h2>
-                    <button onClick={signWithGoogle}>{method==="Register" ? "Create an account with Google" : "Login with Google"}</button>
+                    <button onClick={() => props.signWithGoogle()}>{method==="Register" ? "Create an account with Google" : "Login with Google"}</button>
                 </div>
                 <p>OR</p>
                 
@@ -102,6 +93,7 @@ const mapDispatchToProps = dispatch => {
         auth: (e, p, registred) => dispatch(actions.authEP(e, p, registred)),
         // loginMethod: () => dispatch(actions.loginMethod()),
         // registerMethod: () => dispatch(actions.registerMethod())
+        signWithGoogle: () => dispatch(actions.signWithGoogle())
     }
 }
 
