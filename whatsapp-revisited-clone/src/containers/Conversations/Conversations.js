@@ -13,7 +13,8 @@ const Conversations = (props) => {
 
     const [data, setData] = useState([{Name: "Jean", last: "Hello, how it's going ?", timeStamp: "10:01"}]);
     const [modal, setModal] = useState(false); 
-    const [conversationName, setConversationName] = useState("")
+    const [conversationName, setConversationName] = useState("");
+    const [fetchedConversations, setFetchecConversations] = useState([])
 
     const toggleModal = () => {
         setModal(true)
@@ -37,6 +38,22 @@ const Conversations = (props) => {
         setModal(false)
     }
 
+    useEffect(() => {
+        const unsubcribe = db.collection("Users")
+                .doc(props.userId)
+                .collection("conversations")
+                .onSnapshot(snapshot => setFetchecConversations(snapshot.docs.map((doc) => doc.data())))
+    
+        return () => {
+            unsubcribe();
+        }
+    
+    }, [])
+
+    useEffect(() => {
+        console.log(fetchedConversations)
+    })
+
     return (
         <div className="converstations__container">
             <Modal show={modal} click={toggleModalClose} change={changeModalHandler} ok={addConversationHandler}/>
@@ -57,11 +74,9 @@ const Conversations = (props) => {
             </div>
             <div className="conv__list">
                 <Conversation addNewConv={true} click={toggleModal}/>
-                {data.map((conv, i) => {
+                {fetchedConversations.map((conv, i) => {
                     return <Conversation key={i} 
-                                         name={conv.Name} 
-                                         lastMessage={conv.last} 
-                                         timeStamp={conv.timeStamp}/>
+                                         name={conv.name} />
                 })}
             </div>
         </div>

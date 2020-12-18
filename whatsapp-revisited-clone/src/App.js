@@ -20,7 +20,7 @@ const App = (props) => {
         <Route  exact path="/">
           {auth}
         </Route>
-        <Route exact path="/app">
+        <Route path={`/app`}>
           <Conversations/>
           <Chat/>
         </Route>
@@ -31,7 +31,8 @@ const App = (props) => {
 
 const mapStateToProps = state => {
   return {
-    loading: state.loading
+    loading: state.loading,
+    userId: state.userId
   }
 }
 
