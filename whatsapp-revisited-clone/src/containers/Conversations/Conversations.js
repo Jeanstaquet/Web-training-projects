@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import "./Conversations.scss";
 import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
@@ -8,28 +8,37 @@ import Conversation from "../../components/Conversation/Conversation";
 import {connect} from "react-redux";
 import Tooltip from '@material-ui/core/Tooltip';
 import Modal from "../../components/UI/Modal/Modal";
+import db from "../../firebase"
 const Conversations = (props) => {
 
     const [data, setData] = useState([{Name: "Jean", last: "Hello, how it's going ?", timeStamp: "10:01"}]);
     const [modal, setModal] = useState(false); 
+    const [conversationName, setConversationName] = useState("")
 
-    const newConvHandler = () => {
-        let name = prompt("Choose a name for the conversation");
-        console.log(name)
-    }
-    
     const toggleModal = () => {
         setModal(true)
     }
 
-    const toggleModalClose = () => {
+    const toggleModalClose = (e) => {
+        e.preventDefault();
         setModal(false)
+    }
+
+    const changeModalHandler = (e) => {
+        setConversationName(e.target.value)
+    }
+
+    const addConversationHandler = (e) => {
+        e.preventDefault()
+        db.collection("Users").doc(props.userId).add({
+            name: conversationName
+        })
+        setConversationName("");
     }
 
     return (
         <div className="converstations__container">
-            <Modal show={modal} click={toggleModalClose}/>
-
+            <Modal show={modal} click={toggleModalClose} change={changeModalHandler} ok={addConversationHandler}/>
             <div className="conv__account">
                 <Avatar src={props.photo}/>
                 <button>FEATURES</button>
@@ -60,7 +69,8 @@ const Conversations = (props) => {
 
 const mapStateToProps = state => {
     return {
-        photo: state.photo
+        photo: state.photo,
+        userId: state.userId
     }
 }
 
