@@ -30,10 +30,11 @@ const Conversations = (props) => {
 
     const addConversationHandler = (e) => {
         e.preventDefault()
-        db.collection("Users").doc(props.userId).add({
+        db.collection("Users").doc(props.userId).collection("conversations").doc(conversationName).set({
             name: conversationName
         })
         setConversationName("");
+        setModal(false)
     }
 
     return (
