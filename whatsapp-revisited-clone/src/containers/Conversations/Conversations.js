@@ -10,20 +10,26 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Modal from "../../components/UI/Modal/Modal";
 const Conversations = (props) => {
 
-    const [data, setData] = useState([{Name: "Jean", last: "Hello, how it's going ?", timeStamp: "10:01"},
-                                      {Name: "Igor", last: "Hello, how it's going ?", timeStamp: "10:02"},
-                                      {Name: "Igor", last: "Hello, how it's going ?", timeStamp: "10:02"},
-                                      {Name: "Igor", last: "Hello, how it's going ?", timeStamp: "10:02"},
-                                      {Name: "Igor", last: "Hello, how it's going ?", timeStamp: "10:02"}]);
+    const [data, setData] = useState([{Name: "Jean", last: "Hello, how it's going ?", timeStamp: "10:01"}]);
+    const [modal, setModal] = useState(false); 
 
     const newConvHandler = () => {
         let name = prompt("Choose a name for the conversation");
         console.log(name)
     }
     
+    const toggleModal = () => {
+        setModal(true)
+    }
+
+    const toggleModalClose = () => {
+        setModal(false)
+    }
+
     return (
         <div className="converstations__container">
-            <Modal/>
+            <Modal show={modal} click={toggleModalClose}/>
+
             <div className="conv__account">
                 <Avatar src={props.photo}/>
                 <button>FEATURES</button>
@@ -40,7 +46,7 @@ const Conversations = (props) => {
                 <SearchIcon className="conv__glass"/>
             </div>
             <div className="conv__list">
-                <Conversation addNewConv={true} click={newConvHandler}/>
+                <Conversation addNewConv={true} click={toggleModal}/>
                 {data.map((conv, i) => {
                     return <Conversation key={i} 
                                          name={conv.Name} 

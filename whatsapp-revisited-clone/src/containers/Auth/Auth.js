@@ -15,6 +15,7 @@ const Auth = (props) => {
     const [password, setPassword] = useState("");
     const [method, setMethod] = useState("Register")
 
+
     const authCreateHandler = (e) => {
         e.preventDefault();
         //props.registerMethod();
