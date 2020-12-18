@@ -8,7 +8,8 @@ import Conversation from "../../components/Conversation/Conversation";
 import {connect} from "react-redux";
 import Tooltip from '@material-ui/core/Tooltip';
 import Modal from "../../components/UI/Modal/Modal";
-import db from "../../firebase"
+import db from "../../firebase";
+import * as actions from "../../store/action/index"
 const Conversations = (props) => {
 
     const [data, setData] = useState([{Name: "Jean", last: "Hello, how it's going ?", timeStamp: "10:01"}]);
@@ -50,10 +51,6 @@ const Conversations = (props) => {
     
     }, [])
 
-    useEffect(() => {
-        console.log(fetchedConversations)
-    })
-
     return (
         <div className="converstations__container">
             <Modal show={modal} click={toggleModalClose} change={changeModalHandler} ok={addConversationHandler}/>
@@ -76,7 +73,9 @@ const Conversations = (props) => {
                 <Conversation addNewConv={true} click={toggleModal}/>
                 {fetchedConversations.map((conv, i) => {
                     return <Conversation key={i} 
-                                         name={conv.name} />
+                                         name={conv.name} 
+                                         roomname={conv.name}
+                                         dispatchRoomName={() => props.roomNameHandler(conv.name)}/>
                 })}
             </div>
         </div>
@@ -90,5 +89,11 @@ const mapStateToProps = state => {
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        roomNameHandler: (r) => dispatch(actions.roomNameHandler(r))
+    }
+}
 
-export default connect(mapStateToProps, null)(Conversations);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Conversations);

@@ -10,7 +10,8 @@ import SendIcon from '@material-ui/icons/Send';
 import Message from "../../components/Message/Message";
 import db from "../../firebase";
 import firebase from "firebase"
-const Chat = () => {
+import { withRouter } from "react-router";
+const Chat = (props) => {
 
     const [message, setMessage] = useState("");
     const [messageCanal, setMessageCanal] = useState([])
@@ -45,6 +46,8 @@ const Chat = () => {
             });
         console.log(messageCanal)
     }
+
+    console.log(props.match.params)
 
     return (
         <div className="chat__container">
@@ -85,4 +88,4 @@ const Chat = () => {
     );
 };
 
-export default Chat;
+export default withRouter(Chat);
