@@ -19,33 +19,30 @@ const Chat = (props) => {
     let iconSend = mess.length < 1 ? <MicIcon className="chat__sendMessageMic"/> : <SendIcon onClick={(e) => sendMessage(e, mess)} className="chat__sendMessageMic"/>
 
     useEffect(() => {
-        const unsubscribe = db.collection("messages").onSnapshot(snapshot => (
-            setMessageCanal(snapshot.docs.map(doc => (
-                {
-                    id: doc.id,
-                    data: doc.data()
-                }
-            )))
-        ))
+        if(props.userId && props.roomName) {
+            const unsubscribe = 
+            db
+            .collection("Users")
+            .doc(props.userId)
+            .collection("conversations")
+            .doc(props.roomName)
+            .collection("messages")
+            .orderBy("timestamp", "asc")
+            .onSnapshot(snapshot => (
+                setMessageCanal(snapshot.docs.map(doc => (
+                    {
+                        data: doc.data()
+                    }
+                )))
+            ))
+        }
+
 
         return () => {
-            unsubscribe();
-        }
-    }, [])
 
-    // const sendMessage = (event, message) => {
-    //     if(event) {
-    //         event.preventDefault()
-    //     }
-    //     setMessage("")
-    //     db
-    //         .collection("messages")
-    //         .add({
-    //             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    //             message: message
-    //         });
-    //     console.log(messageCanal)
-    // }
+        }
+    }, [props.roomName])
+
 
     const sendMessage = (event, message) => {
         if(event) {
@@ -94,7 +91,7 @@ const Chat = (props) => {
                     return <Message message={mess.message} timestamp={mess.timestamp} reviever={true}/>
                 })} */}
                 {messageCanal.map(room => (
-                    <Message key={room.id} id={room.id} message={room.data.mess}/>
+                    <Message key={room.id} message={room.data.message}/>
                 ))}
             </div>
             <div className="chat__sendMessage">
