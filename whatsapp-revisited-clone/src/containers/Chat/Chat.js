@@ -10,13 +10,13 @@ import SendIcon from '@material-ui/icons/Send';
 import Message from "../../components/Message/Message";
 import db from "../../firebase";
 import firebase from "firebase"
-import { withRouter } from "react-router";
+import {connect} from "react-redux"
 const Chat = (props) => {
 
-    const [message, setMessage] = useState("");
+    const [mess, setMessage] = useState("");
     const [messageCanal, setMessageCanal] = useState([])
 
-    let iconSend = message.length < 1 ? <MicIcon className="chat__sendMessageMic"/> : <SendIcon onClick={(e) => sendMessage(e, message)} className="chat__sendMessageMic"/>
+    let iconSend = mess.length < 1 ? <MicIcon className="chat__sendMessageMic"/> : <SendIcon onClick={(e) => sendMessage(e, mess)} className="chat__sendMessageMic"/>
 
     useEffect(() => {
         const unsubscribe = db.collection("messages").onSnapshot(snapshot => (
@@ -33,21 +33,45 @@ const Chat = (props) => {
         }
     }, [])
 
+    // const sendMessage = (event, message) => {
+    //     if(event) {
+    //         event.preventDefault()
+    //     }
+    //     setMessage("")
+    //     db
+    //         .collection("messages")
+    //         .add({
+    //             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    //             message: message
+    //         });
+    //     console.log(messageCanal)
+    // }
+
     const sendMessage = (event, message) => {
         if(event) {
             event.preventDefault()
         }
-        setMessage("")
+
         db
+            .collection("Users")
+            .doc(props.userId)
+            .collection("conversations")
+            .doc(props.roomName)
             .collection("messages")
             .add({
+                message: mess,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                message: message
-            });
-        console.log(messageCanal)
+                sender: "eee"
+            })
+
+            setMessage("")
     }
 
-    console.log(props.match.params)
+    // .set({
+    //     message: message,
+    //     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    //     sender: props.email
+    // })
 
     return (
         <div className="chat__container">
@@ -70,7 +94,7 @@ const Chat = (props) => {
                     return <Message message={mess.message} timestamp={mess.timestamp} reviever={true}/>
                 })} */}
                 {messageCanal.map(room => (
-                    <Message key={room.id} id={room.id} message={room.data.message}/>
+                    <Message key={room.id} id={room.id} message={room.data.mess}/>
                 ))}
             </div>
             <div className="chat__sendMessage">
@@ -79,8 +103,8 @@ const Chat = (props) => {
                     <AttachFileIcon/>
                 </div>
                 <form className="chat__sendMessageContent">
-                    <input type="text" onChange={(e) => setMessage(e.target.value)} value={message}/>
-                    <button type="submit" onClick={(event) =>sendMessage(event, message)}></button>
+                    <input type="text" onChange={(e) => setMessage(e.target.value)} value={mess}/>
+                    <button type="submit" onClick={(event) => sendMessage(event, mess)}></button>
                 </form>
                 {iconSend}
             </div>
@@ -88,4 +112,13 @@ const Chat = (props) => {
     );
 };
 
-export default withRouter(Chat);
+const mapStateToProps = state => {
+    return {
+        userId: state.userId,
+        roomName: state.roomName,
+        email: state.email
+    }
+}
+
+
+export default connect(mapStateToProps, null)(Chat);
