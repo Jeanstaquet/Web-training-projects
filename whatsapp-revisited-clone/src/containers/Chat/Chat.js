@@ -57,7 +57,7 @@ const Chat = (props) => {
             .add({
                 message: mess,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                sender: "eee"
+                sender: props.pseudo
             })
 
             setMessage("")
@@ -113,7 +113,8 @@ const mapStateToProps = state => {
     return {
         userId: state.userId,
         roomName: state.roomName,
-        email: state.email
+        email: state.email,
+        pseudo: state.pseudo
     }
 }
 

@@ -11,11 +11,11 @@ import Modal from "../../components/UI/Modal/Modal";
 import db from "../../firebase";
 import * as actions from "../../store/action/index"
 const Conversations = (props) => {
-
-    const [data, setData] = useState([{Name: "Jean", last: "Hello, how it's going ?", timeStamp: "10:01"}]);
     const [modal, setModal] = useState(false); 
     const [conversationName, setConversationName] = useState("");
     const [fetchedConversations, setFetchecConversations] = useState([])
+    const [contact, setContact] = useState("");
+    const [errorMessage, setErrorMessage] = useState("")
 
     const toggleModal = () => {
         setModal(true)
@@ -30,13 +30,27 @@ const Conversations = (props) => {
         setConversationName(e.target.value)
     }
 
+
+    const changeContactHandler = (e) => {
+        setContact(e.target.value)
+    }
+
     const addConversationHandler = (e) => {
         e.preventDefault()
-        db.collection("Users").doc(props.userId).collection("conversations").doc(conversationName).set({
-            name: conversationName
-        })
-        setConversationName("");
-        setModal(false)
+        if(contact.length === 0 || conversationName.length === 0) {
+            setErrorMessage("You have to add an chat name and/or a valid pseudo name")
+            setTimeout(() => {
+                setErrorMessage("")
+            }, 5000)
+        } else {
+
+            db.collection("Users").doc(props.userId).collection("conversations").doc(conversationName).set({
+                name: conversationName
+            })
+            setConversationName("");
+            setModal(false)
+        }
+
     }
 
     useEffect(() => {
@@ -53,7 +67,12 @@ const Conversations = (props) => {
 
     return (
         <div className="converstations__container">
-            <Modal show={modal} click={toggleModalClose} change={changeModalHandler} ok={addConversationHandler}/>
+            <Modal show={modal} 
+                   click={toggleModalClose} 
+                   change={changeModalHandler}
+                   changeContact={changeContactHandler} 
+                   ok={addConversationHandler}
+                   errorMessage={errorMessage}/>
             <div className="conv__account">
                 <Avatar src={props.photo}/>
                 <button>FEATURES</button>
