@@ -24,7 +24,7 @@ const Auth = (props) => {
             meth = false
         }
         
-        props.auth(email, password, meth);
+        props.auth(email, password, pseudo, meth);
     }
 
     const switchMethod = () => {
@@ -91,7 +91,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        auth: (e, p, registred) => dispatch(actions.authEP(e, p, registred)),
+        auth: (e, p, pseudo, registred) => dispatch(actions.authEP(e, p, pseudo, registred)),
         // loginMethod: () => dispatch(actions.loginMethod()),
         // registerMethod: () => dispatch(actions.registerMethod())
         signWithGoogle: () => dispatch(actions.signWithGoogle())
