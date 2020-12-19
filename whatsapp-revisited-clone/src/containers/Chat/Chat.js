@@ -20,7 +20,6 @@ const Chat = (props) => {
 
     useEffect(() => {
         if(props.userId && props.roomName) {
-            const unsubscribe = 
             db
             .collection("Users")
             .doc(props.userId)
@@ -63,12 +62,13 @@ const Chat = (props) => {
 
             setMessage("")
     }
+    let messageBody = document.querySelector('.chat__content');
+    if(messageBody) {
+        messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
+    }
 
-    // .set({
-    //     message: message,
-    //     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    //     sender: props.email
-    // })
+
+
 
     return (
         <div className="chat__container">
@@ -90,8 +90,8 @@ const Chat = (props) => {
                 {/* {messageCanal.map(mess => {
                     return <Message message={mess.message} timestamp={mess.timestamp} reviever={true}/>
                 })} */}
-                {messageCanal.map(room => (
-                    <Message key={room.id} message={room.data.message}/>
+                {messageCanal.map((room, index) => (
+                    <Message key={index} message={room.data.message}/>
                 ))}
             </div>
             <div className="chat__sendMessage">
@@ -100,7 +100,7 @@ const Chat = (props) => {
                     <AttachFileIcon/>
                 </div>
                 <form className="chat__sendMessageContent">
-                    <input type="text" onChange={(e) => setMessage(e.target.value)} value={mess}/>
+                    <input disabled={props.roomName===null} type="text" onChange={(e) => setMessage(e.target.value)} value={mess}/>
                     <button type="submit" onClick={(event) => sendMessage(event, mess)}></button>
                 </form>
                 {iconSend}
