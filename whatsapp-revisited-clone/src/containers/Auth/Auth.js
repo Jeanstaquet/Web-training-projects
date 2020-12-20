@@ -13,18 +13,26 @@ const Auth = (props) => {
     const [email, setEmail] = useState("");
     const [pseudo, setPseudo] = useState("");
     const [password, setPassword] = useState("");
-    const [method, setMethod] = useState("Register")
+    const [method, setMethod] = useState("Register");
+    const [errorMessage, setErrorMessage] = useState(false)
 
 
     const authCreateHandler = (e) => {
         e.preventDefault();
         //props.registerMethod();
-        let meth = true;
-        if(method==="Login") {
-            meth = false
+        if(pseudo.length < 1 || email.length < 1 || password < 1) {
+            setErrorMessage(true)
+            setTimeout(() => {
+                setErrorMessage(false)
+            }, 5000)
+        } else {
+            let meth = true;
+            if(method==="Login") {
+                meth = false
+            }
+            
+            props.auth(email, password, pseudo, meth);
         }
-        
-        props.auth(email, password, pseudo, meth);
     }
 
     const switchMethod = () => {
@@ -54,6 +62,7 @@ const Auth = (props) => {
                 
                 <form className="authNormal__container">
                 <h4>{method==="Register" ? "Create an account with your informations" : "Enter your information"}</h4>
+                    {errorMessage ? <p className="error__message">You should include a pseudo, email and password</p> : null}
                     <TextField onChange={(e) => setEmail(e.target.value)}
                         id="filled-password-input"
                         label="Email"
