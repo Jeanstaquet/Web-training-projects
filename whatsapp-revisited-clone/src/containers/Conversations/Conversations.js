@@ -15,7 +15,7 @@ const Conversations = (props) => {
     const [conversationName, setConversationName] = useState("");
     const [fetchedConversations, setFetchecConversations] = useState([])
     const [contact, setContact] = useState("");
-    const [errorMessage, setErrorMessage] = useState("")
+    const [errorMessage, setErrorMessage] = useState("");
 
     const toggleModal = () => {
         setModal(true)
@@ -45,7 +45,8 @@ const Conversations = (props) => {
         } else {
 
             db.collection("Users").doc(props.userId).collection("conversations").doc(conversationName).set({
-                name: conversationName
+                name: conversationName,
+                contact: contact
             })
             setConversationName("");
             setModal(false)
@@ -54,6 +55,7 @@ const Conversations = (props) => {
     }
 
     useEffect(() => {
+        if(props.userId) {}
         const unsubcribe = db.collection("Users")
                 .doc(props.userId)
                 .collection("conversations")
@@ -64,6 +66,7 @@ const Conversations = (props) => {
         }
     
     }, [])
+
 
     return (
         <div className="converstations__container">

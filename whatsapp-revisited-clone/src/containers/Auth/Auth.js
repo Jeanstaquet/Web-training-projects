@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import "./Auth.scss";
 import TextField from '@material-ui/core/TextField';
@@ -6,8 +6,6 @@ import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
 import * as actions from "../../store/action/index";
 import { Redirect } from 'react-router-dom';
-import {auth, provider} from "../../firebase";
-import firebase from "firebase";
 
 const Auth = (props) => {
     const [email, setEmail] = useState("");
@@ -15,7 +13,7 @@ const Auth = (props) => {
     const [password, setPassword] = useState("");
     const [method, setMethod] = useState("Register");
     const [errorMessage, setErrorMessage] = useState(false)
-
+    const [data, setData] = useState([])
 
     const authCreateHandler = (e) => {
         e.preventDefault();
@@ -35,6 +33,7 @@ const Auth = (props) => {
         }
     }
 
+
     const switchMethod = () => {
         if(method === "Register") {
             //props.loginMethod();
@@ -44,6 +43,7 @@ const Auth = (props) => {
             //props.registerMethod();
         }
     }
+
 
     let redirect = true;
     if(props.isAuth) {
