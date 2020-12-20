@@ -97,7 +97,7 @@ const Conversations = (props) => {
                     return <Conversation key={i} 
                                          name={conv.name} 
                                          roomname={conv.name}
-                                         dispatchRoomName={() => props.roomNameHandler(conv.name)}/>
+                                         dispatchRoomName={() => props.roomNameHandler(conv.name, conv.contact)}/>
                 })}
             </div>
         </div>
@@ -113,7 +113,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        roomNameHandler: (r) => dispatch(actions.roomNameHandler(r))
+        roomNameHandler: (r, c) => dispatch(actions.roomNameHandler(r, c))
     }
 }
 

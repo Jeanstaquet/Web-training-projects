@@ -76,7 +76,7 @@ const Chat = (props) => {
                 <div className="chat__bannerInfo">
                     <Avatar className="chat__bannerAvatar"/>
                     <div className="chat__info">
-                        <p>Name</p>
+                        <p>{props.contact}</p>
                         <p>Person</p>
                     </div>
 
@@ -114,7 +114,8 @@ const mapStateToProps = state => {
         userId: state.userId,
         roomName: state.roomName,
         email: state.email,
-        pseudo: state.pseudo
+        pseudo: state.pseudo,
+        contact: state.contact
     }
 }
 
