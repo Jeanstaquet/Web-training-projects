@@ -38,7 +38,7 @@ const fetchOrdersSuccess = ( state, action ) => {
         loading: false
     } );
 };
-
+//
 const fetchOrdersFail = ( state, action ) => {
     return updateObject( state, { loading: false } );
 };
