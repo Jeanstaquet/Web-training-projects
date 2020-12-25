@@ -42,7 +42,7 @@ const fetchOrdersSuccess = ( state, action ) => {
 const fetchOrdersFail = ( state, action ) => {
     return updateObject( state, { loading: false } );
 };
-//
+
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
         case actionTypes.PURCHASE_INIT: return purchaseInit( state, action );
