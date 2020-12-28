@@ -11,7 +11,8 @@ const initalState = {
     isNew: null,
     roomName: null, 
     contact: null,
-    fail: false
+    fail: false,
+    contactDetails: null
 }
 
 const reducer = (state = initalState, action) => {
@@ -79,6 +80,11 @@ const reducer = (state = initalState, action) => {
                 ...state,
                 roomName: action.roomName,
                 contact: action.contact
+            }
+        case "CONTACT_DATA":
+            return {
+                ...state,
+                contactDetails: action.details
             }
         default: 
             return {

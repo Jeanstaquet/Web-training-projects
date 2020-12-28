@@ -130,3 +130,10 @@ export const roomNameHandler = (roomName, contact) => {
         contact: contact
     }
 }
+
+export const contactDetails = (details) => {
+    return {
+        type: "CONTACT_DATA",
+        details: details
+    }
+}

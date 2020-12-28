@@ -4,5 +4,6 @@ export {
     // registerMethod
     signWithGoogle,
     roomNameHandler,
-    authReset
+    authReset,
+    contactDetails,
 } from "./auth"

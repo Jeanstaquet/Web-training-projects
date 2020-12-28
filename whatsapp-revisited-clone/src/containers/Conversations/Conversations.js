@@ -65,6 +65,7 @@ const Conversations = (props) => {
                 }, 2500)
             }
             querySnapshot.forEach(function(doc) {
+                
                 db.collection("Users").doc(props.userId).collection("conversations").doc(conversationName).set({
                     name: conversationName,
                     contact: contact
