@@ -35,13 +35,7 @@ const Chat = (props) => {
                 )))
             ))
         }
-
-
-        return () => {
-
-        }
-    }, [props.roomName])
-
+    }, [props.roomName]);
 
     const sendMessage = (event, message) => {
         if(event) {

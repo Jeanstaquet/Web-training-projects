@@ -41,18 +41,41 @@ const Conversations = (props) => {
             setErrorMessage("You have to add an chat name and/or a valid pseudo name")
             setTimeout(() => {
                 setErrorMessage("")
-            }, 5000)
+            }, 2500)
         } else {
+            checkPseudo(contact)
+            if(errorMessage.length > 1) {
 
-            db.collection("Users").doc(props.userId).collection("conversations").doc(conversationName).set({
-                name: conversationName,
-                contact: contact
-            })
-            setConversationName("");
-            setModal(false)
+            } else {
+
+            }
+
         }
 
     }
+
+    const checkPseudo = (name) => {
+        db.collection("Users").where("pseudo", "==", name)
+        .get()
+        .then((querySnapshot) => {
+            if(querySnapshot.empty) {
+                setErrorMessage("This userd don't exist")
+                setTimeout(() => {
+                    setErrorMessage("")
+                }, 2500)
+            }
+            querySnapshot.forEach(function(doc) {
+                db.collection("Users").doc(props.userId).collection("conversations").doc(conversationName).set({
+                    name: conversationName,
+                    contact: contact
+                })
+                setConversationName("");
+                setModal(false)
+            });
+        })
+    }
+
+
 
     useEffect(() => {
         if(props.userId) {}
@@ -77,7 +100,7 @@ const Conversations = (props) => {
                    ok={addConversationHandler}
                    errorMessage={errorMessage}/>
             <div className="conv__account">
-                <Avatar src={props.photo}/>
+                <Avatar className="conv__avatar" src={props.photo}>{props.pseudo[0]}</Avatar>
                 <button>FEATURES</button>
                 <div className="conv__accountIcons">
                     <Tooltip title="Add a new feature" arrow>
@@ -107,7 +130,8 @@ const Conversations = (props) => {
 const mapStateToProps = state => {
     return {
         photo: state.photo,
-        userId: state.userId
+        userId: state.userId,
+        pseudo: state.pseudo
     }
 }
 
