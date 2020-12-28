@@ -3,5 +3,6 @@ export {
     // loginMethod,
     // registerMethod
     signWithGoogle,
-    roomNameHandler
+    roomNameHandler,
+    authReset
 } from "./auth"

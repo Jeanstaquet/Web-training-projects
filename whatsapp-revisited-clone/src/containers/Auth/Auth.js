@@ -105,7 +105,8 @@ const mapDispatchToProps = dispatch => {
         auth: (e, p, pseudo, registred) => dispatch(actions.authEP(e, p, pseudo, registred)),
         // loginMethod: () => dispatch(actions.loginMethod()),
         // registerMethod: () => dispatch(actions.registerMethod())
-        signWithGoogle: () => dispatch(actions.signWithGoogle())
+        signWithGoogle: () => dispatch(actions.signWithGoogle()),
+        authReset: () => dispatch(actions.authReset())
     }
 }
 

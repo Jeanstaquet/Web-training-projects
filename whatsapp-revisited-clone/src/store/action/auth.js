@@ -67,10 +67,12 @@ export const authEP = (email, password, pseudo, isRegister) => {
                     });
                 }
                 dispatch(authSuccess(res.data.idToken, res.data.localId, pseudo ,60))
-
             })
             .catch(error => {
                 dispatch(authFail(error.response.data.error.message))
+                setTimeout(() => {
+                    dispatch(authReset())
+                }, 5000);
         })
     }
 }
