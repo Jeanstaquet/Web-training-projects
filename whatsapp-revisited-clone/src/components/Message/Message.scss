@@ -1,0 +1,21 @@
+.message__container {
+    background-color: whitesmoke;
+    width: fit-content;
+    padding: 10px;
+    border-radius: 12px;
+    position: relative;
+    margin: 20px 0;
+
+    span {
+        position: absolute;
+        bottom: 4px;
+        right: 7px;
+        font-size: 0.7rem;
+
+    }
+}
+
+.sender {
+    margin-left: auto;
+    background-color: #00e676;
+}

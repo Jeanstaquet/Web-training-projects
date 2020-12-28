@@ -12,8 +12,7 @@ const Auth = (props) => {
     const [pseudo, setPseudo] = useState("");
     const [password, setPassword] = useState("");
     const [method, setMethod] = useState("Register");
-    const [errorMessage, setErrorMessage] = useState(false)
-    const [data, setData] = useState([])
+    const [errorMessage, setErrorMessage] = useState(false);
 
     const authCreateHandler = (e) => {
         e.preventDefault();
@@ -63,6 +62,7 @@ const Auth = (props) => {
                 <form className="authNormal__container">
                 <h4>{method==="Register" ? "Create an account with your informations" : "Enter your information"}</h4>
                     {errorMessage ? <p className="error__message">You should include a pseudo, email and password</p> : null}
+                    {props.message ? <p className="error__message">{props.message}</p> : null}
                     <TextField onChange={(e) => setEmail(e.target.value)}
                         id="filled-password-input"
                         label="Email"
@@ -94,7 +94,9 @@ const Auth = (props) => {
 const mapStateToProps = state => {
     return {
         isAuth: state.token && true,
-        userId: state.userId
+        userId: state.userId,
+        message: state.error,
+        fail: state.fail
     }
 }
 
