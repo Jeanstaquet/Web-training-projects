@@ -65,7 +65,7 @@ const Conversations = (props) => {
                 }, 2500)
             }
             querySnapshot.forEach(function(doc) {
-                
+                props.contactDetails(doc.data())
                 db.collection("Users").doc(props.userId).collection("conversations").doc(conversationName).set({
                     name: conversationName,
                     contact: contact
@@ -138,7 +138,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        roomNameHandler: (r, c) => dispatch(actions.roomNameHandler(r, c))
+        roomNameHandler: (r, c) => dispatch(actions.roomNameHandler(r, c)),
+        contactDetails: (d) => dispatch(actions.contactDetails(d))
     }
 }
 
