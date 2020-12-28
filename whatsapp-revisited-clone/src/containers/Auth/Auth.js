@@ -17,19 +17,21 @@ const Auth = (props) => {
     const authCreateHandler = (e) => {
         e.preventDefault();
         //props.registerMethod();
-        if(pseudo.length < 1 || email.length < 1 || password < 1) {
+        if(method ==="Login") {
+
+        } else if(pseudo.length < 1 || email.length < 1 || password < 1) {
             setErrorMessage(true)
             setTimeout(() => {
                 setErrorMessage(false)
             }, 5000)
-        } else {
-            let meth = true;
-            if(method==="Login") {
-                meth = false
-            }
-            
-            props.auth(email, password, pseudo, meth);
         }
+        let meth = true;
+        if(method==="Login") {
+            meth = false
+        }
+        
+        props.auth(email, password, pseudo, meth);
+    
     }
 
 
