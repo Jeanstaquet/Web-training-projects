@@ -70,14 +70,19 @@ const Conversations = (props) => {
                     name: conversationName,
                     contact: contact
                 })
+
+                db.collection("Users").doc(props.contactData.userId).collection("conversations").doc(conversationName).set({
+                    name: conversationName,
+                    contact: props.pseudo
+                })
                 setConversationName("");
                 setModal(false)
             });
         })
     }
+    useEffect(() => console.log(props.contactData))
 
-
-
+ 
     useEffect(() => {
         if(props.userId) {}
         const unsubcribe = db.collection("Users")
@@ -132,7 +137,8 @@ const mapStateToProps = state => {
     return {
         photo: state.photo,
         userId: state.userId,
-        pseudo: state.pseudo
+        pseudo: state.pseudo,
+        contactData: state.contactDetails
     }
 }
 
