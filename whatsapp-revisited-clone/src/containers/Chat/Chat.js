@@ -94,7 +94,7 @@ const Chat = (props) => {
                     return <Message message={mess.message} timestamp={mess.timestamp} reviever={true}/>
                 })} */}
                 {messageCanal.map((room, index) => (
-                    <Message key={index} message={room.data.message} reciever={room.data.sender == props.pseudo ? false : true}/>
+                    <Message key={index} message={room.data.message} reciever={room.data.sender == props.pseudo ? true : false}/>
                 ))}
             </div>
             <div className="chat__sendMessage">
