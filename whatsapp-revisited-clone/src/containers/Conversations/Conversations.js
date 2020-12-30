@@ -44,12 +44,6 @@ const Conversations = (props) => {
             }, 2500)
         } else {
             checkPseudo(contact)
-            if(errorMessage.length > 1) {
-
-            } else {
-
-            }
-
         }
 
     }
@@ -68,7 +62,7 @@ const Conversations = (props) => {
                 props.contactDetails(doc.data())
                 db.collection("Users").doc(props.userId).collection("conversations").doc(conversationName).set({
                     name: conversationName,
-                    contact: contact
+                    contact: doc.data()
                 })
 
                 db.collection("Users").doc(doc.data().userId).collection("conversations").doc(conversationName).set({
@@ -125,7 +119,7 @@ const Conversations = (props) => {
                     return <Conversation key={i} 
                                          name={conv.name} 
                                          roomname={conv.name}
-                                         dispatchRoomName={() => props.roomNameHandler(conv.name, conv.contact)}/>
+                                         dispatchRoomName={() => props.roomNameHandler(conv.name, conv.contact.pseudo)}/>
                 })}
             </div>
         </div>
