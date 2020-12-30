@@ -51,7 +51,7 @@ const Chat = (props) => {
             .add({
                 message: mess,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                sender: props.pseudo
+                sender: props.pseudo.pseudo
             })
         //Query for the contact     
         db
@@ -63,7 +63,7 @@ const Chat = (props) => {
         .add({
             message: mess,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            sender: props.pseudo
+            sender: props.pseudo.pseudo
         })
 
             setMessage("");
@@ -94,7 +94,7 @@ const Chat = (props) => {
                     return <Message message={mess.message} timestamp={mess.timestamp} reviever={true}/>
                 })} */}
                 {messageCanal.map((room, index) => (
-                    <Message key={index} message={room.data.message} reciever={room.data.sender == props.pseudo ? true : false}/>
+                    <Message key={index} message={room.data.message} reciever={room.data.sender == props.pseudo ? false : true}/>
                 ))}
             </div>
             <div className="chat__sendMessage">

@@ -68,7 +68,7 @@ const Conversations = (props) => {
 
                 db.collection("Users").doc(doc.data().userId).collection("conversations").doc(conversationName).set({
                     name: conversationName,
-                    contact: props.pseudo
+                    contact: props.dataForContact
                 })
                 setConversationName("");
                 setModal(false)
@@ -88,6 +88,7 @@ const Conversations = (props) => {
     
     }, [])
 
+
     return (
         <div className="converstations__container">
             <Modal show={modal} 
@@ -97,7 +98,7 @@ const Conversations = (props) => {
                    ok={addConversationHandler}
                    errorMessage={errorMessage}/>
             <div className="conv__account">
-                <Avatar className="conv__avatar" src={props.photo}>{props.pseudo ? props.pseudo[0] : null}</Avatar>
+                <Avatar className="conv__avatar" src={props.photo}>{props.pseudo !== null ? props.pseudo.pseudo[0] : null}</Avatar>
                 <button>FEATURES</button>
                 <div className="conv__accountIcons">
                     <Tooltip title="Add a new feature" arrow>
@@ -129,7 +130,8 @@ const mapStateToProps = state => {
         photo: state.photo,
         userId: state.userId,
         pseudo: state.pseudo,
-        contactData: state.contactDetails
+        contactData: state.contactDetails,
+        dataForContact: state.pseudo
     }
 }
 

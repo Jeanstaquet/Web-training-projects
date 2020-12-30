@@ -72,14 +72,15 @@ export const authEP = (email, password, pseudo, isRegister) => {
                         password: password
                     });
                 } else {
-                    db.collection("Users").where("userId", "==", res.data.localId)
-                    .get()
-                    .then((querySnapShot) => {
-                        querySnapShot.forEach(function(doc) {
-                            dispatch(pseudoHandler(doc.data().pseudo))
-                        })
-                    })
+
                 }
+                db.collection("Users").where("userId", "==", res.data.localId)
+                .get()
+                .then((querySnapShot) => {
+                    querySnapShot.forEach(function(doc) {
+                        dispatch(pseudoHandler(doc.data()))
+                    })
+                })
 
                 // let dat = db.collection("Users").doc(res.data.localId).get()
                 // console.log(dat.data())
