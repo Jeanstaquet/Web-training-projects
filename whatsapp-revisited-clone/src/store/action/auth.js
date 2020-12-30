@@ -81,9 +81,6 @@ export const authEP = (email, password, pseudo, isRegister) => {
                         dispatch(pseudoHandler(doc.data()))
                     })
                 })
-
-                // let dat = db.collection("Users").doc(res.data.localId).get()
-                // console.log(dat.data())
                 dispatch(authSuccess(res.data.idToken, res.data.localId, 60))
             })
             .catch(error => {

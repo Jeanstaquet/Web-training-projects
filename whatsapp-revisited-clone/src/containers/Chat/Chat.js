@@ -93,7 +93,10 @@ const Chat = (props) => {
                     return <Message message={mess.message} timestamp={mess.timestamp} reviever={true}/>
                 })} */}
                 {messageCanal.map((room, index) => (
-                    <Message key={index} message={room.data.message} reciever={room.data.sender == props.pseudo.pseudo ? false : true}/>
+                    <Message key={index} 
+                             message={room.data.message} 
+                             reciever={room.data.sender == props.pseudo.pseudo ? false : true}
+                             timestamp={(new Date(room.data.timestamp.seconds * 1000)).toLocaleDateString('en-UK')} />
                 ))}
             </div>
             <div className="chat__sendMessage">
