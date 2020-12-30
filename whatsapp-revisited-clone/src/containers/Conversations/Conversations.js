@@ -63,6 +63,7 @@ const Conversations = (props) => {
                 db.collection("Users").doc(props.userId).collection("conversations").doc(conversationName).set({
                     name: conversationName,
                     contact: doc.data()
+
                 })
 
                 db.collection("Users").doc(doc.data().userId).collection("conversations").doc(conversationName).set({
@@ -75,9 +76,7 @@ const Conversations = (props) => {
         })
     }
 
- 
     useEffect(() => {
-        if(props.userId) {}
         const unsubcribe = db.collection("Users")
                 .doc(props.userId)
                 .collection("conversations")
@@ -89,6 +88,7 @@ const Conversations = (props) => {
     
     }, [])
 
+    useEffect(() => console.log(fetchedConversations))
 
     return (
         <div className="converstations__container">
@@ -119,7 +119,7 @@ const Conversations = (props) => {
                     return <Conversation key={i} 
                                          name={conv.name} 
                                          roomname={conv.name}
-                                         dispatchRoomName={() => props.roomNameHandler(conv.name, conv.contact.pseudo)}/>
+                                         dispatchRoomName={() => props.roomNameHandler(conv.name, conv.contact.pseudo, conv.contact)}/>
                 })}
             </div>
         </div>
@@ -137,7 +137,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        roomNameHandler: (r, c) => dispatch(actions.roomNameHandler(r, c)),
+        roomNameHandler: (r, c, d) => dispatch(actions.roomNameHandler(r, c, d)),
         contactDetails: (d) => dispatch(actions.contactDetails(d))
     }
 }

@@ -66,7 +66,7 @@ export const authEP = (email, password, pseudo, isRegister) => {
                         password: password
                     });
                 }
-                dispatch(authSuccess(res.data.idToken, res.data.localId, pseudo ,60))
+                dispatch(authSuccess(res.data.idToken, res.data.localId, pseudo, 60))
             })
             .catch(error => {
                 dispatch(authFail(error.response.data.error.message))
@@ -123,11 +123,12 @@ export const signWithGoogle = () => {
     }
 }
 
-export const roomNameHandler = (roomName, contact) => {
+export const roomNameHandler = (roomName, contact, details) => {
     return {
         type: "ROOM_NAME_HANDLER",
         roomName: roomName,
-        contact: contact
+        contact: contact,
+        details: details
     }
 }
 

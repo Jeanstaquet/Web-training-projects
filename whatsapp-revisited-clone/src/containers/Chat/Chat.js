@@ -36,7 +36,7 @@ const Chat = (props) => {
             ))
         }
     }, [props.roomName]);
-
+    useEffect(() => console.log(messageCanal))
     const sendMessage = (event) => {
         if(event) {
             event.preventDefault()
@@ -72,9 +72,6 @@ const Chat = (props) => {
     if(messageBody) {
         messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
     }
-
-
-    useEffect(() => console.log(messageCanal))
 
     return (
         <div className="chat__container">

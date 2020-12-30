@@ -79,7 +79,8 @@ const reducer = (state = initalState, action) => {
             return {
                 ...state,
                 roomName: action.roomName,
-                contact: action.contact
+                contact: action.contact, 
+                contactDetails: action.details
             }
         case "CONTACT_DATA":
             return {
