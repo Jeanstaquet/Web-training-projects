@@ -96,7 +96,7 @@ const Chat = (props) => {
                     <Message key={index} 
                              message={room.data.message} 
                              reciever={room.data.sender == props.pseudo.pseudo ? false : true}
-                             timestamp={(new Date(room.data.timestamp.seconds * 1000)).toLocaleDateString('en-UK')} />
+                             timestamp={room.data.timestamp ? (new Date(room.data.timestamp.seconds * 1000)).toLocaleDateString('en-UK') : null} />
                 ))}
             </div>
             <div className="chat__sendMessage">
