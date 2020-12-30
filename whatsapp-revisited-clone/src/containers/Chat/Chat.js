@@ -37,11 +37,11 @@ const Chat = (props) => {
         }
     }, [props.roomName]);
 
-    const sendMessage = (event, message) => {
+    const sendMessage = (event) => {
         if(event) {
             event.preventDefault()
         }
-
+        //Query for the current user
         db
             .collection("Users")
             .doc(props.userId)
@@ -53,8 +53,20 @@ const Chat = (props) => {
                 timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                 sender: props.pseudo
             })
+        //Query for the contact     
+        db
+        .collection("Users")
+        .doc(props.contactData.userId)
+        .collection("conversations")
+        .doc(props.roomName)
+        .collection("messages")
+        .add({
+            message: mess,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            sender: props.pseudo
+        })
 
-            setMessage("")
+            setMessage("");
     }
     let messageBody = document.querySelector('.chat__content');
     if(messageBody) {
@@ -62,7 +74,7 @@ const Chat = (props) => {
     }
 
 
-
+    useEffect(() => console.log(messageCanal))
 
     return (
         <div className="chat__container">
@@ -85,7 +97,7 @@ const Chat = (props) => {
                     return <Message message={mess.message} timestamp={mess.timestamp} reviever={true}/>
                 })} */}
                 {messageCanal.map((room, index) => (
-                    <Message key={index} message={room.data.message}/>
+                    <Message key={index} message={room.data.message} reciever={room.data.sender == props.pseudo ? false : true}/>
                 ))}
             </div>
             <div className="chat__sendMessage">
@@ -109,7 +121,8 @@ const mapStateToProps = state => {
         roomName: state.roomName,
         email: state.email,
         pseudo: state.pseudo,
-        contact: state.contact
+        contact: state.contact,
+        contactData: state.contactDetails
     }
 }
 

@@ -71,7 +71,7 @@ const Conversations = (props) => {
                     contact: contact
                 })
 
-                db.collection("Users").doc(props.contactData.userId).collection("conversations").doc(conversationName).set({
+                db.collection("Users").doc(doc.data().userId).collection("conversations").doc(conversationName).set({
                     name: conversationName,
                     contact: props.pseudo
                 })
@@ -80,7 +80,6 @@ const Conversations = (props) => {
             });
         })
     }
-    useEffect(() => console.log(props.contactData))
 
  
     useEffect(() => {

@@ -6,7 +6,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
 import * as actions from "../../store/action/index";
 import { Redirect } from 'react-router-dom';
-
+//Quand l'ath à reussi, il faut aussi mettre le pseudo de la personne qui se connecte
 const Auth = (props) => {
     const [email, setEmail] = useState("");
     const [pseudo, setPseudo] = useState("");
