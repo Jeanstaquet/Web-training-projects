@@ -72,7 +72,6 @@ const Chat = (props) => {
     if(messageBody) {
         messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
     }
-
     return (
         <div className="chat__container">
             <div className="chat__banner">
@@ -94,7 +93,7 @@ const Chat = (props) => {
                     return <Message message={mess.message} timestamp={mess.timestamp} reviever={true}/>
                 })} */}
                 {messageCanal.map((room, index) => (
-                    <Message key={index} message={room.data.message} reciever={room.data.sender == props.pseudo ? false : true}/>
+                    <Message key={index} message={room.data.message} reciever={room.data.sender == props.pseudo.pseudo ? false : true}/>
                 ))}
             </div>
             <div className="chat__sendMessage">
