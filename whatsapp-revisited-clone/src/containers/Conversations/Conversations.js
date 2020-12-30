@@ -88,8 +88,6 @@ const Conversations = (props) => {
     
     }, [])
 
-    useEffect(() => console.log(fetchedConversations))
-
     return (
         <div className="converstations__container">
             <Modal show={modal} 
@@ -99,7 +97,7 @@ const Conversations = (props) => {
                    ok={addConversationHandler}
                    errorMessage={errorMessage}/>
             <div className="conv__account">
-                <Avatar className="conv__avatar" src={props.photo}>{props.pseudo[0]}</Avatar>
+                <Avatar className="conv__avatar" src={props.photo}>{props.pseudo ? props.pseudo[0] : null}</Avatar>
                 <button>FEATURES</button>
                 <div className="conv__accountIcons">
                     <Tooltip title="Add a new feature" arrow>

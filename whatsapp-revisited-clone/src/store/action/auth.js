@@ -8,12 +8,11 @@ export const authStart = () => {
     }
 }
 
-export const authSuccess = (token, userId, pseudo, expirationTime) => {
+export const authSuccess = (token, userId, expirationTime) => {
     return {
         type: "AUTH_SUCCESS",
         token: token,
         userId: userId,
-        pseudo: pseudo,
         expirationTime: expirationTime
     }
 }
@@ -37,6 +36,13 @@ export const authReset = () => {
     }
 }
 
+export const pseudoHandler = (pseudo) => {
+    return {
+        type: "PSEUDO_HANDLER",
+        pseudo: pseudo
+    }
+}
+
 export const authEP = (email, password, pseudo, isRegister) => {
     return dispatch => {
         dispatch(authStart());
@@ -54,7 +60,7 @@ export const authEP = (email, password, pseudo, isRegister) => {
         if(!isRegister) {
             url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCmXjwaVbRraK5e8ZLQu-P5d-NuO85ramQ"
         }
-
+        let pseudoFetched = null
         axios.post(url, data)
             .then(res => {
                 if(isRegister) {
@@ -65,8 +71,19 @@ export const authEP = (email, password, pseudo, isRegister) => {
                         pseudo: pseudo,
                         password: password
                     });
+                } else {
+                    db.collection("Users").where("userId", "==", res.data.localId)
+                    .get()
+                    .then((querySnapShot) => {
+                        querySnapShot.forEach(function(doc) {
+                            dispatch(pseudoHandler(doc.data().pseudo))
+                        })
+                    })
                 }
-                dispatch(authSuccess(res.data.idToken, res.data.localId, pseudo, 60))
+
+                // let dat = db.collection("Users").doc(res.data.localId).get()
+                // console.log(dat.data())
+                dispatch(authSuccess(res.data.idToken, res.data.localId, 60))
             })
             .catch(error => {
                 dispatch(authFail(error.response.data.error.message))

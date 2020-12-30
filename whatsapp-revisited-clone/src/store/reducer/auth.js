@@ -31,7 +31,6 @@ const reducer = (state = initalState, action) => {
                 userId: action.userId,
                 expirationTime: action.expirationTime,
                 loading: false,
-                pseudo: action.pseudo
             }
         
         case "AUTH_FAIL":
@@ -86,6 +85,11 @@ const reducer = (state = initalState, action) => {
             return {
                 ...state,
                 contactDetails: action.details
+            }
+        case "PSEUDO_HANDLER":
+            return {
+                ...state,
+                pseudo: action.pseudo
             }
         default: 
             return {
