@@ -9,7 +9,6 @@ const Modal = (props) => {
             <Backdrop show={props.show} click={props.click}/>
             <CSSTransition in={props.show} timeout={300} classNames={"modal-transition"} unmountOnExit >
             <div className="modal__container" >
-
                 <form>
                     <h4>{props.errorMessage}</h4>
                     <label>Choose a new conversation name</label>

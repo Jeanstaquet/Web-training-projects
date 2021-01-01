@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import "./Conversations.scss";
 import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
@@ -9,6 +9,7 @@ import {connect} from "react-redux";
 import Tooltip from '@material-ui/core/Tooltip';
 import Modal from "../../components/UI/Modal/Modal";
 import db from "../../firebase";
+import FeatureMenu from "../../components/UI/FeatureMenu/FeatureMenu";
 import * as actions from "../../store/action/index"
 const Conversations = (props) => {
     const [modal, setModal] = useState(false); 
@@ -16,6 +17,7 @@ const Conversations = (props) => {
     const [fetchedConversations, setFetchecConversations] = useState([])
     const [contact, setContact] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const [menuOpenClose, setMenuOpenClose] = useState(true)
 
     const toggleModal = () => {
         setModal(true)
@@ -88,9 +90,13 @@ const Conversations = (props) => {
     
     }, [])
 
+    const handleMenu = () => {
+        setMenuOpenClose(!menuOpenClose)
+    }
 
     return (
-        <div className="converstations__container">
+        <div className="converstations__container" >
+            <FeatureMenu toggle={handleMenu} open={menuOpenClose}/>
             <Modal show={modal} 
                    click={toggleModalClose} 
                    change={changeModalHandler}
@@ -99,7 +105,7 @@ const Conversations = (props) => {
                    errorMessage={errorMessage}/>
             <div className="conv__account">
                 <Avatar className="conv__avatar" src={props.photo}>{props.pseudo !== null ? props.pseudo.pseudo[0] : null}</Avatar>
-                <button>FEATURES</button>
+                <button onClick={handleMenu}>FEATURES</button>
                 <div className="conv__accountIcons">
                     <Tooltip title="Add a new feature" arrow>
                         <AddIcon/>
