@@ -9,7 +9,7 @@ import {connect} from "react-redux";
 import Tooltip from '@material-ui/core/Tooltip';
 import Modal from "../../components/UI/Modal/Modal";
 import db from "../../firebase";
-import FeatureMenu from "../../components/UI/FeatureMenu/FeatureMenu";
+import FeatureMenu from "../FeatureMenu/FeatureMenu";
 import * as actions from "../../store/action/index"
 const Conversations = (props) => {
     const [modal, setModal] = useState(false); 
@@ -105,7 +105,7 @@ const Conversations = (props) => {
                    errorMessage={errorMessage}/>
             <div className="conv__account">
                 <Avatar className="conv__avatar" src={props.photo}>{props.pseudo !== null ? props.pseudo.pseudo[0] : null}</Avatar>
-                <button onClick={handleMenu}>FEATURES</button>
+                <button onClick={handleMenu}>MENU</button>
                 <div className="conv__accountIcons">
                     <Tooltip title="Add a new feature" arrow>
                         <AddIcon/>

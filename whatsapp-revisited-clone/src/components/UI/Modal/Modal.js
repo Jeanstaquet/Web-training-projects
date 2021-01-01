@@ -5,8 +5,22 @@ import { CSSTransition } from 'react-transition-group';
 import AddIcon from '@material-ui/icons/Add';
 const Modal = (props) => {
     return (
+        
         <React.Fragment>
-            <Backdrop show={props.show} click={props.click}/>
+            
+
+            {props.children ? <React.Fragment>
+                <div  className={props.openModal ? "modal__container test23" : "modal__container close"}>
+                <form>
+                    <h4>{props.title}</h4>
+                    <p>{props.info1} : {props.data1}</p>
+                    <p>{props.info2} : {props.data2}</p>
+                    <p>{props.info3} : {props.data3}</p>
+                </form>
+            </div>
+            </React.Fragment>
+            : 
+            <React.Fragment><Backdrop show={props.show} click={props.click}/>
             <CSSTransition in={props.show} timeout={300} classNames={"modal-transition"} unmountOnExit >
             <div className="modal__container" >
                 <form>
@@ -23,9 +37,9 @@ const Modal = (props) => {
                     </div>
                 </form>
             </div>
-            </CSSTransition>
+            </CSSTransition></React.Fragment>
+            }
         </React.Fragment>
-
     );
 };
 
