@@ -22,13 +22,8 @@
             .chat__info {
                 display: flex;
                 flex-direction: column;
-
                 p {
                     margin: 0;
-                }
-
-                p:first-of-type {
-                    margin-bottom: 10px;
                 }
             }
         }

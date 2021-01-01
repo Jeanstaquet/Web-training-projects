@@ -76,10 +76,9 @@ const Chat = (props) => {
         <div className="chat__container">
             <div className="chat__banner">
                 <div className="chat__bannerInfo">
-                    <Avatar className="chat__bannerAvatar"/>
+                    <Avatar className="chat__bannerAvatar">{props.contact ? props.contact[0] : null}</Avatar>
                     <div className="chat__info">
                         <p>{props.contact}</p>
-                        <p>Person</p>
                     </div>
 
                 </div>
