@@ -10,9 +10,9 @@ const Modal = (props) => {
             
 
             {props.children ? <React.Fragment>
-                <div  className={props.openModal ? "modal__container test23" : "modal__container close"}>
+                <div  className={props.openModal ? "modal__container account" : "modal__container close"}>
                 <form>
-                    <h4>{props.title}</h4>
+                    <h4 className="modular__modalTitle">{props.title}</h4>
                     <p>{props.info1} : {props.data1}</p>
                     <p>{props.info2} : {props.data2}</p>
                     <p>{props.info3} : {props.data3}</p>
