@@ -6,4 +6,5 @@ export {
     roomNameHandler,
     authReset,
     contactDetails,
+    logoutHandler,
 } from "./auth"

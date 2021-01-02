@@ -92,18 +92,6 @@ export const authEP = (email, password, pseudo, isRegister) => {
     }
 }
 
-// export const loginMethod = () => {
-//     return {
-//         type: "LOGIN_METHOD"
-//     }
-// }
-
-// export const registerMethod = () => {
-//     return {
-//         type: "REGISTER_METHOD"
-//     }
-// }
-
 export const googleAuth = (token, userId, photo, isNew, email) => {
     return {
         type: "SIGN_WITH_GOOGLE",
@@ -151,5 +139,11 @@ export const contactDetails = (details) => {
     return {
         type: "CONTACT_DATA",
         details: details
+    }
+}
+
+export const logoutHandler = () => {
+    return {
+        type: "LOGOUT_HANDLER"
     }
 }

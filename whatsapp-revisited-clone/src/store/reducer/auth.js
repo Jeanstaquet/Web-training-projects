@@ -95,6 +95,28 @@ const reducer = (state = initalState, action) => {
                 ...state,
                 pseudo: action.pseudo
             }
+        case "LOGOUT_HANDLER":
+            return {
+                ...state,
+                token: null,
+                userId: null,
+                expirationTime: null,
+                pseudo: {userId: ".",
+                         email: ".",
+                         pseudo: ".",
+                         password: ".",
+                         timestamp: "."},
+                name: null,
+                photo: null, 
+                isAdmin: false,
+                loading: false,
+                error: null, 
+                isNew: null,
+                roomName: null, 
+                contact: null,
+                fail: false,
+                contactDetails: null
+            }
         default: 
             return {
                 ...state

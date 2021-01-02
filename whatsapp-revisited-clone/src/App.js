@@ -4,20 +4,14 @@ import Conversations from "./containers/Conversations/Conversations";
 import Chat from "./containers/Chat/Chat";
 import {connect} from "react-redux"
 import "./App.scss";
-import Spinner from "./components/UI/Spinner/Spinner";
+
 import {Route, Switch} from "react-router-dom";
 const App = (props) => {
-
-  let auth = <Auth/>
-
-  if(props.loading) {
-    auth = <Spinner />
-  }
   return (
     <div className="app__container">
       <Switch>
         <Route  exact path="/">
-          {auth}
+          <Auth/>
         </Route>
         <Route path={`/app`}>
           <Conversations/>
@@ -31,7 +25,6 @@ const App = (props) => {
 const mapStateToProps = state => {
   return {
     loading: state.loading,
-    userId: state.userId
   }
 }
 

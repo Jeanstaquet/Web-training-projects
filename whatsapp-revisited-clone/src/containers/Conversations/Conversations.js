@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import "./Conversations.scss";
 import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
@@ -18,7 +18,6 @@ const Conversations = (props) => {
     const [contact, setContact] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [menuOpenClose, setMenuOpenClose] = useState(true)
-
     const toggleModal = () => {
         setModal(true)
     }
@@ -137,7 +136,8 @@ const mapStateToProps = state => {
         userId: state.userId,
         pseudo: state.pseudo,
         contactData: state.contactDetails,
-        dataForContact: state.pseudo
+        dataForContact: state.pseudo,
+        isAuth: state.userId !== null
     }
 }
 
