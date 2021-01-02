@@ -35,8 +35,7 @@ const Chat = (props) => {
                 )))
             ))
         }
-    }, [props.roomName]);
-    useEffect(() => console.log(messageCanal))
+    }, [props.roomName, props.userId]);
     const sendMessage = (event) => {
         if(event) {
             event.preventDefault()
