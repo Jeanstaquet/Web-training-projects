@@ -5,16 +5,18 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import MicIcon from '@material-ui/icons/Mic';
-import { Avatar } from '@material-ui/core';
+import { Avatar, IconButton  } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import Message from "../../components/Message/Message";
 import db from "../../firebase";
 import firebase from "firebase"
-import {connect} from "react-redux"
+import {connect} from "react-redux";
+import Picker from 'emoji-picker-react';
 const Chat = (props) => {
 
     const [mess, setMessage] = useState("");
     const [messageCanal, setMessageCanal] = useState([])
+    const [showEmoji, setShowEmoji] = useState(false)
 
     let iconSend = mess.length < 1 ? <MicIcon className="chat__sendMessageMic"/> : <SendIcon onClick={(e) => sendMessage(e, mess)} className="chat__sendMessageMic"/>
 
@@ -67,6 +69,15 @@ const Chat = (props) => {
 
             setMessage("");
     }
+    
+    const onEmojiClick = (event, emojiObject) => {
+        setShowEmoji(false)
+        setMessage(mess + emojiObject.emoji)
+    };
+    const displayEmojiHandler = () => {
+        setShowEmoji(!showEmoji)
+    }
+    
     let messageBody = document.querySelector('.chat__content');
     if(messageBody) {
         messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
@@ -90,6 +101,7 @@ const Chat = (props) => {
                 {/* {messageCanal.map(mess => {
                     return <Message message={mess.message} timestamp={mess.timestamp} reviever={true}/>
                 })} */}
+                {showEmoji ? <Picker onEmojiClick={onEmojiClick} disableSearchBar={true} /> : null}
                 {messageCanal.map((room, index) => (
                     <Message key={index} 
                              message={room.data.message} 
@@ -99,7 +111,8 @@ const Chat = (props) => {
             </div>
             <div className="chat__sendMessage">
                 <div className="chat__sendMessageEmoji">
-                    <InsertEmoticonIcon/>
+                    <InsertEmoticonIcon onClick={displayEmojiHandler}/>
+                    
                     <AttachFileIcon/>
                 </div>
                 <form className="chat__sendMessageContent">

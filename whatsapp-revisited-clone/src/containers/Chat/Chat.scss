@@ -41,6 +41,11 @@
         overflow-y: scroll;
         box-sizing: border-box;
         padding: 15px;
+        position: relative;
+        .emoji-picker-react {
+            position: absolute;
+            bottom: 15px;
+        }
     }
 
 
@@ -52,7 +57,9 @@
         background-color: #e9e8e6;
         .chat__sendMessageEmoji {
             margin: 0 10px;
-
+            &:hover {
+                cursor: pointer;
+            }
             * {
                 width: 40px;
             }

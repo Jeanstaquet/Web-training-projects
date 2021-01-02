@@ -6,7 +6,7 @@ import {connect} from "react-redux"
 import "./App.scss";
 
 import {Route, Switch} from "react-router-dom";
-const App = (props) => {
+const App = () => {
   return (
     <div className="app__container">
       <Switch>
