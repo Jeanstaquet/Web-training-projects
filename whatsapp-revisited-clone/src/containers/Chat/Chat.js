@@ -11,6 +11,7 @@ import Message from "../../components/Message/Message";
 import db, {storage} from "../../firebase";
 import firebase from "firebase"
 import {connect} from "react-redux";
+import ImageModal from "../../components/UI/ImageModal/ImageModal";
 import Picker from 'emoji-picker-react';
 const Chat = (props) => {
 
@@ -155,6 +156,7 @@ const Chat = (props) => {
     }
     return (
         <div className="chat__container">
+            <ImageModal/>
             <div className="chat__banner">
                 <div className="chat__bannerInfo">
                     <Avatar className="chat__bannerAvatar">{props.contact ? props.contact[0] : null}</Avatar>
