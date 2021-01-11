@@ -17,8 +17,9 @@ const Chat = (props) => {
     const [mess, setMessage] = useState("");
     const [messageCanal, setMessageCanal] = useState([])
     const [showEmoji, setShowEmoji] = useState(false);
-    const [showAddFile, setShowAddFile] = useState(false)
-    const [fileSend, setFileSend] = useState(null)
+    const [showAddFile, setShowAddFile] = useState(false);
+    const [fileSend, setFileSend] = useState(null);
+    const [fileError, setFileError] = useState(false)
 
     let iconSend = mess.length < 1 ? <MicIcon className="chat__sendMessageMic"/> : <SendIcon onClick={(e) => sendMessage(e, mess)} className="chat__sendMessageMic"/>
 
@@ -75,6 +76,17 @@ const Chat = (props) => {
 
     const fileHandler = (event) => {
         if(event.target.files[0]) {
+            if(event.target.files[0].type === "image/jpeg" || event.target.files[0].type === "image/png") {
+
+            } else {
+                setFileError(true) 
+                console.log("jjj")
+                setTimeout(() => {
+                    setFileError(false) 
+                }, 5000)
+                event.target.value = null
+                
+            }
             setFileSend(event.target.files[0])
         }
     }
@@ -117,9 +129,10 @@ const Chat = (props) => {
                     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                     sender: props.pseudo.pseudo
                 })
-                showAddFile(false)
+
 
             })
+            setShowAddFile(false)
     }
 
 
@@ -134,7 +147,6 @@ const Chat = (props) => {
 
     const displayFileHandler = () => {
         setShowAddFile(!showAddFile)
-        console.log("hello")
     }
     
     let messageBody = document.querySelector('.chat__content');
@@ -158,16 +170,17 @@ const Chat = (props) => {
             </div>
             <div className="chat__content">
                 <div className={showAddFile ? "chat__addFileModal" : "notShow"}>
-                    <form>
+                    <form style={{border: fileError ? "1px solid red" : null}}>
+                        <p style={{display: fileError ? "block": "none"}}>This not a valid file type</p>
                         <input type="file" onChange={fileHandler}/>
-                        <input type="submit" onClick={fileUploadHandler}/>
+                        <input type="submit" disabled={fileError || fileSend === null ? true : false} onClick={fileUploadHandler}/>
                     </form>
                 </div>
                 {showEmoji && props.roomName ? <Picker onEmojiClick={onEmojiClick} disableSearchBar={true} /> : null}
                 {messageCanal.map((room, index) => (
                     <Message key={index} 
                              message={room.data.imgUrl ? null : room.data.message} 
-                            img={room.data.imgUrl}
+                             img={room.data.imgUrl}
                              reciever={room.data.sender == props.pseudo.pseudo ? false : true}
                              timestamp={room.data.timestamp ? (new Date(room.data.timestamp.seconds * 1000)).toLocaleDateString('en-UK') : null} />
                 ))}
