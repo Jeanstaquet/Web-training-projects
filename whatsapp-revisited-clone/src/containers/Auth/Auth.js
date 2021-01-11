@@ -87,7 +87,7 @@ const Auth = (props) => {
                     />
                     <button type="submit" onClick={authCreateHandler}>{method==="Register" ? "Create an account" : "Login"}</button>
                 </form>
-
+                <p className="aut__logVisitor">Log as an visitor</p>
             </div>
         </div>
     );

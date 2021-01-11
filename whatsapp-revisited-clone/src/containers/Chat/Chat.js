@@ -8,7 +8,7 @@ import MicIcon from '@material-ui/icons/Mic';
 import { Avatar, IconButton  } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import Message from "../../components/Message/Message";
-import db from "../../firebase";
+import db, {storage} from "../../firebase";
 import firebase from "firebase"
 import {connect} from "react-redux";
 import Picker from 'emoji-picker-react';
@@ -16,7 +16,9 @@ const Chat = (props) => {
 
     const [mess, setMessage] = useState("");
     const [messageCanal, setMessageCanal] = useState([])
-    const [showEmoji, setShowEmoji] = useState(false)
+    const [showEmoji, setShowEmoji] = useState(false);
+    const [showAddFile, setShowAddFile] = useState(false)
+    const [fileSend, setFileSend] = useState(null)
 
     let iconSend = mess.length < 1 ? <MicIcon className="chat__sendMessageMic"/> : <SendIcon onClick={(e) => sendMessage(e, mess)} className="chat__sendMessageMic"/>
 
@@ -38,6 +40,7 @@ const Chat = (props) => {
             ))
         }
     }, [props.roomName, props.userId]);
+
     const sendMessage = (event) => {
         if(event) {
             event.preventDefault()
@@ -69,13 +72,69 @@ const Chat = (props) => {
 
             setMessage("");
     }
+
+    const fileHandler = (event) => {
+        if(event.target.files[0]) {
+            setFileSend(event.target.files[0])
+        }
+    }
     
+
+    const fileUploadHandler = (event) => {
+        event.preventDefault()
+        const upload = storage.ref(`images/${fileSend.name}`).put(fileSend)
+        
+        storage
+            .ref("images")
+            .child(fileSend.name)
+            .getDownloadURL()
+            .then(url => {
+                console.log(url)
+                        //Query for the current user
+                db
+                .collection("Users")
+                .doc(props.userId)
+                .collection("conversations")
+                .doc(props.roomName)
+                .collection("messages")
+                .add({
+                    message: "img",
+                    imgUrl: url,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    sender: props.pseudo.pseudo
+                })
+
+                        //Query for the contact     
+                db
+                .collection("Users")
+                .doc(props.contactData.userId)
+                .collection("conversations")
+                .doc(props.roomName)
+                .collection("messages")
+                .add({
+                    message: "img",
+                    imgUrl: url,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    sender: props.pseudo.pseudo
+                })
+                showAddFile(false)
+
+            })
+    }
+
+
     const onEmojiClick = (event, emojiObject) => {
         setShowEmoji(false)
         setMessage(mess + emojiObject.emoji)
     };
+
     const displayEmojiHandler = () => {
         setShowEmoji(!showEmoji)
+    }
+
+    const displayFileHandler = () => {
+        setShowAddFile(!showAddFile)
+        console.log("hello")
     }
     
     let messageBody = document.querySelector('.chat__content');
@@ -98,13 +157,17 @@ const Chat = (props) => {
                 </div>
             </div>
             <div className="chat__content">
-                {/* {messageCanal.map(mess => {
-                    return <Message message={mess.message} timestamp={mess.timestamp} reviever={true}/>
-                })} */}
-                {showEmoji ? <Picker onEmojiClick={onEmojiClick} disableSearchBar={true} /> : null}
+                <div className={showAddFile ? "chat__addFileModal" : "notShow"}>
+                    <form>
+                        <input type="file" onChange={fileHandler}/>
+                        <input type="submit" onClick={fileUploadHandler}/>
+                    </form>
+                </div>
+                {showEmoji && props.roomName ? <Picker onEmojiClick={onEmojiClick} disableSearchBar={true} /> : null}
                 {messageCanal.map((room, index) => (
                     <Message key={index} 
-                             message={room.data.message} 
+                             message={room.data.imgUrl ? null : room.data.message} 
+                            img={room.data.imgUrl}
                              reciever={room.data.sender == props.pseudo.pseudo ? false : true}
                              timestamp={room.data.timestamp ? (new Date(room.data.timestamp.seconds * 1000)).toLocaleDateString('en-UK') : null} />
                 ))}
@@ -112,8 +175,7 @@ const Chat = (props) => {
             <div className="chat__sendMessage">
                 <div className="chat__sendMessageEmoji">
                     <InsertEmoticonIcon onClick={displayEmojiHandler}/>
-                    
-                    <AttachFileIcon/>
+                    <AttachFileIcon onClick={displayFileHandler}/>
                 </div>
                 <form className="chat__sendMessageContent">
                     <input disabled={props.roomName===null} type="text" onChange={(e) => setMessage(e.target.value)} value={mess}/>

@@ -4,6 +4,7 @@ const Message = (props) => {
     return (
         <div className={props.reciever ? "message__container" : "message__container sender"}>
             <p>{props.message}</p>
+            <img src={props.img}/>
             <span>{props.timestamp}</span>
         </div>
     );
