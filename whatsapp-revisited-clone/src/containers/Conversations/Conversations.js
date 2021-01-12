@@ -105,6 +105,8 @@ const Conversations = (props) => {
         setFilterName(e.target.value)
     }
 
+    console.log(fetchedConversations)
+
     return (
         <div className="converstations__container" >
             <FeatureMenu toggle={handleMenu} open={menuOpenClose}/>

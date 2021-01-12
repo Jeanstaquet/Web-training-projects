@@ -29,6 +29,28 @@
         }
 
         .chat__bannerIcon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .MuiSvgIcon-root {
+                cursor: pointer;
+            }
+            .chat__bannerSearch {
+                max-width: 0px;
+                width: 200px;
+                opacity: 0;
+                transition: all .5s ease;
+                border-radius: 12px;
+                border: none;
+                padding: 10px;
+            }
+
+            .show {
+                max-width: 200px;
+                opacity: 1;
+            }
+
             * {
                 margin-right: 10px;
             }
@@ -103,3 +125,4 @@
 .notShow {
     display: none !important;
 }
+

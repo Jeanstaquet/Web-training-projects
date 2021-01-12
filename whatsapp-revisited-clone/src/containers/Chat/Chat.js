@@ -12,6 +12,7 @@ import db, {storage} from "../../firebase";
 import firebase from "firebase"
 import {connect} from "react-redux";
 import ImageModal from "../../components/UI/ImageModal/ImageModal";
+import Tooltip from '@material-ui/core/Tooltip';
 import Picker from 'emoji-picker-react';
 const Chat = (props) => {
 
@@ -21,13 +22,15 @@ const Chat = (props) => {
     const [showAddFile, setShowAddFile] = useState(false);
     const [fileSend, setFileSend] = useState(null);
     const [fileError, setFileError] = useState(false);
-    const [imageToShow, setImageToShow] = useState("")
+    const [imageToShow, setImageToShow] = useState("");
+    const [searchBar, setSearchBar] = useState("");
+    const [showSearchBar, setShowSearchBar] = useState(false)
 
     let iconSend = mess.length < 1 ? <MicIcon className="chat__sendMessageMic"/> : <SendIcon onClick={(e) => sendMessage(e, mess)} className="chat__sendMessageMic"/>
 
     useEffect(() => {
         let unsubcribe = () => {
-            
+
         };
         if(props.userId && props.roomName) {
             unsubcribe = db
@@ -167,6 +170,10 @@ const Chat = (props) => {
         setImageToShow("")
     }
     
+    const searchBarHandler = () => {
+        setShowSearchBar(!showSearchBar)
+    }
+
     let messageBody = document.querySelector('.chat__content');
     if(messageBody) {
         messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
@@ -186,7 +193,12 @@ const Chat = (props) => {
 
                 </div>
                 <div className="chat__bannerIcon">
-                    <SearchIcon/>
+                    <Tooltip title="Search a message" arrow>
+                        <SearchIcon onClick={searchBarHandler}/>
+                    </Tooltip>
+                    <Tooltip title="You can write 'img' or a letter" arrow>
+                    <input type="text" value={searchBar} className={!showSearchBar ? "chat__bannerSearch" : "chat__bannerSearch show"} onChange={e => setSearchBar(e.target.value)}/>
+                    </Tooltip>
                     <MoreHorizIcon/>
                 </div>
             </div>
@@ -199,7 +211,7 @@ const Chat = (props) => {
                     </form>
                 </div>
                 {showEmoji && props.roomName ? <Picker onEmojiClick={onEmojiClick} disableSearchBar={true} /> : null}
-                {messageCanal.map((room, index) => (
+                {messageCanal.filter(msg => msg.data.message.includes(searchBar)).map((room, index) => (
                     <Message key={index} 
                              message={room.data.imgUrl ? null : room.data.message} 
                              img={room.data.imgUrl}
@@ -210,14 +222,20 @@ const Chat = (props) => {
             </div>
             <div className="chat__sendMessage">
                 <div className="chat__sendMessageEmoji">
-                    <InsertEmoticonIcon onClick={displayEmojiHandler}/>
-                    <AttachFileIcon onClick={displayFileHandler}/>
+                    <Tooltip title="Send an emoji" arrow>
+                        <InsertEmoticonIcon onClick={displayEmojiHandler}/>
+                    </Tooltip>
+                    <Tooltip title="Send a picture" arrow>
+                        <AttachFileIcon onClick={displayFileHandler}/>
+                    </Tooltip>
                 </div>
                 <form className="chat__sendMessageContent">
                     <input disabled={props.roomName===null} type="text" onChange={(e) => setMessage(e.target.value)} value={mess}/>
                     <button type="submit" onClick={(event) => sendMessage(event, mess)}></button>
                 </form>
-                {iconSend}
+                <Tooltip title="Record a voice message" arrow>
+                    {iconSend}
+                </Tooltip>
             </div>
         </div>
     );
