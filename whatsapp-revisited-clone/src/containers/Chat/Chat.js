@@ -20,7 +20,8 @@ const Chat = (props) => {
     const [showEmoji, setShowEmoji] = useState(false);
     const [showAddFile, setShowAddFile] = useState(false);
     const [fileSend, setFileSend] = useState(null);
-    const [fileError, setFileError] = useState(false)
+    const [fileError, setFileError] = useState(false);
+    const [imageToShow, setImageToShow] = useState("")
 
     let iconSend = mess.length < 1 ? <MicIcon className="chat__sendMessageMic"/> : <SendIcon onClick={(e) => sendMessage(e, mess)} className="chat__sendMessageMic"/>
 
@@ -149,6 +150,15 @@ const Chat = (props) => {
     const displayFileHandler = () => {
         setShowAddFile(!showAddFile)
     }
+
+    //select an url for the image modal
+    const clickedHandler = (imgUrl) => {
+        setImageToShow(imgUrl)
+    }
+
+    const closeImageModal = () => {
+        setImageToShow("")
+    }
     
     let messageBody = document.querySelector('.chat__content');
     if(messageBody) {
@@ -156,7 +166,10 @@ const Chat = (props) => {
     }
     return (
         <div className="chat__container">
-            <ImageModal/>
+            <ImageModal 
+                show={imageToShow} 
+                imgUrl={imageToShow}
+                close={closeImageModal}/>
             <div className="chat__banner">
                 <div className="chat__bannerInfo">
                     <Avatar className="chat__bannerAvatar">{props.contact ? props.contact[0] : null}</Avatar>
@@ -183,6 +196,7 @@ const Chat = (props) => {
                     <Message key={index} 
                              message={room.data.imgUrl ? null : room.data.message} 
                              img={room.data.imgUrl}
+                             clicked={() => clickedHandler(room.data.imgUrl)}
                              reciever={room.data.sender == props.pseudo.pseudo ? false : true}
                              timestamp={room.data.timestamp ? (new Date(room.data.timestamp.seconds * 1000)).toLocaleDateString('en-UK') : null} />
                 ))}
