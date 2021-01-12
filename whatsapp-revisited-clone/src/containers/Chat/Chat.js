@@ -26,8 +26,11 @@ const Chat = (props) => {
     let iconSend = mess.length < 1 ? <MicIcon className="chat__sendMessageMic"/> : <SendIcon onClick={(e) => sendMessage(e, mess)} className="chat__sendMessageMic"/>
 
     useEffect(() => {
+        let unsubcribe = () => {
+            
+        };
         if(props.userId && props.roomName) {
-            db
+            unsubcribe = db
             .collection("Users")
             .doc(props.userId)
             .collection("conversations")
@@ -41,6 +44,10 @@ const Chat = (props) => {
                     }
                 )))
             ))
+        }
+
+        return () => {
+            //unsubcribe()
         }
     }, [props.roomName, props.userId]);
 

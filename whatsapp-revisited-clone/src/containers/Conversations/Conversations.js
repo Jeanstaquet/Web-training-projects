@@ -78,16 +78,22 @@ const Conversations = (props) => {
     }
 
     useEffect(() => {
-        const unsubcribe = db.collection("Users")
-                ?.doc(props.userId)
-                ?.collection("conversations")
-                .onSnapshot(snapshot => setFetchecConversations(snapshot.docs.map((doc) => doc.data())))
+        let unsubcribe = () => {
+            
+        }
+        if(props.userId) {
+            unsubcribe = db.collection("Users")
+            .doc(props.userId)
+            .collection("conversations")
+            .onSnapshot(snapshot => setFetchecConversations(snapshot.docs.map((doc) => doc.data())))
+        }
+
     
         return () => {
-            unsubcribe();
+            unsubcribe()
         }
     
-    }, [])
+    }, [props.userId])
 
     const handleMenu = () => {
         setMenuOpenClose(!menuOpenClose)
