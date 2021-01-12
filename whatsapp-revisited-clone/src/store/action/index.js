@@ -7,4 +7,5 @@ export {
     authReset,
     contactDetails,
     logoutHandler,
+    roomDeleteHandler,
 } from "./auth"

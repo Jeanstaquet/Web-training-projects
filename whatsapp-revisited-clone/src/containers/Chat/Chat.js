@@ -14,6 +14,8 @@ import {connect} from "react-redux";
 import ImageModal from "../../components/UI/ImageModal/ImageModal";
 import Tooltip from '@material-ui/core/Tooltip';
 import Picker from 'emoji-picker-react';
+import * as actions from "../../store/action/index";
+import {Redirect, withRouter } from "react-router-dom";
 import MenuContact from "../../components/UI/MenuContact/MenuContact";
 const Chat = (props) => {
     const [mess, setMessage] = useState("");
@@ -51,7 +53,7 @@ const Chat = (props) => {
         }
 
         return () => {
-            //unsubcribe()
+            unsubcribe()
         }
     }, [props.roomName, props.userId]);
 
@@ -107,7 +109,7 @@ const Chat = (props) => {
 
     const fileUploadHandler = (event) => {
         event.preventDefault()
-        const upload = storage.ref(`images/${fileSend.name}`).put(fileSend)
+        storage.ref(`images/${fileSend.name}`).put(fileSend)
         
         storage
             .ref("images")
@@ -180,6 +182,19 @@ const Chat = (props) => {
         setShowContactMenu(!showContactMenu)
     }
 
+    const deleteConversation = () => {
+        setShowContactMenu(false)
+        props.roomDeleteHandler()
+        db
+        .collection("Users")
+        .doc(props.userId)
+        .collection("conversations")
+        .doc(props.roomName)
+        .delete()
+        setMessageCanal([])
+    }
+
+    console.log(messageCanal)
     let messageBody = document.querySelector('.chat__content');
     if(messageBody) {
         messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
@@ -203,11 +218,11 @@ const Chat = (props) => {
                         <SearchIcon onClick={searchBarHandler}/>
                     </Tooltip>
                     <Tooltip title="You can write 'img' or a letter" arrow>
-                    <input type="text" value={searchBar} className={!showSearchBar ? "chat__bannerSearch" : "chat__bannerSearch show"} onChange={e => setSearchBar(e.target.value)}/>
+                    <input type="text" value={searchBar} disabled={props.roomName===null} className={!showSearchBar ? "chat__bannerSearch" : "chat__bannerSearch show"} onChange={e => setSearchBar(e.target.value)}/>
                     </Tooltip>
                     <MoreHorizIcon onClick={contactMenuHandler}/>
                     <Tooltip title="options" arrow >
-                        <MenuContact show={showContactMenu}/>
+                        <MenuContact show={showContactMenu && props.roomName!==null} delete={deleteConversation}/>
                     </Tooltip>
                 </div>
             </div>
@@ -259,5 +274,11 @@ const mapStateToProps = state => {
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        roomDeleteHandler: () => dispatch(actions.roomDeleteHandler())
+    }
+}
 
-export default connect(mapStateToProps, null)(Chat);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);

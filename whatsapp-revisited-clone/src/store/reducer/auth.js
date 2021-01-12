@@ -85,6 +85,13 @@ const reducer = (state = initalState, action) => {
                 contact: action.contact, 
                 contactDetails: action.details
             }
+        case "ROOM_DELETE_HANDLER": 
+            return {
+                ...state,
+                roomName: null,
+                contact: null,
+                contactDetails: null
+            }
         case "CONTACT_DATA":
             return {
                 ...state,

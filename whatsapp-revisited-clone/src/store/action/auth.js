@@ -147,3 +147,9 @@ export const logoutHandler = () => {
         type: "LOGOUT_HANDLER"
     }
 }
+
+export const roomDeleteHandler = () => {
+    return {
+        type: "ROOM_DELETE_HANDLER"
+    }
+}
