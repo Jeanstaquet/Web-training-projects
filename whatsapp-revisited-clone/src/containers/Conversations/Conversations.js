@@ -119,13 +119,6 @@ const Conversations = (props) => {
             <div className="conv__account">
                 <Avatar className="conv__avatar" src={props.photo}>{props.pseudo !== null ? props.pseudo.pseudo[0] : null}</Avatar>
                 <button onClick={handleMenu}>MENU</button>
-                <div className="conv__accountIcons">
-                    <Tooltip title="Add a new feature" arrow>
-                        <AddIcon/>
-                    </Tooltip>
- 
-                    <MoreHorizIcon/>
-                </div>
             </div>
             <div className="conv__searchBar">
                 <input type="text" value={filterName} onChange={e => searchHandler(e)}/>
