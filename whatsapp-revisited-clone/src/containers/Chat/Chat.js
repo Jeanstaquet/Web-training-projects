@@ -5,7 +5,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import MicIcon from '@material-ui/icons/Mic';
-import { Avatar, IconButton  } from '@material-ui/core';
+import { Avatar } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import Message from "../../components/Message/Message";
 import db, {storage} from "../../firebase";
@@ -14,8 +14,8 @@ import {connect} from "react-redux";
 import ImageModal from "../../components/UI/ImageModal/ImageModal";
 import Tooltip from '@material-ui/core/Tooltip';
 import Picker from 'emoji-picker-react';
+import MenuContact from "../../components/UI/MenuContact/MenuContact";
 const Chat = (props) => {
-
     const [mess, setMessage] = useState("");
     const [messageCanal, setMessageCanal] = useState([])
     const [showEmoji, setShowEmoji] = useState(false);
@@ -24,9 +24,10 @@ const Chat = (props) => {
     const [fileError, setFileError] = useState(false);
     const [imageToShow, setImageToShow] = useState("");
     const [searchBar, setSearchBar] = useState("");
-    const [showSearchBar, setShowSearchBar] = useState(false)
+    const [showSearchBar, setShowSearchBar] = useState(false);
+    const [showContactMenu, setShowContactMenu] = useState(false)
 
-    let iconSend = mess.length < 1 ? <MicIcon className="chat__sendMessageMic"/> : <SendIcon onClick={(e) => sendMessage(e, mess)} className="chat__sendMessageMic"/>
+    let iconSend = mess.length < 1 ? <Tooltip title="Record a voice message" arrow><MicIcon className="chat__sendMessageMic"/></Tooltip> : <Tooltip title="Send the message" arrow><SendIcon onClick={(e) => sendMessage(e, mess)} className="chat__sendMessageMic"/></Tooltip>
 
     useEffect(() => {
         let unsubcribe = () => {
@@ -113,7 +114,6 @@ const Chat = (props) => {
             .child(fileSend.name)
             .getDownloadURL()
             .then(url => {
-                console.log(url)
                         //Query for the current user
                 db
                 .collection("Users")
@@ -154,11 +154,13 @@ const Chat = (props) => {
     };
 
     const displayEmojiHandler = () => {
-        setShowEmoji(!showEmoji)
+        setShowEmoji(!showEmoji);
+        setShowAddFile(false);
     }
 
     const displayFileHandler = () => {
         setShowAddFile(!showAddFile)
+        setShowEmoji(false)
     }
 
     //select an url for the image modal
@@ -172,6 +174,10 @@ const Chat = (props) => {
     
     const searchBarHandler = () => {
         setShowSearchBar(!showSearchBar)
+    }
+
+    const contactMenuHandler = () => {
+        setShowContactMenu(!showContactMenu)
     }
 
     let messageBody = document.querySelector('.chat__content');
@@ -199,7 +205,10 @@ const Chat = (props) => {
                     <Tooltip title="You can write 'img' or a letter" arrow>
                     <input type="text" value={searchBar} className={!showSearchBar ? "chat__bannerSearch" : "chat__bannerSearch show"} onChange={e => setSearchBar(e.target.value)}/>
                     </Tooltip>
-                    <MoreHorizIcon/>
+                    <MoreHorizIcon onClick={contactMenuHandler}/>
+                    <Tooltip title="options" arrow >
+                        <MenuContact show={showContactMenu}/>
+                    </Tooltip>
                 </div>
             </div>
             <div className="chat__content">
@@ -233,9 +242,7 @@ const Chat = (props) => {
                     <input disabled={props.roomName===null} type="text" onChange={(e) => setMessage(e.target.value)} value={mess}/>
                     <button type="submit" onClick={(event) => sendMessage(event, mess)}></button>
                 </form>
-                <Tooltip title="Record a voice message" arrow>
-                    {iconSend}
-                </Tooltip>
+                {iconSend}
             </div>
         </div>
     );
