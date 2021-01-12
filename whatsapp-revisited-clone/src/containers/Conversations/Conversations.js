@@ -17,7 +17,9 @@ const Conversations = (props) => {
     const [fetchedConversations, setFetchecConversations] = useState([])
     const [contact, setContact] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-    const [menuOpenClose, setMenuOpenClose] = useState(true)
+    const [menuOpenClose, setMenuOpenClose] = useState(true);
+    const [filterName, setFilterName] = useState("");
+
     const toggleModal = () => {
         setModal(true)
     }
@@ -79,7 +81,7 @@ const Conversations = (props) => {
 
     useEffect(() => {
         let unsubcribe = () => {
-            
+
         }
         if(props.userId) {
             unsubcribe = db.collection("Users")
@@ -87,7 +89,7 @@ const Conversations = (props) => {
             .collection("conversations")
             .onSnapshot(snapshot => setFetchecConversations(snapshot.docs.map((doc) => doc.data())))
         }
-
+        
     
         return () => {
             unsubcribe()
@@ -97,6 +99,10 @@ const Conversations = (props) => {
 
     const handleMenu = () => {
         setMenuOpenClose(!menuOpenClose)
+    }
+
+    const searchHandler = (e) => {
+        setFilterName(e.target.value)
     }
 
     return (
@@ -120,12 +126,12 @@ const Conversations = (props) => {
                 </div>
             </div>
             <div className="conv__searchBar">
-                <input type="text"/>
+                <input type="text" value={filterName} onChange={e => searchHandler(e)}/>
                 <SearchIcon className="conv__glass"/>
             </div>
             <div className="conv__list">
                 <Conversation addNewConv={true} click={toggleModal}/>
-                {fetchedConversations.map((conv, i) => {
+                {fetchedConversations.filter(name => name.name.includes(filterName)).map((conv, i) => {
                     return <Conversation key={i} 
                                          name={conv.name} 
                                          roomname={conv.name}
