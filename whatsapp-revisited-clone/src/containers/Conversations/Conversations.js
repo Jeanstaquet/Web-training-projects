@@ -1,12 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import "./Conversations.scss";
 import SearchIcon from '@material-ui/icons/Search';
-import AddIcon from '@material-ui/icons/Add';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { Avatar } from '@material-ui/core';
 import Conversation from "../../components/Conversation/Conversation";
 import {connect} from "react-redux";
-import Tooltip from '@material-ui/core/Tooltip';
 import Modal from "../../components/UI/Modal/Modal";
 import db from "../../firebase";
 import FeatureMenu from "../FeatureMenu/FeatureMenu";
@@ -104,8 +101,6 @@ const Conversations = (props) => {
     const searchHandler = (e) => {
         setFilterName(e.target.value)
     }
-
-    console.log(fetchedConversations)
 
     return (
         <div className="converstations__container" >

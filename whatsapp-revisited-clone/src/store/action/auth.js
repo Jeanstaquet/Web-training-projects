@@ -53,12 +53,12 @@ export const authEP = (email, password, pseudo, isRegister) => {
         }
         let url = ""
         if(isRegister) {
-            url = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCmXjwaVbRraK5e8ZLQu-P5d-NuO85ramQ";
+            url = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAetezyzd_TAHEUZlwBR7FgJKY7vieoebY";
 
         }
         
         if(!isRegister) {
-            url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCmXjwaVbRraK5e8ZLQu-P5d-NuO85ramQ"
+            url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAetezyzd_TAHEUZlwBR7FgJKY7vieoebY"
         }
         let pseudoFetched = null
         axios.post(url, data)

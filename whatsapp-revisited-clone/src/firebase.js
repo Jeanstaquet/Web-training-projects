@@ -2,14 +2,15 @@ import firebase from "firebase"
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCmXjwaVbRraK5e8ZLQu-P5d-NuO85ramQ",
-  authDomain: "whatsapp-on-steroids.firebaseapp.com",
-  databaseURL: "https://whatsapp-on-steroids-default-rtdb.firebaseio.com",
-  projectId: "whatsapp-on-steroids",
-  storageBucket: "whatsapp-on-steroids.appspot.com",
-  messagingSenderId: "85933631739",
-  appId: "1:85933631739:web:9d00bfe7ab5687ccc0685e",
-  measurementId: "G-HHK7WJ2Y26"
+  apiKey: "AIzaSyAetezyzd_TAHEUZlwBR7FgJKY7vieoebY",
+  authDomain: "whatsappclone-46523.firebaseapp.com",
+  databaseURL: "https://whatsappclone-46523-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "whatsappclone-46523",
+  storageBucket: "whatsappclone-46523.appspot.com",
+  messagingSenderId: "272957554470",
+  appId: "1:272957554470:web:1a306e6788a8c366044be7",
+  measurementId: "G-N99EH26459"
+
 };
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
