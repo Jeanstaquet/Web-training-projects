@@ -34,6 +34,9 @@ const Auth = (props) => {
     
     }
 
+    const visitorAuth = () => {
+        props.auth("admin@admin.com", "admin123456", "", false)
+    }
 
     const switchMethod = () => {
         if(method === "Register") {
@@ -87,7 +90,7 @@ const Auth = (props) => {
                     />
                     <button type="submit" onClick={authCreateHandler}>{method==="Register" ? "Create an account" : "Login"}</button>
                 </form>
-                <p className="aut__logVisitor">Log as an visitor</p>
+                <p className="aut__logVisitor" onClick={visitorAuth}>Log as an visitor</p>
             </div>
         </div>
     );

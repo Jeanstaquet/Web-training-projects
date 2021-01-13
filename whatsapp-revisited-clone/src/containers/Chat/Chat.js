@@ -193,8 +193,6 @@ const Chat = (props) => {
         .delete()
         setMessageCanal([])
     }
-
-    console.log(messageCanal)
     let messageBody = document.querySelector('.chat__content');
     if(messageBody) {
         messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;

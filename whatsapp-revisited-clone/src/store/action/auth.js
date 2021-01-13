@@ -60,7 +60,6 @@ export const authEP = (email, password, pseudo, isRegister) => {
         if(!isRegister) {
             url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAetezyzd_TAHEUZlwBR7FgJKY7vieoebY"
         }
-        let pseudoFetched = null
         axios.post(url, data)
             .then(res => {
                 if(isRegister) {
