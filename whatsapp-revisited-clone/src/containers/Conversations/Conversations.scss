@@ -12,7 +12,7 @@
         justify-content: space-between;
         align-items: center;
         height: 8%;
-
+        position: relative;
         .conv__avatar {
             background-color: rgba(255, 166, 0, 0.507);
         }
@@ -37,6 +37,17 @@
 
         .MuiAvatar-colorDefault {
             margin: 0 15px;
+        }
+        .conversations__plusSign {
+            top: 45px;
+            left: 27px;
+            position: absolute;
+            color: #00e676;
+            border-radius: 50%;
+            background-color: white;
+            width: 1rem;
+            height: 1rem;
+            cursor: pointer;
         }
 
         .MuiSvgIcon-root {

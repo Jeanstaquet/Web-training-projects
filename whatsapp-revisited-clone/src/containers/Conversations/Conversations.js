@@ -7,7 +7,8 @@ import {connect} from "react-redux";
 import Modal from "../../components/UI/Modal/Modal";
 import db from "../../firebase";
 import FeatureMenu from "../FeatureMenu/FeatureMenu";
-import * as actions from "../../store/action/index"
+import * as actions from "../../store/action/index";
+import AddIcon from '@material-ui/icons/Add';
 const Conversations = (props) => {
     const [modal, setModal] = useState(false); 
     const [conversationName, setConversationName] = useState("");
@@ -112,7 +113,8 @@ const Conversations = (props) => {
                    ok={addConversationHandler}
                    errorMessage={errorMessage}/>
             <div className="conv__account">
-                <Avatar className="conv__avatar" src={props.photo}>{props.pseudo !== null ? props.pseudo.pseudo[0] : null}</Avatar>
+                <Avatar className="conv__avatar" src={""}>{props.pseudo !== null ? props.pseudo.pseudo[0] : null}</Avatar>
+                <AddIcon className="conversations__plusSign"/>
                 <button onClick={handleMenu}>MENU</button>
             </div>
             <div className="conv__searchBar">

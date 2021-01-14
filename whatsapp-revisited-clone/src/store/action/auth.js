@@ -68,7 +68,8 @@ export const authEP = (email, password, pseudo, isRegister) => {
                         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                         email: email,
                         pseudo: pseudo,
-                        password: password
+                        password: password,
+                        profilePhoto: "."
                     });
                 } else {
 

@@ -110,8 +110,8 @@ const Chat = (props) => {
     const fileUploadHandler = (event) => {
         event.preventDefault()
         storage.ref(`images/${fileSend.name}`).put(fileSend)
-        
-        storage
+        setTimeout(() => {
+            storage
             .ref("images")
             .child(fileSend.name)
             .getDownloadURL()
@@ -146,6 +146,8 @@ const Chat = (props) => {
 
 
             })
+        }, 1500);
+
             setShowAddFile(false)
     }
 
