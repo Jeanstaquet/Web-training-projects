@@ -9,6 +9,7 @@ import db from "../../firebase";
 import FeatureMenu from "../FeatureMenu/FeatureMenu";
 import * as actions from "../../store/action/index";
 import AddIcon from '@material-ui/icons/Add';
+import ImageModal from "../../components/UI/ImageModal/ImageModal";
 const Conversations = (props) => {
     const [modal, setModal] = useState(false); 
     const [conversationName, setConversationName] = useState("");
@@ -17,6 +18,7 @@ const Conversations = (props) => {
     const [errorMessage, setErrorMessage] = useState("");
     const [menuOpenClose, setMenuOpenClose] = useState(true);
     const [filterName, setFilterName] = useState("");
+    const [onModifyPP, setOnModifyPP] = useState(true);
 
     const toggleModal = () => {
         setModal(true)
@@ -103,6 +105,14 @@ const Conversations = (props) => {
         setFilterName(e.target.value)
     }
 
+    const newPPHandler = (e) => {
+        e.preventDefault()
+    }
+
+    const closePP = () => {
+        setOnModifyPP(false)
+    }
+
     return (
         <div className="converstations__container" >
             <FeatureMenu toggle={handleMenu} open={menuOpenClose}/>
@@ -115,6 +125,11 @@ const Conversations = (props) => {
             <div className="conv__account">
                 <Avatar className="conv__avatar" src={""}>{props.pseudo !== null ? props.pseudo.pseudo[0] : null}</Avatar>
                 <AddIcon className="conversations__plusSign"/>
+                <ImageModal 
+                    changePP={true} 
+                    submit={newPPHandler} 
+                    show={onModifyPP}
+                    closePP={closePP}/> 
                 <button onClick={handleMenu}>MENU</button>
             </div>
             <div className="conv__searchBar">
