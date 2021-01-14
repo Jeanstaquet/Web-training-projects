@@ -109,9 +109,10 @@ const Conversations = (props) => {
         e.preventDefault()
     }
 
-    const closePP = () => {
-        setOnModifyPP(false)
+    const handlerPP = () => {
+        setOnModifyPP(!onModifyPP)
     }
+
 
     return (
         <div className="converstations__container" >
@@ -124,12 +125,12 @@ const Conversations = (props) => {
                    errorMessage={errorMessage}/>
             <div className="conv__account">
                 <Avatar className="conv__avatar" src={""}>{props.pseudo !== null ? props.pseudo.pseudo[0] : null}</Avatar>
-                <AddIcon className="conversations__plusSign"/>
+                <AddIcon className="conversations__plusSign" onClick={handlerPP}/>
                 <ImageModal 
                     changePP={true} 
                     submit={newPPHandler} 
                     show={onModifyPP}
-                    closePP={closePP}/> 
+                    closePP={handlerPP}/> 
                 <button onClick={handleMenu}>MENU</button>
             </div>
             <div className="conv__searchBar">

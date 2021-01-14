@@ -48,6 +48,16 @@
             width: 1rem;
             height: 1rem;
             cursor: pointer;
+
+            &:active,
+            &:hover {
+                background-color: black;
+                color: white;
+            }
+
+            &:active {
+                transform: scale(0.9);
+            }
         }
 
         .MuiSvgIcon-root {
