@@ -5,7 +5,6 @@ import { CSSTransition } from 'react-transition-group';
 import AddIcon from '@material-ui/icons/Add';
 const Modal = (props) => {
     return (
-        
         <React.Fragment>
             {props.children ? <React.Fragment>
                 <div  className={props.openModal ? "modal__container account" : "modal__container close"}>

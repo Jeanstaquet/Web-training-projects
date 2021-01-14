@@ -204,7 +204,8 @@ const Chat = (props) => {
             <ImageModal 
                 show={imageToShow} 
                 imgUrl={imageToShow}
-                close={closeImageModal}/>
+                close={closeImageModal}
+                image={true}/>
             <div className="chat__banner">
                 <div className="chat__bannerInfo">
                     <Avatar className="chat__bannerAvatar">{props.contact ? props.contact[0] : null}</Avatar>
