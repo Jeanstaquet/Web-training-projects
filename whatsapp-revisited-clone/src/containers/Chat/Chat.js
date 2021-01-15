@@ -208,7 +208,7 @@ const Chat = (props) => {
                 image={true}/>
             <div className="chat__banner">
                 <div className="chat__bannerInfo">
-                    <Avatar className="chat__bannerAvatar">{props.contact ? props.contact[0] : null}</Avatar>
+                    <Avatar className="chat__bannerAvatar"src={props.contactData.photo}>{props.contact ? props.contact[0] : null}</Avatar>
                     <div className="chat__info">
                         <p>{props.contact}</p>
                     </div>
