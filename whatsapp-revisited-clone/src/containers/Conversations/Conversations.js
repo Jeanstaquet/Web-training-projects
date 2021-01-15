@@ -5,7 +5,7 @@ import { Avatar } from '@material-ui/core';
 import Conversation from "../../components/Conversation/Conversation";
 import {connect} from "react-redux";
 import Modal from "../../components/UI/Modal/Modal";
-import db from "../../firebase";
+import db, {storage} from "../../firebase";
 import FeatureMenu from "../FeatureMenu/FeatureMenu";
 import * as actions from "../../store/action/index";
 import AddIcon from '@material-ui/icons/Add';
@@ -19,6 +19,7 @@ const Conversations = (props) => {
     const [menuOpenClose, setMenuOpenClose] = useState(true);
     const [filterName, setFilterName] = useState("");
     const [onModifyPP, setOnModifyPP] = useState(true);
+    const [filePP, setFilePP] = useState(null)
 
     const toggleModal = () => {
         setModal(true)
@@ -106,11 +107,36 @@ const Conversations = (props) => {
     }
 
     const newPPHandler = (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        if(filePP) {
+            storage.ref(`images/${filePP.name}`).put(filePP)
+            setTimeout(() => {
+                storage
+                .ref("images")
+                .child(filePP.name)
+                .getDownloadURL()
+                .then(url => {
+                    db
+                    .collection("Users")
+                    .doc(props.userId)
+                    .update({
+                        photo: url
+                    })
+                    props.photoHandler(url)
+                })
+            }, 1500);
+
+        }
+        setFilePP(null)
+        setOnModifyPP(false)
     }
 
-    const handlerPP = () => {
+    const handlerModalPP = () => {
         setOnModifyPP(!onModifyPP)
+    }
+
+    const setFilePPHandler = (event) => {
+        setFilePP(event.target.files[0])
     }
 
 
@@ -124,13 +150,14 @@ const Conversations = (props) => {
                    ok={addConversationHandler}
                    errorMessage={errorMessage}/>
             <div className="conv__account">
-                <Avatar className="conv__avatar" src={""}>{props.pseudo !== null ? props.pseudo.pseudo[0] : null}</Avatar>
-                <AddIcon className="conversations__plusSign" onClick={handlerPP}/>
+                <Avatar className="conv__avatar" src={props.pseudo.photo}>{props.pseudo !== null ? props.pseudo.pseudo[0] : null}</Avatar>
+                <AddIcon className="conversations__plusSign" onClick={handlerModalPP}/>
                 <ImageModal 
                     changePP={true} 
                     submit={newPPHandler} 
                     show={onModifyPP}
-                    closePP={handlerPP}/> 
+                    closePP={handlerModalPP}
+                    newFile={setFilePPHandler}/> 
                 <button onClick={handleMenu}>MENU</button>
             </div>
             <div className="conv__searchBar">
@@ -164,7 +191,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         roomNameHandler: (r, c, d) => dispatch(actions.roomNameHandler(r, c, d)),
-        contactDetails: (d) => dispatch(actions.contactDetails(d))
+        contactDetails: (d) => dispatch(actions.contactDetails(d)),
+        photoHandler: (p) => dispatch(actions.photoHandler(p))
     }
 }
 

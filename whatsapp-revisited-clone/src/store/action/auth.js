@@ -153,3 +153,11 @@ export const roomDeleteHandler = () => {
         type: "ROOM_DELETE_HANDLER"
     }
 }
+
+
+export const photoHandler = (photo) => {
+    return {
+        type: "PHOTO_HANDLER",
+        photo: photo
+    }
+}

@@ -6,7 +6,8 @@ const initalState = {
              email: ".",
              pseudo: ".",
              password: ".",
-             timestamp: "."},
+             timestamp: ".",
+             photo: null},
     name: null,
     photo: null, 
     isAdmin: false,
@@ -123,6 +124,14 @@ const reducer = (state = initalState, action) => {
                 contact: null,
                 fail: false,
                 contactDetails: null
+            }
+        case "PHOTO_HANDLER": 
+            return {
+                ...state,
+                pseudo: {
+                    ...state.pseudo,
+                    photo: action.photo
+                }
             }
         default: 
             return {
