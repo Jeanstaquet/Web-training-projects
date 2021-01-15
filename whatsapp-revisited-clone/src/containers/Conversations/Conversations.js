@@ -18,7 +18,7 @@ const Conversations = (props) => {
     const [errorMessage, setErrorMessage] = useState("");
     const [menuOpenClose, setMenuOpenClose] = useState(true);
     const [filterName, setFilterName] = useState("");
-    const [onModifyPP, setOnModifyPP] = useState(true);
+    const [onModifyPP, setOnModifyPP] = useState(false);
     const [filePP, setFilePP] = useState(null)
 
     const toggleModal = () => {
@@ -98,6 +98,8 @@ const Conversations = (props) => {
     
     }, [props.userId])
 
+    console.log(fetchedConversations)
+
     const handleMenu = () => {
         setMenuOpenClose(!menuOpenClose)
     }
@@ -170,6 +172,7 @@ const Conversations = (props) => {
                     return <Conversation key={i} 
                                          name={conv.name} 
                                          roomname={conv.name}
+                                         photo={conv.contact.photo}
                                          dispatchRoomName={() => props.roomNameHandler(conv.name, conv.contact.pseudo, conv.contact)}/>
                 })}
             </div>

@@ -11,7 +11,7 @@ const Conversation = (props) => {
     let component = (
         
         <div className="conversation__container" onClick={props.dispatchRoomName}>
-            <Avatar className="conversation__avatar"/>
+            <Avatar className="conversation__avatar" src={props.photo}/>
             <Link to={`/app/${props.userId}/${props.roomname}`}>
             <div className="conversation__info">
                 <p className="conversation__name">{props.name}</p>
