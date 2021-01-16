@@ -202,7 +202,7 @@ const Chat = (props) => {
 
     return (
         <div className="chat__container">
-            <WhiteScreen/>
+            {messageCanal.length > 0 ? null : <WhiteScreen/>}
             <ImageModal 
                 show={imageToShow} 
                 imgUrl={imageToShow}
@@ -210,7 +210,7 @@ const Chat = (props) => {
                 image={true}/>
             <div className="chat__banner">
                 <div className="chat__bannerInfo">
-                    <Avatar className="chat__bannerAvatar"src={props.contactData.photo ? props.contactData.photo: null}>{props.contact!==null ? props.contact[0] : null}</Avatar>
+                    <Avatar className="chat__bannerAvatar" src={props.contactData.photo ? props.contactData.photo: null}>{props.contact!==null ? props.contact[0] : null}</Avatar>
                     <div className="chat__info">
                         <p>{props.contact}</p>
                     </div>

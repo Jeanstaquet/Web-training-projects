@@ -14,8 +14,8 @@ const Conversation = (props) => {
             <Avatar className="conversation__avatar" src={props.photo}/>
             <Link to={`/app/${props.userId}/${props.roomname}`}>
             <div className="conversation__info">
-                <p className="conversation__name">{props.name}</p>
-                <p className="conversation__lastMessage">{props.lastMessage}</p>
+                <p className="conversation__lastMessage">Room name: {props.roomname}</p>
+                <p className="conversation__name">Contact: {props.name}</p>
             </div>
             </Link>
             <div className="conversation__menu">

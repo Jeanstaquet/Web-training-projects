@@ -7,9 +7,9 @@
     border-right: 1px solid lightgrey;
     position: relative;
     
-
-
-
+    a {
+        text-decoration: none;
+    }
 
     &:hover {
         cursor: pointer;
@@ -30,17 +30,18 @@
         flex-direction: column;
         justify-content: center;
         flex: 0.8;
+
         p {
             margin: 0;
         }
         .conversation__name {
             margin: 0;
-            margin-bottom: 4px;
+            margin-top: 12px;
             font-size: 1rem;
         }
 
         .conversation__lastMessage {
-            font-size: 0.9rem;
+            font-size: 1rem;
         }
     }
 

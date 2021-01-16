@@ -96,7 +96,12 @@ const reducer = (state = initalState, action) => {
                 ...state,
                 roomName: null,
                 contact: null,
-                contactDetails: null
+                contactDetails: {userId: ".",
+                email: ".",
+                pseudo: ".",
+                password: ".",
+                timestamp: ".",
+                photo: null}
             }
         case "CONTACT_DATA":
             return {

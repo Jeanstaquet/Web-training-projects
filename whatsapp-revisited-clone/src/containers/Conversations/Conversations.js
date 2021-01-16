@@ -152,6 +152,7 @@ const Conversations = (props) => {
                    ok={addConversationHandler}
                    errorMessage={errorMessage}/>
             <div className="conv__account">
+                
                 <Avatar className="conv__avatar" src={props.pseudo.photo}>{props.pseudo !== null ? props.pseudo.pseudo[0] : null}</Avatar>
                 <AddIcon className="conversations__plusSign" onClick={handlerModalPP}/>
                 <ImageModal 
@@ -170,7 +171,7 @@ const Conversations = (props) => {
                 <Conversation addNewConv={true} click={toggleModal}/>
                 {fetchedConversations.filter(name => name.name.includes(filterName)).map((conv, i) => {
                     return <Conversation key={i} 
-                                         name={conv.name} 
+                                         name={conv.contact.pseudo} 
                                          roomname={conv.name}
                                          photo={conv.contact.photo}
                                          dispatchRoomName={() => props.roomNameHandler(conv.name, conv.contact.pseudo, conv.contact)}/>
