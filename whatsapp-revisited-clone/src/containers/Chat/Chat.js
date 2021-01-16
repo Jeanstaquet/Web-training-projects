@@ -15,8 +15,8 @@ import ImageModal from "../../components/UI/ImageModal/ImageModal";
 import Tooltip from '@material-ui/core/Tooltip';
 import Picker from 'emoji-picker-react';
 import * as actions from "../../store/action/index";
-import {Redirect, withRouter } from "react-router-dom";
 import MenuContact from "../../components/UI/MenuContact/MenuContact";
+import WhiteScreen from "../../components/UI/WhiteScreen/WhiteScreen";
 const Chat = (props) => {
     const [mess, setMessage] = useState("");
     const [messageCanal, setMessageCanal] = useState([])
@@ -199,8 +199,10 @@ const Chat = (props) => {
     if(messageBody) {
         messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
     }
+
     return (
         <div className="chat__container">
+            <WhiteScreen/>
             <ImageModal 
                 show={imageToShow} 
                 imgUrl={imageToShow}
@@ -208,7 +210,7 @@ const Chat = (props) => {
                 image={true}/>
             <div className="chat__banner">
                 <div className="chat__bannerInfo">
-                    <Avatar className="chat__bannerAvatar"src={props.contactData.photo}>{props.contact ? props.contact[0] : null}</Avatar>
+                    <Avatar className="chat__bannerAvatar"src={props.contactData.photo ? props.contactData.photo: null}>{props.contact!==null ? props.contact[0] : null}</Avatar>
                     <div className="chat__info">
                         <p>{props.contact}</p>
                     </div>

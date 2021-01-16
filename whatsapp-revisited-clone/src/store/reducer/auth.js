@@ -17,7 +17,12 @@ const initalState = {
     roomName: null, 
     contact: null,
     fail: false,
-    contactDetails: null
+    contactDetails: {userId: ".",
+    email: ".",
+    pseudo: ".",
+    password: ".",
+    timestamp: ".",
+    photo: null}
 }
 
 const reducer = (state = initalState, action) => {
