@@ -10,6 +10,7 @@ import FeatureMenu from "../FeatureMenu/FeatureMenu";
 import * as actions from "../../store/action/index";
 import AddIcon from '@material-ui/icons/Add';
 import ImageModal from "../../components/UI/ImageModal/ImageModal";
+import WhiteScreen from "../../components/UI/WhiteScreen/WhiteScreen";
 const Conversations = (props) => {
     const [modal, setModal] = useState(false); 
     const [conversationName, setConversationName] = useState("");
@@ -98,7 +99,6 @@ const Conversations = (props) => {
     
     }, [props.userId])
 
-    console.log(fetchedConversations)
 
     const handleMenu = () => {
         setMenuOpenClose(!menuOpenClose)
@@ -145,6 +145,8 @@ const Conversations = (props) => {
     return (
         <div className="converstations__container" >
             <FeatureMenu toggle={handleMenu} open={menuOpenClose}/>
+            {(props.roomName || !menuOpenClose || onModifyPP) ? null : <WhiteScreen/>}
+            {console.log(props.roomName, menuOpenClose, onModifyPP)}
             <Modal show={modal} 
                    click={toggleModalClose} 
                    change={changeModalHandler}
@@ -188,7 +190,8 @@ const mapStateToProps = state => {
         pseudo: state.pseudo,
         contactData: state.contactDetails,
         dataForContact: state.pseudo,
-        isAuth: state.userId !== null
+        isAuth: state.userId !== null,
+        roomName: state.roomName
     }
 }
 

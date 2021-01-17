@@ -16,7 +16,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Picker from 'emoji-picker-react';
 import * as actions from "../../store/action/index";
 import MenuContact from "../../components/UI/MenuContact/MenuContact";
-import WhiteScreen from "../../components/UI/WhiteScreen/WhiteScreen";
 const Chat = (props) => {
     const [mess, setMessage] = useState("");
     const [messageCanal, setMessageCanal] = useState([])
@@ -202,7 +201,6 @@ const Chat = (props) => {
 
     return (
         <div className="chat__container">
-            {messageCanal.length > 0 ? null : <WhiteScreen/>}
             <ImageModal 
                 show={imageToShow} 
                 imgUrl={imageToShow}

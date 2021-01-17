@@ -19,14 +19,6 @@ const Conversation = (props) => {
             </div>
             </Link>
             <div className="conversation__menu">
-                <p className="conversation__timestamp">{props.timeStamp}</p>
-                <ExpandMoreIcon className="conversation__expandButton" onClick={props.click}/>
-                {/* <div className="conversation__expandableMenu">
-                    <p>Archive</p>
-                    <p>Mute</p>
-                    <p>Quit the group</p>
-                    <p>Mark as read</p>
-                </div> */}
         </div>
 
     </div>
