@@ -11,6 +11,8 @@ import * as actions from "../../store/action/index";
 import AddIcon from '@material-ui/icons/Add';
 import ImageModal from "../../components/UI/ImageModal/ImageModal";
 import WhiteScreen from "../../components/UI/WhiteScreen/WhiteScreen";
+import Collapse from '@material-ui/core/Collapse';
+import Paper from '@material-ui/core/Paper';
 const Conversations = (props) => {
     const [modal, setModal] = useState(false); 
     const [conversationName, setConversationName] = useState("");
@@ -145,7 +147,7 @@ const Conversations = (props) => {
     return (
         <div className="converstations__container" >
             <FeatureMenu toggle={handleMenu} open={menuOpenClose}/>
-            {(props.roomName || onModifyPP || modal) ? null : <WhiteScreen/>}
+            <WhiteScreen hide={(props.roomName || onModifyPP || modal)}/>
             {console.log(props.roomName,  onModifyPP, modal)}
             <Modal show={modal} 
                    click={toggleModalClose} 
