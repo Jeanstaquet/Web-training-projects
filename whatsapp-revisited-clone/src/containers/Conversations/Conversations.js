@@ -145,8 +145,8 @@ const Conversations = (props) => {
     return (
         <div className="converstations__container" >
             <FeatureMenu toggle={handleMenu} open={menuOpenClose}/>
-            {(props.roomName || !menuOpenClose || onModifyPP) ? null : <WhiteScreen/>}
-            {console.log(props.roomName, menuOpenClose, onModifyPP)}
+            {(props.roomName || onModifyPP || modal) ? null : <WhiteScreen/>}
+            {console.log(props.roomName,  onModifyPP, modal)}
             <Modal show={modal} 
                    click={toggleModalClose} 
                    change={changeModalHandler}
