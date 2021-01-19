@@ -211,9 +211,13 @@ const Chat = (props) => {
         }
     }
 
-    const onData = (recordedBlob) =>  {
-        console.log('chunk of real-time data is: ', recordedBlob);
-      }
+    const onData = (recordedBlob, fileName) =>  {
+            //A Blob() is almost a File() - it's just missing the two properties below which we will add
+            recordedBlob.lastModifiedDate = new Date();
+            recordedBlob.name = fileName;
+            console.log(recordedBlob);
+            
+    }
 
     return (
         <div className="chat__container">
