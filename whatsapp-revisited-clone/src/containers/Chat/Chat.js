@@ -26,8 +26,9 @@ const Chat = (props) => {
     const [imageToShow, setImageToShow] = useState("");
     const [searchBar, setSearchBar] = useState("");
     const [showSearchBar, setShowSearchBar] = useState(false);
-    const [showContactMenu, setShowContactMenu] = useState(false)
-
+    const [showContactMenu, setShowContactMenu] = useState(false);
+    const [recording, setRecording] = useState(false)
+    const [showModalRecording, setShowModalRecording] = useState(true)
     let iconSend = mess.length < 1 ? <Tooltip title="Record a voice message" arrow><MicIcon className="chat__sendMessageMic"/></Tooltip> : <Tooltip title="Send the message" arrow><SendIcon onClick={(e) => sendMessage(e, mess)} className="chat__sendMessageMic"/></Tooltip>
 
     useEffect(() => {
@@ -198,9 +199,31 @@ const Chat = (props) => {
     if(messageBody) {
         messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
     }
+    const closeModalRecording = () => {
+        setShowModalRecording(!showModalRecording)
+    }
+
+    const beginEndRecording = (arg) => {
+        if(arg==="close") {
+            setRecording(false)
+        } else if(arg==="begin") {
+            setRecording(true)
+        }
+    }
+
+    const onData = (recordedBlob) =>  {
+        console.log('chunk of real-time data is: ', recordedBlob);
+      }
 
     return (
         <div className="chat__container">
+            <ImageModal 
+                show={showModalRecording} 
+                record={true} 
+                isRec={recording} 
+                closePP={closeModalRecording}
+                recordingBeginEnd={beginEndRecording}
+                onData={onData}/>
             <ImageModal 
                 show={imageToShow} 
                 imgUrl={imageToShow}
