@@ -28,7 +28,8 @@ const Chat = (props) => {
     const [showSearchBar, setShowSearchBar] = useState(false);
     const [showContactMenu, setShowContactMenu] = useState(false);
     const [recording, setRecording] = useState(false)
-    const [showModalRecording, setShowModalRecording] = useState(true)
+    const [showModalRecording, setShowModalRecording] = useState(true);
+    const [blopUrl, setBlopUrl] = useState("")
     let iconSend = mess.length < 1 ? <Tooltip title="Record a voice message" arrow><MicIcon className="chat__sendMessageMic"/></Tooltip> : <Tooltip title="Send the message" arrow><SendIcon onClick={(e) => sendMessage(e, mess)} className="chat__sendMessageMic"/></Tooltip>
 
     useEffect(() => {
@@ -215,9 +216,23 @@ const Chat = (props) => {
             //A Blob() is almost a File() - it's just missing the two properties below which we will add
             recordedBlob.lastModifiedDate = new Date();
             recordedBlob.name = fileName;
-            console.log(recordedBlob);
-            
-    }
+            setBlopUrl(recordedBlob.blobURL); 
+            console.log(recordedBlob.blobURL)
+
+            const formData = new FormData();
+            formData.append('audio-file', recordedBlob.blobURL);
+            console.log(formData)
+            //storage.ref(`images/test23`).put(formData)
+            // setTimeout(() => {
+            //     storage
+            //     .ref("images")
+            //     .child(fileSend.name)
+            //     .getDownloadURL()
+            //     .then(url => {
+            //         console.log(url)
+            //     })
+            // }, 1000)
+        }
 
     return (
         <div className="chat__container">
@@ -227,7 +242,8 @@ const Chat = (props) => {
                 isRec={recording} 
                 closePP={closeModalRecording}
                 recordingBeginEnd={beginEndRecording}
-                onData={onData}/>
+                onData={onData}
+                blopUrl={blopUrl}/>
             <ImageModal 
                 show={imageToShow} 
                 imgUrl={imageToShow}
