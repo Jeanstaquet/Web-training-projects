@@ -217,21 +217,12 @@ const Chat = (props) => {
             recordedBlob.lastModifiedDate = new Date();
             recordedBlob.name = fileName;
             setBlopUrl(recordedBlob.blobURL); 
-            console.log(recordedBlob.blobURL)
+            console.log(recordedBlob)
 
-            const formData = new FormData();
-            formData.append('audio-file', recordedBlob.blobURL);
-            console.log(formData)
-            //storage.ref(`images/test23`).put(formData)
-            // setTimeout(() => {
-            //     storage
-            //     .ref("images")
-            //     .child(fileSend.name)
-            //     .getDownloadURL()
-            //     .then(url => {
-            //         console.log(url)
-            //     })
-            // }, 1000)
+            //let myBlob = new Blob(recordedBlob.blobURL);
+            //console.log(myBlob)
+            let audio = URL.createObjectURL(recordedBlob.blobURL)
+            console.log(audio)
         }
 
     return (
@@ -244,11 +235,6 @@ const Chat = (props) => {
                 recordingBeginEnd={beginEndRecording}
                 onData={onData}
                 blopUrl={blopUrl}/>
-            <ImageModal 
-                show={imageToShow} 
-                imgUrl={imageToShow}
-                close={closeImageModal}
-                image={true}/>
             <div className="chat__banner">
                 <div className="chat__bannerInfo">
                     <Avatar className="chat__bannerAvatar" src={props.contactData.photo ? props.contactData.photo: null}>{props.contact!==null ? props.contact[0] : null}</Avatar>

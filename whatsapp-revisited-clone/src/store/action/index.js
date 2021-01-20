@@ -2,7 +2,7 @@ export {
     authEP,
     // loginMethod,
     // registerMethod
-    signWithGoogle,
+    // signWithGoogle,
     roomNameHandler,
     authReset,
     contactDetails,

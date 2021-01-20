@@ -47,8 +47,6 @@ const reducer = (state = initalState, action) => {
             return {
                 ...state,
                 error: action.message,
-                fail: true,
-                loading: false
             }
         case "AUTH_RESET":
             return {

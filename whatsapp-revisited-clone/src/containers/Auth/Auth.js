@@ -60,10 +60,7 @@ const Auth = (props) => {
                 <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Whatsapp_logo.svg" alt="whatsapp logo"/>
                 <div className="authW__container">
                     <h2><span onClick={switchMethod} className={method==="Register" ? "auth__loginButton": null}>Login</span> or <span onClick={switchMethod} className={!(method==="Register") ? "auth__registerButton": null}>create a new account</span></h2>
-                    <button onClick={() => props.signWithGoogle()}>{method==="Register" ? "Create an account with Google" : "Login with Google"}</button>
                 </div>
-                <p>OR</p>
-                
                 <form className="authNormal__container">
                 <h4>{method==="Register" ? "Create an account with your informations" : "Enter your information"}</h4>
                     {errorMessage ? <p className="error__message">You should include a pseudo, email and password</p> : null}
@@ -100,17 +97,13 @@ const mapStateToProps = state => {
     return {
         isAuth: state.token && true,
         userId: state.userId,
-        message: state.error,
-        fail: state.fail
+        message: state.error
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         auth: (e, p, pseudo, registred) => dispatch(actions.authEP(e, p, pseudo, registred)),
-        // loginMethod: () => dispatch(actions.loginMethod()),
-        // registerMethod: () => dispatch(actions.registerMethod())
-        signWithGoogle: () => dispatch(actions.signWithGoogle()),
         authReset: () => dispatch(actions.authReset())
     }
 }

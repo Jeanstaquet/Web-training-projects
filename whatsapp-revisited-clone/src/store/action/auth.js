@@ -43,13 +43,14 @@ export const pseudoHandler = (pseudo) => {
     }
 }
 
+
 export const authEP = (email, password, pseudo, isRegister) => {
     return dispatch => {
         dispatch(authStart());
-        const data = {
+        const authData = {
             email: email,
             password: password, 
-            pseudo: pseudo
+            returnSecureToken: true
         }
         let url = ""
         if(isRegister) {
@@ -60,7 +61,7 @@ export const authEP = (email, password, pseudo, isRegister) => {
         if(!isRegister) {
             url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAetezyzd_TAHEUZlwBR7FgJKY7vieoebY"
         }
-        axios.post(url, data)
+        axios.post(url, authData)
             .then(res => {
                 if(isRegister) {
                     db.collection("Users").doc(res.data.localId).set({
@@ -92,39 +93,39 @@ export const authEP = (email, password, pseudo, isRegister) => {
     }
 }
 
-export const googleAuth = (token, userId, photo, isNew, email) => {
-    return {
-        type: "SIGN_WITH_GOOGLE",
-        token: token,
-        userId: userId,
-        photo: photo,
-        isNew: isNew,
-        email: email
-    }
-}
+// export const googleAuth = (token, userId, photo, isNew, email) => {
+//     return {
+//         type: "SIGN_WITH_GOOGLE",
+//         token: token,
+//         userId: userId,
+//         photo: photo,
+//         isNew: isNew,
+//         email: email
+//     }
+// }
 
-export const signWithGoogle = () => {
-    return dispatch => {
-        auth
-        .signInWithPopup(provider)
-        .then(result => {
-            dispatch(googleAuth(result.credential.idToken, 
-                                result.additionalUserInfo.profile.id, 
-                                result.additionalUserInfo.profile.picture, 
-                                result.additionalUserInfo.isNewUser,
-                                result.additionalUserInfo.profile.email));
-            if(result.additionalUserInfo.isNew) {
-                db.collection("Users").add({
-                    userId: result.additionalUserInfo.profile.id,
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                    email: result.additionalUserInfo.profile.email,
-                    password: "googleConnection"
-                });
-            }
+// export const signWithGoogle = () => {
+//     return dispatch => {
+//         auth
+//         .signInWithPopup(provider)
+//         .then(result => {
+//             dispatch(googleAuth(result.credential.idToken, 
+//                                 result.additionalUserInfo.profile.id, 
+//                                 result.additionalUserInfo.profile.picture, 
+//                                 result.additionalUserInfo.isNewUser,
+//                                 result.additionalUserInfo.profile.email));
+//             if(result.additionalUserInfo.isNew) {
+//                 db.collection("Users").add({
+//                     userId: result.additionalUserInfo.profile.id,
+//                     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+//                     email: result.additionalUserInfo.profile.email,
+//                     password: "googleConnection"
+//                 });
+//             }
             
-        })
-    }
-}
+//         })
+//     }
+// }
 
 export const roomNameHandler = (roomName, contact, details) => {
     return {
