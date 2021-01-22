@@ -1,0 +1,9 @@
+.card__container {
+    background-color: khaki;
+    height: 100px;
+    margin-top: 225px ;
+    width: 100px;
+    position: absolute;
+    margin-left: 10vw;
+    margin-right: 10vw;
+}

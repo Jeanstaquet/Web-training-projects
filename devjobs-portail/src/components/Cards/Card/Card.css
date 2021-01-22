@@ -1,0 +1,57 @@
+.card__container {
+    width: 25vw;
+    height: 18vh;
+    background-color: white;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.card__logo {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    background-color: lightcoral;
+    top: -17.5px;
+    left: 25px;
+}
+
+.card__timeContainer {
+    display: flex;
+    margin-top: 30px;
+    margin-left: 20px;
+    width: 100%;
+}
+
+.card__timeContainer p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: rgb(187, 186, 186);
+}
+
+.card__bullet {
+    margin: 0 7px !important;
+}
+
+.card__title {
+    margin-top: 10px;
+    margin-left: 20px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.card__company {
+    margin-left: 20px;
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: rgb(187, 186, 186);
+}
+
+.card__loaction {
+    margin-left: 20px;
+    font-size: 0.75rem;
+    color:#6670e3;
+    font-weight: bold;
+}
