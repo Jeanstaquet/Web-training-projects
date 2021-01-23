@@ -81,5 +81,7 @@
     padding: 7px;
     border-radius: 10px;
     width: 30%;
+    z-index: 5;
     background-color: #5964e0;
+    cursor: pointer;
 }

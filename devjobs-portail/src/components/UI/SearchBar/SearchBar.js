@@ -21,7 +21,7 @@ const SearchBar = () => {
                     inputProps={{ 'aria-label': 'secondary checkbox' }}
                 />                
                 <p>Full Time Only</p>
-                <button>Search</button>
+                <button type="button">Search</button>
             </div>
         </div>
     );
