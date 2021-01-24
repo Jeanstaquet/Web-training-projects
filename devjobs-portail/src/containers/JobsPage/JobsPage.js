@@ -22,21 +22,17 @@ const reducer = (state, action) => {
     }
 }
 
-//"https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?search=node"
+//
 
 const JobsPage = () => {
     const [state, dispatch] = useReducer(reducer, initalState)
 
     useEffect(() => {
         dispatch({type: "BEGIN_FETCH"})
-        fetch('https://jsonplaceholder.typicode.com/posts')
-        .then((response) => response.json())
-        .then((json) => {
-            setTimeout(() => {
-                dispatch({type: "FETCH_SUCCESS", job: json})
-                console.log(state.job)
-            }, 1000)
-
+        axios.get("https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?search=node")
+        .then((res) => {
+                dispatch({type: "FETCH_SUCCESS", job: res})
+                console.log(res)
         });
     }, [])
 
