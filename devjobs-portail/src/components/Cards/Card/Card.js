@@ -1,17 +1,17 @@
 import React from 'react';
 import "./Card.css";
-const Card = () => {
+const Card = (props) => {
     return (
         <div className="card__container">
-            <span className="card__logo"></span>
+            <span className="card__logo">{props.logo}</span>
             <div className="card__timeContainer">
-                <p className="card__time">5H ago</p>
+                <p className="card__time">{props.date}</p>
                 <p className="card__bullet">•</p>
-                <p className="card__fullTime">Full time</p>
+                <p className="card__fullTime">{props.type}</p>
             </div>
-            <p className="card__title">Senior Software Engineer</p>
-            <p className="card__company">So Digital Inc.</p>
-            <p className="card__loaction">Remote, Russian Federation</p>
+            <p className="card__title">{props.title}</p>
+            <p className="card__company">{props.company}</p>
+            <p className="card__loaction">{props.location}</p>
         </div>
     );
 };

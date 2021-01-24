@@ -1,12 +1,15 @@
 .card__container {
     width: 25vw;
-    height: 18vh;
+    height: 20vh;
     background-color: white;
     position: relative;
     display: flex;
+    width: 300px;
     flex-direction: column;
     box-sizing: border-box;
+    justify-content: center;
     border-radius: 10px;
+    margin: 30px 20px;
 }
 
 .card__logo {

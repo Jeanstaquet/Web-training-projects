@@ -29,10 +29,10 @@ const JobsPage = () => {
 
     useEffect(() => {
         dispatch({type: "BEGIN_FETCH"})
-        axios.get("https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?search=node")
+        axios.get("https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?page=2")
         .then((res) => {
-                dispatch({type: "FETCH_SUCCESS", job: res})
-                console.log(res)
+                dispatch({type: "FETCH_SUCCESS", job: res.data})
+                console.log(res.data)
         });
     }, [])
 
@@ -41,7 +41,7 @@ const JobsPage = () => {
             <Banner/>
             <SearchBar/>
             <Spinner loading={state.loading}/>
-            <Cards/>
+            <Cards data={state.job}/>
         </div>
     );
 };
