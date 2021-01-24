@@ -5,6 +5,8 @@ import SearchBar from "../../components/UI/SearchBar/SearchBar";
 import Cards from "../../components/Cards/Cards";
 import axios from "axios";
 import Spinner from "./../../components/UI/Spinner/Spinner";
+import Modal from "../../components/UI/ModalJob/ModalJob";
+import ModalJob from '../../components/UI/ModalJob/ModalJob';
 
 const initalState = {job: [],
                      loading: false}
@@ -41,6 +43,7 @@ const JobsPage = () => {
             <Banner/>
             <SearchBar/>
             <Spinner loading={state.loading}/>
+            <ModalJob data={state.job}/>
             <Cards data={state.job}/>
         </div>
     );

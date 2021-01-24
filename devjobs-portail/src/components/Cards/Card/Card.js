@@ -3,9 +3,9 @@ import "./Card.css";
 const Card = (props) => {
     return (
         <div className="card__container">
-            <span className="card__logo">{props.logo}</span>
+            <img className={props.logo ? "card__logo" : null} src={props.logo}/>
             <div className="card__timeContainer">
-                <p className="card__time">{props.date}</p>
+                <p className="card__time">{props.date} day(s) ago</p>
                 <p className="card__bullet">•</p>
                 <p className="card__fullTime">{props.type}</p>
             </div>

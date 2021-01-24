@@ -6,8 +6,8 @@ const Cards = (props) => {
         <div className="cards__container">
             {props.data.map((job, index) => {
                 return <Card
-                    logo={job.logo}
-                    date={job.date}
+                    logo={job.company_logo}
+                    date={new Date(job.created_at).getDay()}
                     type={job.type}
                     title={job.title}
                     company={job.company}
