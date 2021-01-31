@@ -1,0 +1,15 @@
+const express = require("express");
+const path = require("path");
+
+const router = express.Router();
+const rootDir = require("../util/path");
+
+
+router.get("/", (req, res, next) => {    
+    console.log("In another Middleware");
+    //diname nous donnes le path vers le fichier actuel
+    res.sendFile(path.join(rootDir, "views", "shop.html"))
+});
+
+
+module.exports = router;
