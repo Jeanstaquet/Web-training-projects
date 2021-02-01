@@ -4,11 +4,11 @@ const path = require("path");
 const router = express.Router();
 const rootDir = require("../util/path");
 
+const adminData = require("./admin");
 
-router.get("/", (req, res, next) => {    
-    console.log("In another Middleware");
-    //diname nous donnes le path vers le fichier actuel
-    res.sendFile(path.join(rootDir, "views", "shop.html"))
+router.get("/", (req, res, next) => {   
+    const products = adminData.products; 
+    res.render("shop", {prods: products, docTitle: "Shop"})
 });
 
 
