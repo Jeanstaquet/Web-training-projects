@@ -9,7 +9,7 @@ const products = [];
 //admin/add-product
 router.get("/add-product", (req, res, next) => {  
     console.log("tu run ?")  
-    res.render("add-product")
+    res.render("add-product", {pageTitle: "Add Prd", path: "/admin/add-product"})
 })
 
 router.post("/add-product", (req, res, next) => {
