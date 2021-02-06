@@ -27,15 +27,14 @@ module.exports = class Product {
 
     //static, car on veut pouvoir caller cette method sur la classe en elle même
     //et pas sur un objet instancié
-    static fetchAll() {
+    static fetchAll(cb) {
         const p = path.join(path.dirname(process.mainModule.filename), "data", 
         "products.json")
         fs.readFile(p, (err, fileContent) => {
             if(err) {
-                return [];
+                cb([]);
             }
-            console.log(fileContent, JSON.parse(fileContent))
-            return JSON.parse(fileContent)
+            cb(JSON.parse(fileContent))
         })
     }
 }
