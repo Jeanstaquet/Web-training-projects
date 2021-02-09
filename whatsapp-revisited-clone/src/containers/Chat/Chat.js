@@ -200,41 +200,10 @@ const Chat = (props) => {
     if(messageBody) {
         messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
     }
-    const closeModalRecording = () => {
-        setShowModalRecording(!showModalRecording)
-    }
-
-    const beginEndRecording = (arg) => {
-        if(arg==="close") {
-            setRecording(false)
-        } else if(arg==="begin") {
-            setRecording(true)
-        }
-    }
-
-    const onData = (recordedBlob, fileName) =>  {
-            //A Blob() is almost a File() - it's just missing the two properties below which we will add
-            recordedBlob.lastModifiedDate = new Date();
-            recordedBlob.name = fileName;
-            setBlopUrl(recordedBlob.blobURL); 
-            console.log(recordedBlob)
-
-            //let myBlob = new Blob(recordedBlob.blobURL);
-            //console.log(myBlob)
-            let audio = URL.createObjectURL(recordedBlob.blobURL)
-            console.log(audio)
         }
 
     return (
         <div className="chat__container">
-            <ImageModal 
-                show={showModalRecording} 
-                record={true} 
-                isRec={recording} 
-                closePP={closeModalRecording}
-                recordingBeginEnd={beginEndRecording}
-                onData={onData}
-                blopUrl={blopUrl}/>
             <div className="chat__banner">
                 <div className="chat__bannerInfo">
                     <Avatar className="chat__bannerAvatar" src={props.contactData.photo ? props.contactData.photo: null}>{props.contact!==null ? props.contact[0] : null}</Avatar>
