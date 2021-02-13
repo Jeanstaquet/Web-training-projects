@@ -7,7 +7,8 @@ const errorController = require('./controllers/error');
 const sequelize = require("./util/database");
 const Product = require("./models/product");
 const User = require("./models/user");
-
+const Cart = require("./models/cart")
+const CartIem = require("./models/cart-item")
 
 const app = express();
 
@@ -42,6 +43,16 @@ Product.belongsTo(User, {constraints: true, onDelete: 'CASCADE'});
 //On peut ne garder que celui-la
 User.hasMany(Product);
 
+//One direction link is enough
+//Va créer un id dans cart avec l'id de l'user
+User.hasOne(Cart);
+
+//Many2Many
+//trough = ou doit être stocké la connection 
+Cart.belongsToMany(Product, {through: CartIem});
+Product.belongsToMany(Cart, {through: CartIem});
+
+
 //Permet de créer les tables
 sequelize.sync()
 .then(result => {
@@ -56,9 +67,9 @@ sequelize.sync()
     return Promise.resolve(user);
 })
 .then((user) => {
-    //console.log(user);
-    app.listen(3000)
+    return user.createCart()
 })
+.then(cart => app.listen(3000))
 .catch(err => console.log(err))
 
 
