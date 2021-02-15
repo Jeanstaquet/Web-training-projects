@@ -1,5 +1,6 @@
 .column {
     width: 272px;
+    min-width: 272px;
     min-height: 40px;
     margin: 0 7px;
     background-color: #ebecf0;

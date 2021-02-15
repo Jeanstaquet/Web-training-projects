@@ -32,6 +32,13 @@ const Board = () => {
         <div className="board">
             <Navigation/>
             <Column/>
+            <Column/>
+            <Column/>
+            <Column/>
+            <Column/>
+            <Column/>
+            <Column/>
+            <Column/>
         </div>
     );
 };
