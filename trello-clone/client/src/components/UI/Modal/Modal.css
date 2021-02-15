@@ -5,16 +5,25 @@
     background-color: #f4f5f7;
     width: 70vw;
     left: 15vw;
+    border-radius: 5px;
     height: 95%
 }
 
 .modal {
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 100%;
     width: 100%;
     padding: 10px 30px 30px 30px;
+    position: relative;
     display: flex;
+    border-radius: 5px;
     flex-direction: column;
+}
+
+.modal__close {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
 }
 
 .modal__labelContainer .modal__labelTitle {
@@ -62,4 +71,93 @@
     padding: 10px;
     overflow: auto;
     border-radius: 5px;
+    margin-bottom: 40px;
 }
+
+.modal__activityTitle {
+    display: flex;
+    align-items: center;
+}
+
+.modal__activityTitle h3 {
+    margin-left: 5px;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.modal__activityComment {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.modal__activityUserTextArea {
+    width: 100%;
+    min-height: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow:  0 1px 2px -1px rgba(9,30,66,.25),0 0 0 1px rgba(9,30,66,.08);
+    transition: all 0.2s ease;
+}
+
+.modal__activityUserTextArea .modal__activityUserButton {
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+    background-color: rgba(0, 128, 128, 0.349);
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modal__activityUserButton:hover,
+.modal__saveBtn:hover {
+    background-color: rgba(0, 128, 128, 0.753);
+}
+
+.modal__activityComment input {
+    border: none;
+    flex: 1;
+    padding: 15px;
+    border-radius: 20px;
+    font-family: inherit;
+}
+
+.modal__activityComment input:focus {
+    outline: none;
+}
+
+.modal__activityComment .modal__activityUser {
+    width: 30px;
+    height: 30px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 100%;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.inputGrow {
+    min-height: 100px;
+}
+
+.modal__saveBtn {
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+    background-color: rgba(0, 128, 128, 0.349);
+    color: white;
+    cursor: pointer;
+}
+

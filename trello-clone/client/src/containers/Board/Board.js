@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./Board.css";
 import  Navigation from "../../components/UI/Navigation/Navigation";
 import Column from "../../components/Column/Column";
@@ -29,10 +29,24 @@ const dataCol = {
 }
 
 const Board = () => {
+
+  const [openModal, setOpenModal] = useState(true)
+
+  const modalHandler = (arg) => {
+    switch(arg) {
+      case "close":
+        setOpenModal(false);
+        break;
+      case "open":
+        setOpenModal(true);
+        break;
+    }
+  }
     return (
         <div className="board">
             <Navigation/>
-            <Modal/>
+            <Modal 
+              modalHandler={modalHandler} show={openModal}/>
             <Column/>
             <Column lastOne={true}/>
           
