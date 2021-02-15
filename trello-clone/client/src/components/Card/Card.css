@@ -1,0 +1,34 @@
+.card {
+    background-color: #ffffff;
+    margin: 8px 8px;
+    padding: 8px;
+    position: relative;
+    z-index: 99;
+}
+
+
+.card__createIconContainer {
+    display: none;
+    opacity: 0.2;
+}
+
+.card:hover .card__createIconContainer {
+    display: block !important;
+}
+
+.card__createIcon {
+    position: absolute;
+    right: 10px;
+    font-size: 15px;
+    background-color: rgba(211, 211, 211, 0.13);
+    border-radius: 5px;
+    padding: 4px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: none;
+}
+
+
+.card__text {
+    margin: 0px 0 0 0 ;
+}

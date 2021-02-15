@@ -1,0 +1,33 @@
+.column {
+    width: 272px;
+    min-height: 40px;
+    margin: 0 7px;
+    background-color: #ebecf0;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.column__title {
+    margin: 5px 0px 5px 11px;
+}
+
+.column__addACard {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 5px 5px 5px 5px;
+    color: lightslategray;
+    cursor: pointer;
+    height: 28px;
+    border-radius: 5px;
+}
+
+
+.column__addACard:hover {
+    background-color: #d9dce2;
+}
+
+.column__addACard p {
+    margin-left: 5px;
+}
