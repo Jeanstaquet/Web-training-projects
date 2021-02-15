@@ -1,0 +1,65 @@
+.modal__box {
+    z-index: 500;
+    position: fixed;
+    top: 50px;
+    background-color: #f4f5f7;
+    width: 70vw;
+    left: 15vw;
+    height: 95%
+}
+
+.modal {
+    overflow-y: scroll;
+    height: 100%;
+    width: 100%;
+    padding: 10px 30px 30px 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal__labelContainer .modal__labelTitle {
+    font-size: 0.8rem;
+    color: rgb(163, 163, 163);
+    margin-bottom: 0;
+}
+
+.modal__labelList {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.modal__labelList .modal__labelListItem {
+    margin: 10px 7px 10px 0;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal__descriptionContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal__descriptionTitle {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.modal__descriptionTitle h2 {
+    margin-left: 5px;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.modal__descriptionInputContainer textarea {
+    width: 100%;
+    font-family: inherit;
+    height: 90px;
+    border: none;
+    padding: 10px;
+    overflow: auto;
+    border-radius: 5px;
+}
