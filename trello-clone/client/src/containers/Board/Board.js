@@ -1,7 +1,8 @@
 import React from 'react';
 import "./Board.css";
 import  Navigation from "../../components/UI/Navigation/Navigation";
-import Column from "../../components/Column/Column"
+import Column from "../../components/Column/Column";
+import Modal from "../../components/UI/Modal/Modal";
 
 const item = {
     id: "zefzef",
@@ -31,14 +32,10 @@ const Board = () => {
     return (
         <div className="board">
             <Navigation/>
+            <Modal/>
             <Column/>
-            <Column/>
-            <Column/>
-            <Column/>
-            <Column/>
-            <Column/>
-            <Column/>
-            <Column/>
+            <Column lastOne={true}/>
+          
         </div>
     );
 };

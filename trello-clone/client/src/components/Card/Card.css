@@ -53,3 +53,29 @@
 .card__text {
     margin: 0px 0 0 0 ;
 }
+
+.card__labelTimeContainer {
+    display: flex;
+    align-items: center;
+    margin: 7px 0 0 0;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: limegreen;
+    width: fit-content;
+    padding: 3px;
+    color: white;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+.card__labelTimeContainer p {
+    margin: 0 0 0 5px ;
+}
+
+.card__labelTimeContainer .card__labelTimeIcon {
+    font-size: 20px;
+}
+
+.hide {
+    display: none;
+}
