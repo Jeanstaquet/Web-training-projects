@@ -16,6 +16,7 @@ const item2 = {
   name: "Wash the car"
 }
 
+
 function App() {
   const [text, setText] = useState("")
   const [state, setState] = useState({
@@ -32,7 +33,6 @@ function App() {
       items: []
     }
   })
-
   const handleDragEnd = ({destination, source}) => {
     if (!destination) {
       return
@@ -87,7 +87,6 @@ function App() {
       </div>
       <DragDropContext onDragEnd={handleDragEnd}>
         {_.map(state, (data, key) => {
-          console.log(key)
           return(
               <Column data={data} title={data.title} keyD={key}/>
           )

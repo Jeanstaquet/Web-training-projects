@@ -100,3 +100,7 @@ exports.postDeleteProduct = (req, res, next) => {
     })
     .catch(err => console.log(err));
 };
+
+exports.getTest = (req, res, next) => {
+  return res.send("Pls")
+}

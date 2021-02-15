@@ -7,7 +7,7 @@ const column = (props) => {
     return (
       <div key={props.keyD} className={"column"}>
       <h3>{props.title}</h3>
-        <Droppable droppableId={props.keyD}>
+        <Droppable droppableId={props.keyD} key={props.keyD}>
         {(provided, snapshot) => {
           return(
             <div
