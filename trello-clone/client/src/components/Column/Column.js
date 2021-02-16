@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from "../Card/Card";
 import AddIcon from '@material-ui/icons/Add';
+import { Droppable, Draggable} from "react-beautiful-dnd";
 
 import "./Column.css";
 const Column = (props) => {
@@ -9,10 +10,20 @@ const Column = (props) => {
         column = (
             <div className="column">
                 <h3 className="column__title">{props.title}</h3>
-                <Card/>
-                {props.data.items.map(({id, name}) => {
-                    return <Card text={name} key={id} />
-                })}
+                <Droppable droppableId={props.id} key={props.id}>
+                    {(provided, snapshot) => {
+                        return (
+                            <div ref={provided.innerRef}
+                                {...provided.droppableProps}
+                                className={"droppable-col"}>
+                                {props.data.items.map(({id, name}, index) => {
+                                    return <Card dragggableId={id} data={props.data} id={id} text={name} key={id} index={index}/>
+                                })}
+                                {provided.placeholder}
+                            </div>
+                        )
+                    }}
+                </Droppable>
                 <div className="column__addACard">
                     <AddIcon/>
                     <p>Add a card</p>

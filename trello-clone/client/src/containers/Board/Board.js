@@ -15,6 +15,21 @@ const item = {
     name: "Wash the car"
   }
 
+  const item3 = {
+    id: "eifjefd",
+    name: "Go forward in this project"
+  }
+
+  const item4 = {
+    id: "eifjzsefd",
+    name: "Go forzszsward in this project"
+  }
+
+  const item5 = {
+    id: "zdzjefd",
+    name: "zdszorward in this project"
+  }
+
 const dataCol = {
     "todo": {
         title: "Todo",
@@ -22,11 +37,11 @@ const dataCol = {
       },
       "in-progress": {
         title: "In Progress",
-        items: []
+        items: [item5]
       },
       "done": {
         title: "Completed",
-        items: []}
+        items: [item3, item4]}
 }
 
 
@@ -44,15 +59,20 @@ const Board = () => {
         break;
     }
   }
+
+  const handleDragEnd = ({destination, source}) => {
+    //
+  }
     return (
         <div className="board">
             <Navigation/>
             <Modal 
               modalHandler={modalHandler} show={openModal}/>
-            <Column/>
-            {Object.entries(dataCol).map(([key, val]) => {
-              return <Column title={val.title} key={key} data={val}/>
-            })}
+            <DragDropContext onDragEnd={handleDragEnd}>
+              {Object.entries(dataCol).map(([key, val]) => {
+                return <Column title={val.title} key={key} data={val} id={key}/>
+              })}
+            </DragDropContext>
             <Column lastOne={true}/>
           
         </div>
