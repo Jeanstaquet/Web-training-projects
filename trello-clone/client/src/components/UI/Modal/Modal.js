@@ -13,9 +13,9 @@ const Modal = (props) => {
     return (
         <React.Fragment>
             <Backdrop click={() => props.modalHandler("close")} show={props.show}/>
-            <div className={props.show ? "modal__box" : "hide modal_box"}>
+            <div className={props.show ? "modal__box" : "hide modal_box transitOffScreen"}>
                 <div className="modal">
-                    <ClearIcon onClick={() => props.modalHandler("close")} className="modal__close"/>
+                        <ClearIcon onClick={() => props.modalHandler("close")} className="modal__close"/>
                     <h2>Title of the column</h2>
                     <div className="modal__labelContainer">
                         <p className="modal__labelTitle">LABELS</p>
@@ -23,6 +23,15 @@ const Modal = (props) => {
                             <Labels type="Soon finished"/>
                             <Labels type="Team IT"/>
                             <AddIcon className="modal__labelListAddItem"/>
+                            <div className="modal__menuLabels">
+                                <h2>Labels</h2>
+                                <ClearIcon/>
+                                <Labels sideMenu={true} type="Urgent"/>
+                                <Labels sideMenu={true} type="Team IT"/>
+                                <Labels sideMenu={true} type="Soon finished"/>
+                                <Labels sideMenu={true} type="Prioritize"/>
+                                <Labels sideMenu={true} type="S.O.S."/>
+                            </div>
                         </div>
                     </div>
                     <div className="modal__descriptionContainer">

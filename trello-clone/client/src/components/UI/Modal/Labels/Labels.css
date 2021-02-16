@@ -5,3 +5,15 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+.labelSideMenu {
+    box-sizing: content-box;
+    width: 150px;
+    border-left: 7px solid transparent;
+}
+
+.labelSideMenu:hover {
+    border-left: 7px solid rgba(0, 0, 0, 0.3) ;
+    width: 143px;
+    padding-left: 12px;
+}

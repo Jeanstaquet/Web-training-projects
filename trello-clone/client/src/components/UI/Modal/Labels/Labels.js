@@ -21,7 +21,7 @@ const Labels = (props) => {
     }
 
     return (
-        <p className="labelModal" style={{backgroundColor: color}}>{props.type}</p>
+        <p className={!props.sideMenu ? "labelModal" : "labelSideMenu labelModal"} style={{backgroundColor: color}}>{props.type}</p>
     );
 };
 
