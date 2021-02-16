@@ -15,11 +15,12 @@ const Column = (props) => {
                         return (
                             <div ref={provided.innerRef}
                                 {...provided.droppableProps}
-                                className={"droppable-col"}>
+                                className={snapshot.isDraggingOver ? "droppable-col skyblue" : "droppable-col"}>
                                 {props.data.items.map(({id, name, tags}, index) => {
                                     return <Card tags={tags} dragggableId={id} data={props.data} id={id} text={name} key={id} index={index}/>
                                 })}
                                 {provided.placeholder}
+                                
                             </div>
                         )
                     }}

@@ -9,13 +9,12 @@ const Card = (props) => {
     let types;
     if(props.tags) {
         types = props.tags.split(" ")
-        console.log(types)
     }
     return (
         <Draggable key={props.id} index={props.index} draggableId={props.id}>
             {(provided, snapshot) => {
                 return (
-                    <div className="card"
+                    <div className={snapshot.isDragging ? "card green" : "card"} 
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}>
@@ -24,7 +23,7 @@ const Card = (props) => {
                             return <Labels key={type} type={type}/>
                         }) : null}
                         </div>
-                        <div className="card__createIconContainer">
+                        <div className="card__createIconContainer" >
                         <CreateIcon className="card__createIcon"/>
                         </div>
                         <div className="card__labelText"></div>
