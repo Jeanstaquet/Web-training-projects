@@ -3,6 +3,7 @@ import "./Board.css";
 import  Navigation from "../../components/UI/Navigation/Navigation";
 import Column from "../../components/Column/Column";
 import Modal from "../../components/UI/Modal/Modal";
+import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
 
 const item = {
     id: "zefzef",
@@ -28,6 +29,7 @@ const dataCol = {
         items: []}
 }
 
+
 const Board = () => {
 
   const [openModal, setOpenModal] = useState(true)
@@ -48,6 +50,9 @@ const Board = () => {
             <Modal 
               modalHandler={modalHandler} show={openModal}/>
             <Column/>
+            {Object.entries(dataCol).map(([key, val]) => {
+              return <Column title={val.title} key={key} data={val}/>
+            })}
             <Column lastOne={true}/>
           
         </div>

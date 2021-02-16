@@ -4,6 +4,7 @@
     padding: 5px;
     border-radius: 5px;
     cursor: pointer;
+    position: relative;
 }
 
 .labelSideMenu {
@@ -16,4 +17,9 @@
     border-left: 7px solid rgba(0, 0, 0, 0.3) ;
     width: 143px;
     padding-left: 12px;
+}
+
+.labelSideMenu span {
+    position: absolute;
+    right: 2px;
 }

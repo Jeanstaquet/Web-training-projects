@@ -6,9 +6,15 @@ import AddIcon from '@material-ui/icons/Add';
 import Labels from "./Labels/Labels"
 import SubjectIcon from '@material-ui/icons/Subject';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
+import MenuLabels from './MenuLabels/MenuLabels';
 
 const Modal = (props) => {
     const [openInput, setOpenInput] = useState(false)
+    const [openMenuLabel, setOpenMenuLabel] = useState(false);
+
+    const menuLabelHandler = () => {
+        setOpenMenuLabel(!openMenuLabel)
+    }
 
     return (
         <React.Fragment>
@@ -22,16 +28,8 @@ const Modal = (props) => {
                         <div className="modal__labelList">
                             <Labels type="Soon finished"/>
                             <Labels type="Team IT"/>
-                            <AddIcon className="modal__labelListAddItem"/>
-                            <div className="modal__menuLabels">
-                                <h2>Labels</h2>
-                                <ClearIcon/>
-                                <Labels sideMenu={true} type="Urgent"/>
-                                <Labels sideMenu={true} type="Team IT"/>
-                                <Labels sideMenu={true} type="Soon finished"/>
-                                <Labels sideMenu={true} type="Prioritize"/>
-                                <Labels sideMenu={true} type="S.O.S."/>
-                            </div>
+                            <AddIcon className="modal__labelListAddItem" onClick={menuLabelHandler}/>
+                            <MenuLabels show={openMenuLabel} click={menuLabelHandler}/>
                         </div>
                     </div>
                     <div className="modal__descriptionContainer">

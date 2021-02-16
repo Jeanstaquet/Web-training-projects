@@ -42,11 +42,7 @@
     width: fit-content;
 }
 
-.modal__menuLabels {
-    position: absolute;
-    right: -60px;
-    top: -12.5px;
-}
+
 
 .modal__labelList .modal__labelListItem {
     margin: 10px 7px 10px 0;
@@ -59,6 +55,19 @@
 .modal__descriptionContainer {
     display: flex;
     flex-direction: column;
+}
+
+.modal__labelListAddItem {
+    cursor: pointer;
+    border-radius: 100%;
+}
+
+.modal__labelListAddItem:hover {
+    background-color: lightgray;
+}
+
+.modal__labelListAddItem:active {
+    color: white
 }
 
 .modal__descriptionTitle {

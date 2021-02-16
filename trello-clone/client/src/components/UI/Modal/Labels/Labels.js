@@ -1,5 +1,6 @@
 import React from 'react';
 import "./Labels.css";
+import CheckIcon from '@material-ui/icons/Check';
 const Labels = (props) => {
     let color;
     switch(props.type) {
@@ -21,7 +22,11 @@ const Labels = (props) => {
     }
 
     return (
-        <p className={!props.sideMenu ? "labelModal" : "labelSideMenu labelModal"} style={{backgroundColor: color}}>{props.type}</p>
+        <React.Fragment>
+            <p className={!props.sideMenu ? "labelModal" : "labelSideMenu labelModal"} style={{backgroundColor: color}}>{props.type} <span>{props.sideMenu ? <CheckIcon/> : null}</span></p>
+            
+        </React.Fragment>
+        
     );
 };
 
