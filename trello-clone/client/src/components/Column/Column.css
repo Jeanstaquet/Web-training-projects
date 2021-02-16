@@ -33,3 +33,7 @@
 .column__addACard p {
     margin-left: 5px;
 }
+
+.droppable-col {
+    min-height: 40px;
+}

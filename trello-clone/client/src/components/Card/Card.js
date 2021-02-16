@@ -3,9 +3,14 @@ import "./Card.css"
 import CreateIcon from '@material-ui/icons/Create';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import {Draggable} from "react-beautiful-dnd";
+import Labels from "../UI/Modal/Labels/Labels";
 
 const Card = (props) => {
-
+    let types;
+    if(props.tags) {
+        types = props.tags.split(" ")
+        console.log(types)
+    }
     return (
         <Draggable key={props.id} index={props.index} draggableId={props.id}>
             {(provided, snapshot) => {
@@ -15,7 +20,9 @@ const Card = (props) => {
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}>
                         <div className="card__labelContainer">
-                        <p>To do: Urgent</p>
+                        {props.tags ? types.map((type) => {
+                            return <Labels key={type} type={type}/>
+                        }) : null}
                         </div>
                         <div className="card__createIconContainer">
                         <CreateIcon className="card__createIcon"/>

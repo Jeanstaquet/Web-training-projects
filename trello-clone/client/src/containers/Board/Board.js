@@ -7,7 +7,8 @@ import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
 
 const item = {
     id: "zefzef",
-    name: "Clean the house"
+    name: "Clean the house",
+    tags: "Urgent S.O.S."
   }
   
   const item2 = {
@@ -47,7 +48,7 @@ const dataCol = {
 
 const Board = () => {
   const [data, setData] = useState(dataCol)
-  const [openModal, setOpenModal] = useState(false)
+  const [openModal, setOpenModal] = useState(true)
 
   const modalHandler = (arg) => {
     switch(arg) {
