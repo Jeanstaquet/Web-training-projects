@@ -46,8 +46,8 @@ const dataCol = {
 
 
 const Board = () => {
-
-  const [openModal, setOpenModal] = useState(true)
+  const [data, setData] = useState(dataCol)
+  const [openModal, setOpenModal] = useState(false)
 
   const modalHandler = (arg) => {
     switch(arg) {
@@ -61,7 +61,28 @@ const Board = () => {
   }
 
   const handleDragEnd = ({destination, source}) => {
-    //
+    if(!destination) {
+      return;
+    }
+
+    //If the user has reset the position of the element where it has started
+    if (destination.index === source.index && destination.droppableId === source.droppableId) {
+      return
+    }
+
+    const itemCopy = {...data[source.droppableId].items[source.index]}
+    setData(prev => {
+      prev = {...prev}
+      // Remove from previous items array
+      prev[source.droppableId].items.splice(source.index, 1)
+
+
+      // Adding to new items array location
+      prev[destination.droppableId].items.splice(destination.index, 0, itemCopy)
+
+      return prev
+    })
+    
   }
     return (
         <div className="board">
@@ -69,7 +90,7 @@ const Board = () => {
             <Modal 
               modalHandler={modalHandler} show={openModal}/>
             <DragDropContext onDragEnd={handleDragEnd}>
-              {Object.entries(dataCol).map(([key, val]) => {
+              {Object.entries(data).map(([key, val]) => {
                 return <Column title={val.title} key={key} data={val} id={key}/>
               })}
             </DragDropContext>
