@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 //les trucs des querys que mongoose gère pour nous
 const columnSchema = new Schema({
     title: String,
-    items: [{_id: String, name: String, tags: String}]
+    items: [{id: String, name: String, tags: String}]
 });
 
 //On va donner un nom au schema

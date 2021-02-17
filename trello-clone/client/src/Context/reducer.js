@@ -8,8 +8,9 @@ export const ActionTypes = {
 
     UPDATE_ITEM: "UPDATE_ITEM",
 
-    UPDATE_COL: "UPDATE_COL"
+    UPDATE_COL: "UPDATE_COL",
 
+    NEW_STATE: "NEW_STATE"
   }
   
   export const reducer = (state, action) => {
@@ -26,6 +27,11 @@ export const ActionTypes = {
         prev[action.sourceId].items.splice(action.sourceIndex, 1)
         prev[action.destDropId].items.splice(action.destIndex, 0, itemCopy)
         return {...prev}
+      
+      case ActionTypes.NEW_STATE:
+        return {
+          ...action.newState
+        }
 
       default:
         return state

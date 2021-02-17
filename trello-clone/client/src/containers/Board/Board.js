@@ -6,6 +6,8 @@ import Modal from "../../components/UI/Modal/Modal";
 import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
 import {useAppDispatch} from "../../Context/index";
 import {useAppData} from "../../Context/index";
+import axios from "axios";
+import { v4 as uuidv4 } from 'uuid';
 const item = {
     id: "zefzef",
     name: "Clean the house",
@@ -49,9 +51,9 @@ const dataCol = {
 
 const Board = () => {
   const state = useAppData()
-  const [data, setData] = useState(dataCol)
+  const [data, setData] = useState()
   const [openModal, setOpenModal] = useState(false)
-  const {updateCol} = useAppDispatch()
+  const {updateCol, newState} = useAppDispatch()
   console.log(state)
 
   const modalHandler = (arg) => {
@@ -65,17 +67,28 @@ const Board = () => {
     }
   }
 
+  useEffect(() => {
+    setTimeout(() => {
+      axios.get("http://localhost:5000/")
+      .then((result) => {
+        newState({...result.data})
+      })
+    }, 2000)
+
+  }, [])
+
   const handleDragEnd = ({destination, source}) => {
+    if(!destination) {
+      return;
+    }
+
+    //If the user has reset the position of the element where it has started
+    if (destination.index === source.index && destination.droppableId === source.droppableId) {
+      return
+    }
+
     return updateCol(source.droppableId, source.index, destination.droppableId, destination.index)
     
-    // if(!destination) {
-    //   return;
-    // }
-
-    // //If the user has reset the position of the element where it has started
-    // if (destination.index === source.index && destination.droppableId === source.droppableId) {
-    //   return
-    // }
 
     // const itemCopy = {...data[source.droppableId].items[source.index]}
     // setData(prev => {
@@ -90,6 +103,14 @@ const Board = () => {
     //   return prev
     // })
     
+
+  }
+  let objData;
+  if(state) {
+    objData = 
+    Object.entries(state).map(([key, val]) => {
+      return <Column title={val.title} key={key} data={val} id={key}/>
+    })
   }
     return (
         <div className="board">
@@ -97,9 +118,12 @@ const Board = () => {
             <Modal 
               modalHandler={modalHandler} show={openModal}/>
             <DragDropContext onDragEnd={handleDragEnd}>
-              {Object.entries(state).map(([key, val]) => {
-                return <Column title={val.title} key={key} data={val} id={key}/>
-              })}
+              {state ? 
+                 Object.entries(state).map(([key, val]) => {
+                   console.log(key, val)
+                  return <Column title={val.title} key={key} data={val} id={key}/>
+                })
+              : null}
             </DragDropContext>
             <Column lastOne={true}/>
           

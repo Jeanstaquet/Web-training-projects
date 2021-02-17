@@ -30,20 +30,20 @@ const item = {
 
 const dataCol = {
     
-    "todo": {
+    0: {
         title: "Todo",
         items: [item, item2]
       },
-      "in-progress": {
+      1: {
         title: "In Progress",
         items: [item5]
       },
-      "done": {
+      2: {
         title: "Completed",
         items: [item3, item4]}
 }
 
-const initialContext = dataCol
+const initialContext = null
 
 const StateContext = React.createContext(initialContext)
 const DispatchContext = React.createContext(undefined)
@@ -86,11 +86,16 @@ export const useAppDispatch = () => {
           destIndex: destIndex})
   })
 
+  const newState = React.useCallback((newState) => {
+    dispatch({type: ActionTypes.NEW_STATE, newState: newState})
+  })
+
   return React.useMemo(
     () => ({
       addColumn,
       substract,
-      updateCol
+      updateCol,
+      newState
     }),
     [dispatch]
   )
