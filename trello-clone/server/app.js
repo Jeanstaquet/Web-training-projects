@@ -1,21 +1,22 @@
-const express = require('express')
-const app = express()
-const port = 5000;
+const express = require('express');
+const bodyParser = require('body-parser');
 const cors = require("cors");
-const mongoConnect = require("./database")
+const mongoose = require("mongoose")
 
+
+const app = express()
+const PORT = process.env.PORT || 5000;
+
+const columnRoutes = require("./routes/column");
 
 app.use(cors());
+app.use(bodyParser.json({limit: "30mb", extended: true}))
+app.use(bodyParser.urlencoded({limit: "30mb", extended: true}))
 
+app.use(columnRoutes)
 
-app.get('/', (req, res) => {
-
-})
-
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
-
-mongoConnect((client) => {
-    app.listen(port)
-})
+mongoose.connect("mongodb+srv://AdminJean:TrelloClone@cluster0.2rxqq.mongodb.net/<dbname>?retryWrites=true&w=majority")
+  .then(result => {
+    app.listen(PORT)
+  })
+  .catch(error => console.log(error))
