@@ -14,8 +14,7 @@ const Column = (props) => {
 
     const newColumnHandler = (title) => {
         addColumn(title)
-        
-    console.log(state)
+        console.log(state)
     }
 
     let column = null;
@@ -39,7 +38,7 @@ const Column = (props) => {
                         )
                     }}
                 </Droppable>
-                <div className="column__addACard">
+                <div className="column__addACard" onClick={() => props.click(props.id, props.data)}>
                     <AddIcon/>
                     <p>Add a card</p>
                 </div>

@@ -6,6 +6,10 @@ export const ActionTypes = {
 
     SET_ITEM: "SET_ITEM",
 
+    SET_COL: "SET_COL",
+
+    ADD_ITEM: "ADD_ITEM",
+
     UPDATE_ITEM: "UPDATE_ITEM",
 
     UPDATE_COL: "UPDATE_COL",
@@ -19,7 +23,7 @@ export const ActionTypes = {
         return {...state, [uuidv4()]: {title: action.title, items: []}}
 
       case ActionTypes.SET_ITEM:
-        return {...state, }
+        return {...state, itemSelected: action.itemSelected}
 
       case ActionTypes.UPDATE_COL:
         const itemCopy = {...state[action.sourceId].items[action.sourceIndex]}
@@ -31,6 +35,10 @@ export const ActionTypes = {
       case ActionTypes.NEW_STATE:
         return {
           ...action.newState
+        }
+      case ActionTypes.SET_COL: 
+        return {
+          ...state, changedCol: action.changedCol, index: action.index
         }
 
       default:

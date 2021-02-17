@@ -1,48 +1,6 @@
 import React from 'react'
 import { reducer, ActionTypes } from './reducer'
 
-
-const item = {
-    id: "zefzef",
-    name: "Clean the house",
-    tags: "Urgent S.O.S."
-  }
-  
-  const item2 = {
-    id: "zefze",
-    name: "Wash the car"
-  }
-
-  const item3 = {
-    id: "eifjefd",
-    name: "Go forward in this project"
-  }
-
-  const item4 = {
-    id: "eifjzsefd",
-    name: "Go forzszsward in this project"
-  }
-
-  const item5 = {
-    id: "zdzjefd",
-    name: "zdszorward in this project"
-  }
-
-const dataCol = {
-    
-    0: {
-        title: "Todo",
-        items: [item, item2]
-      },
-      1: {
-        title: "In Progress",
-        items: [item5]
-      },
-      2: {
-        title: "Completed",
-        items: [item3, item4]}
-}
-
 const initialContext = null
 
 const StateContext = React.createContext(initialContext)
@@ -74,8 +32,8 @@ export const useAppDispatch = () => {
     dispatch({ type: ActionTypes.ADD_COLUMN, title: title, plus: plus })
   }, [dispatch])
 
-  const substract = React.useCallback(() => {
-    dispatch({ type: ActionTypes.SUBSTRACT })
+  const setItem = React.useCallback((itemSelected) => {
+    dispatch({ type: ActionTypes.SET_ITEM, itemSelected: itemSelected })
   }, [dispatch])
 
   const updateCol = React.useCallback((sourceId, sourceIndex, destDropId, destIndex) => {
@@ -90,12 +48,16 @@ export const useAppDispatch = () => {
     dispatch({type: ActionTypes.NEW_STATE, newState: newState})
   })
 
+  const setCol = React.useCallback((changedCol, index) => {
+    dispatch({type: ActionTypes.SET_COL, changedCol: changedCol, index: index})
+  })
   return React.useMemo(
     () => ({
       addColumn,
-      substract,
+      setItem,
       updateCol,
-      newState
+      newState,
+      setCol
     }),
     [dispatch]
   )

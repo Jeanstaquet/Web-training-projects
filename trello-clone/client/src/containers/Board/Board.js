@@ -8,53 +8,12 @@ import {useAppDispatch} from "../../Context/index";
 import {useAppData} from "../../Context/index";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
-const item = {
-    id: "zefzef",
-    name: "Clean the house",
-    tags: "Urgent S.O.S."
-  }
-  
-  const item2 = {
-    id: "zefze",
-    name: "Wash the car"
-  }
-
-  const item3 = {
-    id: "eifjefd",
-    name: "Go forward in this project"
-  }
-
-  const item4 = {
-    id: "eifjzsefd",
-    name: "Go forzszsward in this project"
-  }
-
-  const item5 = {
-    id: "zdzjefd",
-    name: "zdszorward in this project"
-  }
-
-const dataCol = {
-    "todo": {
-        title: "Todo",
-        items: [item, item2]
-      },
-      "in-progress": {
-        title: "In Progress",
-        items: [item5]
-      },
-      "done": {
-        title: "Completed",
-        items: [item3, item4]}
-}
-
-
 const Board = () => {
   const state = useAppData()
-  const [data, setData] = useState()
   const [openModal, setOpenModal] = useState(false)
-  const {updateCol, newState} = useAppDispatch()
-  console.log(state)
+  const {updateCol, newState, setCol} = useAppDispatch()
+  const [modifiedCol, setModifiedCol] = useState({})
+  const [modalDescription, setModalDescription] = useState("")
 
   const modalHandler = (arg) => {
     switch(arg) {
@@ -68,13 +27,10 @@ const Board = () => {
   }
 
   useEffect(() => {
-    setTimeout(() => {
       axios.get("http://localhost:5000/")
       .then((result) => {
         newState({...result.data})
       })
-    }, 2000)
-
   }, [])
 
   const handleDragEnd = ({destination, source}) => {
@@ -105,23 +61,42 @@ const Board = () => {
     
 
   }
-  let objData;
-  if(state) {
-    objData = 
-    Object.entries(state).map(([key, val]) => {
-      return <Column title={val.title} key={key} data={val} id={key}/>
-    })
+  const handleColumnName = (colNbr, data) => {
+    setOpenModal(true);
+    setCol(data, colNbr)
+
   }
+  const changeDesModal = (des) => {
+    setModalDescription(des)
+  }
+
+  const saveNewElement = (description) => {
+    const previousitem = [...state.changedCol.items]
+    previousitem.push({id: uuidv4(), name: description})
+
+    const nS = {...state}
+    nS[state.index].items = previousitem
+    delete nS.index
+    delete nS.changedCol
+    setOpenModal(false);
+    setModalDescription(" ")
+    newState(nS)
+  }
+
     return (
         <div className="board">
             <Navigation/>
             <Modal 
-              modalHandler={modalHandler} show={openModal}/>
+              val={modalDescription}
+              changeDesc={changeDesModal}
+              modalHandler={modalHandler} 
+              show={openModal}
+              title={modifiedCol.title}
+              save={() => saveNewElement(modalDescription)}/>
             <DragDropContext onDragEnd={handleDragEnd}>
               {state ? 
                  Object.entries(state).map(([key, val]) => {
-                   console.log(key, val)
-                  return <Column title={val.title} key={key} data={val} id={key}/>
+                  return <Column click={handleColumnName} title={val.title} key={key} data={val} id={key}/>
                 })
               : null}
             </DragDropContext>

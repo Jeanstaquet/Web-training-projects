@@ -24,7 +24,7 @@ const Card = (props) => {
                         }) : null}
                         </div>
                         <div className="card__createIconContainer" >
-                        <CreateIcon className="card__createIcon"/>
+                        <CreateIcon className="card__createIcon" />
                         </div>
                         <div className="card__labelText"></div>
                         <p className="card__text">{props.text}</p>

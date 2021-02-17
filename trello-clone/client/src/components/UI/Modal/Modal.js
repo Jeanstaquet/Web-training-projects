@@ -7,8 +7,10 @@ import Labels from "./Labels/Labels"
 import SubjectIcon from '@material-ui/icons/Subject';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import MenuLabels from './MenuLabels/MenuLabels';
+import {useAppData} from "../../../Context/index"
 
 const Modal = (props) => {
+    const state = useAppData()
     const [openInput, setOpenInput] = useState(false)
     const [openMenuLabel, setOpenMenuLabel] = useState(false);
 
@@ -22,7 +24,7 @@ const Modal = (props) => {
             <div className={props.show ? "modal__box" : "hide modal_box transitOffScreen"}>
                 <div className="modal">
                         <ClearIcon onClick={() => props.modalHandler("close")} className="modal__close"/>
-                    <h2>Title of the column</h2>
+                    <h2>Column: {props.title}</h2>
                     <div className="modal__labelContainer">
                         <p className="modal__labelTitle">LABELS</p>
                         <div className="modal__labelList">
@@ -39,7 +41,7 @@ const Modal = (props) => {
                         </div>
 
                         <div className="modal__descriptionInputContainer">
-                            <textarea placeholder="Description..."></textarea>
+                            <textarea placeholder="Description..." value={props.val} onChange={e => props.changeDesc(e.target.value)}></textarea>
                         </div>
                     </div>
                     <div className="modal__activityContainer">
@@ -57,7 +59,7 @@ const Modal = (props) => {
                         </div>
 
                     </div>
-                    <button className="modal__saveBtn">Save</button>
+                    <button className="modal__saveBtn" onClick={props.save}>Save</button>
                 </div>
             </div>
         </React.Fragment>
