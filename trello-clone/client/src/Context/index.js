@@ -29,6 +29,7 @@ const item = {
   }
 
 const dataCol = {
+    
     "todo": {
         title: "Todo",
         items: [item, item2]
@@ -69,18 +70,27 @@ export const useAppDispatch = () => {
     throw new Error('useBookingDispatch must be used within a BookingProvider')
   }
 
-  const add = React.useCallback(() => {
-    dispatch({ type: ActionTypes.ADD })
+  const addColumn = React.useCallback((title, plus) => {
+    dispatch({ type: ActionTypes.ADD_COLUMN, title: title, plus: plus })
   }, [dispatch])
 
   const substract = React.useCallback(() => {
     dispatch({ type: ActionTypes.SUBSTRACT })
   }, [dispatch])
 
+  const updateCol = React.useCallback((sourceId, sourceIndex, destDropId, destIndex) => {
+    dispatch({type: ActionTypes.UPDATE_COL, 
+          sourceId: sourceId, 
+          sourceIndex: sourceIndex, 
+          destDropId: destDropId, 
+          destIndex: destIndex})
+  })
+
   return React.useMemo(
     () => ({
-      add,
+      addColumn,
       substract,
+      updateCol
     }),
     [dispatch]
   )

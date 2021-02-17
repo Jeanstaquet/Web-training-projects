@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./Board.css";
 import  Navigation from "../../components/UI/Navigation/Navigation";
 import Column from "../../components/Column/Column";
 import Modal from "../../components/UI/Modal/Modal";
 import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
-
+import {useAppDispatch} from "../../Context/index";
+import {useAppData} from "../../Context/index";
 const item = {
     id: "zefzef",
     name: "Clean the house",
@@ -47,8 +48,11 @@ const dataCol = {
 
 
 const Board = () => {
+  const state = useAppData()
   const [data, setData] = useState(dataCol)
-  const [openModal, setOpenModal] = useState(true)
+  const [openModal, setOpenModal] = useState(false)
+  const {updateCol} = useAppDispatch()
+  console.log(state)
 
   const modalHandler = (arg) => {
     switch(arg) {
@@ -62,27 +66,29 @@ const Board = () => {
   }
 
   const handleDragEnd = ({destination, source}) => {
-    if(!destination) {
-      return;
-    }
+    return updateCol(source.droppableId, source.index, destination.droppableId, destination.index)
+    
+    // if(!destination) {
+    //   return;
+    // }
 
-    //If the user has reset the position of the element where it has started
-    if (destination.index === source.index && destination.droppableId === source.droppableId) {
-      return
-    }
+    // //If the user has reset the position of the element where it has started
+    // if (destination.index === source.index && destination.droppableId === source.droppableId) {
+    //   return
+    // }
 
-    const itemCopy = {...data[source.droppableId].items[source.index]}
-    setData(prev => {
-      prev = {...prev}
-      // Remove from previous items array
-      prev[source.droppableId].items.splice(source.index, 1)
+    // const itemCopy = {...data[source.droppableId].items[source.index]}
+    // setData(prev => {
+    //   prev = {...prev}
+    //   // Remove from previous items array
+    //   prev[source.droppableId].items.splice(source.index, 1)
 
 
-      // Adding to new items array location
-      prev[destination.droppableId].items.splice(destination.index, 0, itemCopy)
+    //   // Adding to new items array location
+    //   prev[destination.droppableId].items.splice(destination.index, 0, itemCopy)
 
-      return prev
-    })
+    //   return prev
+    // })
     
   }
     return (
@@ -91,7 +97,7 @@ const Board = () => {
             <Modal 
               modalHandler={modalHandler} show={openModal}/>
             <DragDropContext onDragEnd={handleDragEnd}>
-              {Object.entries(data).map(([key, val]) => {
+              {Object.entries(state).map(([key, val]) => {
                 return <Column title={val.title} key={key} data={val} id={key}/>
               })}
             </DragDropContext>

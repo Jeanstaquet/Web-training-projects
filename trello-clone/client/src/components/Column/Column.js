@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from "../Card/Card";
 import AddIcon from '@material-ui/icons/Add';
 import { Droppable, Draggable} from "react-beautiful-dnd";
@@ -8,14 +8,21 @@ import "./Column.css";
 
 
 const Column = (props) => {
-    const {add} = useAppDispatch()
+    const [title, setTitle] = useState("")
+    const {addColumn} = useAppDispatch()
     const state = useAppData()
-    
+
+    const newColumnHandler = (title) => {
+        addColumn(title)
+        
     console.log(state)
-    let column = null
+    }
+
+    let column = null;
     if(props.title) {
         column = (
-            <div className="column" onClick={() => add()}>
+
+            <div className="column">
                 <h3 className="column__title">{props.title}</h3>
                 <Droppable droppableId={props.id} key={props.id}>
                     {(provided, snapshot) => {
@@ -45,8 +52,10 @@ const Column = (props) => {
         column = (
             <div className="column">
             <div className="column__addACard">
-                <AddIcon/>
-                <p>Add a list</p>
+                <div className="column__addACardContainer">
+                    <AddIcon onClick={() => newColumnHandler(title)}/>
+                    <input value={title} className="column__add" onChange={e => setTitle(e.target.value)}/>
+                </div>
             </div>
         </div>
         )

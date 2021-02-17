@@ -41,3 +41,28 @@
 .skyblue {
     background-color: skyblue;
 }
+
+.column__addACardContainer {
+    display: flex;
+    width: 100%;
+    position: relative;
+    height: 100%;
+}
+
+
+
+.column__addACardContainer input{
+    flex: 1;
+    border: none;
+    padding-left: 30px;
+    background-color: #ebecf0;
+}
+
+.column__addACardContainer input:focus{
+    outline: none;
+}
+
+.column__addACardContainer .MuiSvgIcon-root {
+    position: absolute;
+    top: 2px;
+}
