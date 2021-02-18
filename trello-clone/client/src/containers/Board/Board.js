@@ -50,13 +50,13 @@ const dataCol = {
 }
 
 const Board = () => {
-  const state = useAppData()
+  const {setCol} = useAppDispatch();
+  const state = useAppData();
+
   const [openModal, setOpenModal] = useState(false)
   const [data, setData] = useState(dataCol)
-  const {setCol} = useAppDispatch()
-  const [modifiedCol, setModifiedCol] = useState({})
+  const [titleNewCol, setTitleNewCol] = useState("")
   const [modalDescription, setModalDescription] = useState("")
-  const [chosenLabels, setChosenLables] = useState([]);
   const [labelsHandler, setLabelsHandler] = useState(
     {Urgent: true,
     TeamIt: false,
@@ -64,6 +64,37 @@ const Board = () => {
     Prioritize: false,
     SOS: false
   });
+  const url = "http://localhost:5000"
+
+  useEffect(() => {
+    axios.get(url)
+      .then(result => {
+        setData(result.data)
+      })
+  }, [])
+
+  const handleDragEnd = ({destination, source}) => {
+    if(!destination) {
+      return;
+    }
+    //If the user has reset the position of the element where it has started
+    if (destination.index === source.index && destination.droppableId === source.droppableId) {
+      return
+    }
+    //return updateCol(source.droppableId, source.index, destination.droppableId, destination.index)
+    const itemCopy = {...data[source.droppableId].items[source.index]}
+    setData(prev => {
+      prev = {...prev}
+      // Remove from previous items array
+      prev[source.droppableId].items.splice(source.index, 1)
+
+
+      // Adding to new items array location
+      prev[destination.droppableId].items.splice(destination.index, 0, itemCopy)
+
+      return prev
+    })
+  }
 
   const labelChangeHandler = (type) => {
     const prevState = {...labelsHandler}
@@ -86,42 +117,11 @@ const Board = () => {
         break;
     }
   }
-
-  console.log(chosenLabels)
-  // useEffect(() => {
-  //     axios.get("http://localhost:5000/")
-  //     .then((result) => {
-  //       newState({...result.data})
-  //     })
-  // }, [])
-
-  const handleDragEnd = ({destination, source}) => {
-    if(!destination) {
-      return;
-    }
-
-    //If the user has reset the position of the element where it has started
-    if (destination.index === source.index && destination.droppableId === source.droppableId) {
-      return
-    }
-
-    //return updateCol(source.droppableId, source.index, destination.droppableId, destination.index)
-    
-
-    const itemCopy = {...data[source.droppableId].items[source.index]}
+  
+  const newColHandler = () => {
     setData(prev => {
-      prev = {...prev}
-      // Remove from previous items array
-      prev[source.droppableId].items.splice(source.index, 1)
-
-
-      // Adding to new items array location
-      prev[destination.droppableId].items.splice(destination.index, 0, itemCopy)
-
-      return prev
+      return {...prev, [uuidv4()]: {title: titleNewCol, items: []}}
     })
-    
-    
   }
   
   const handleColumnName = (colNbr, data) => {
@@ -141,9 +141,10 @@ const Board = () => {
     const prevItems = [...state.changedCol.items, {id: uuidv4(), name: description, tags: labels.join(" ")}];
     const neS = {...data}
     neS[state.index].items = prevItems;
-    setData(neS)
+    setOpenModal(false);
+    setModalDescription("");
+    setData(neS);
   }
-  console.log(data)
     return (
         <div className="board">
             <Navigation/>
@@ -154,7 +155,7 @@ const Board = () => {
               changeDesc={changeDesModal}
               modalHandler={modalHandler} 
               show={openModal}
-              title={modifiedCol.title}
+              title={state ? state.changedCol.title: null}
               save={() => saveNewElement(modalDescription)}/>
             <DragDropContext onDragEnd={handleDragEnd}>
               {data ? 
@@ -163,7 +164,7 @@ const Board = () => {
                 })
               : null}
             </DragDropContext>
-            <Column lastOne={true}/>
+            <Column newColHandler={newColHandler} setNewCol={setTitleNewCol} newTitle={titleNewCol} lastOne={true}/>
           
         </div>
     );

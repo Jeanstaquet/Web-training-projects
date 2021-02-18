@@ -5,9 +5,15 @@ const Schema = mongoose.Schema;
 
 //dans mongodb il n'y a pas de schema, mais ici on va en créer un pour abstraire
 //les trucs des querys que mongoose gère pour nous
+const rand = () => {
+    return Math.random() * 1000
+}
 const columnSchema = new Schema({
-    title: String,
-    items: [{id: String, name: String, tags: String}]
+    
+
+            title: String,
+            items: [{id: String, name: String, tags: String}]
+
 });
 
 //On va donner un nom au schema

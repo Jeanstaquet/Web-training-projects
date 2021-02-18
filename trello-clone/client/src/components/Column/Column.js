@@ -12,10 +12,6 @@ const Column = (props) => {
     const {addColumn} = useAppDispatch()
     const state = useAppData()
 
-    const newColumnHandler = (title) => {
-        addColumn(title)
-        console.log(state)
-    }
 
     let column = null;
     if(props.title) {
@@ -52,8 +48,8 @@ const Column = (props) => {
             <div className="column">
             <div className="column__addACard">
                 <div className="column__addACardContainer">
-                    <AddIcon onClick={() => newColumnHandler(title)}/>
-                    <input value={title} className="column__add" onChange={e => setTitle(e.target.value)}/>
+                    <AddIcon onClick={() => props.newColHandler()}/>
+                    <input value={props.newTitle} className="column__add" onChange={e => props.setNewCol(e.target.value)}/>
                 </div>
             </div>
         </div>
