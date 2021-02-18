@@ -2,10 +2,13 @@ const Column = require("../models/column");
 const uuidv4 = require("uuid");
 
 exports.postColumn = (req, res, next) => {
+    const title = req.body.title
+    
     const col = new Column({
-            title: "aaaa",
+            title: title,
             items: []
     })
+
     col.save()  
         .then(result => {
             res.send("Data added")

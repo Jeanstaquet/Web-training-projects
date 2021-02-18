@@ -67,11 +67,23 @@ const Board = () => {
   const url = "http://localhost:5000"
 
   useEffect(() => {
+    console.log("fetch")
+    fetchData()
+  }, [data.keys])
+
+  const fetchData = () => {
     axios.get(url)
       .then(result => {
         setData(result.data)
       })
-  }, [])
+  }
+
+  // useEffect(() => {
+  //   const dataToSend = {
+  //     title: "ok let's go guys"
+  //   }
+  //   axios.post(url, dataToSend)
+  // }, [])
 
   const handleDragEnd = ({destination, source}) => {
     if(!destination) {
@@ -122,6 +134,11 @@ const Board = () => {
     setData(prev => {
       return {...prev, [uuidv4()]: {title: titleNewCol, items: []}}
     })
+    const dataToSend = {
+      title: titleNewCol
+    }
+    setTitleNewCol("")
+    axios.post(url, dataToSend)
   }
   
   const handleColumnName = (colNbr, data) => {
