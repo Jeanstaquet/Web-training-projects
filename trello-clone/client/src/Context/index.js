@@ -51,13 +51,19 @@ export const useAppDispatch = () => {
   const setCol = React.useCallback((changedCol, index) => {
     dispatch({type: ActionTypes.SET_COL, changedCol: changedCol, index: index})
   })
+
+  const labelHandler = React.useCallback((addLabels) => {
+    dispatch({type: ActionTypes.LABELS_UPDATE, addLabels: addLabels})
+  }, [dispatch]);
+  
   return React.useMemo(
     () => ({
       addColumn,
       setItem,
       updateCol,
       newState,
-      setCol
+      setCol,
+      labelHandler
     }),
     [dispatch]
   )

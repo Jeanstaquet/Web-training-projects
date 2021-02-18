@@ -14,7 +14,9 @@ export const ActionTypes = {
 
     UPDATE_COL: "UPDATE_COL",
 
-    NEW_STATE: "NEW_STATE"
+    NEW_STATE: "NEW_STATE",
+
+    LABELS_UPDATE: "LABELS_UPDATE"
   }
   
   export const reducer = (state, action) => {
@@ -38,7 +40,12 @@ export const ActionTypes = {
         }
       case ActionTypes.SET_COL: 
         return {
-          ...state, changedCol: action.changedCol, index: action.index
+          changedCol: action.changedCol, index: action.index
+        }
+
+      case ActionTypes.LABELS_UPDATE:
+        return {
+          ...state, labels: [action.addLabels]
         }
 
       default:

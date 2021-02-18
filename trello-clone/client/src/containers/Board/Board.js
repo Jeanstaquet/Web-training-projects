@@ -53,9 +53,10 @@ const Board = () => {
   const state = useAppData()
   const [openModal, setOpenModal] = useState(false)
   const [data, setData] = useState(dataCol)
-  const {updateCol, newState, setCol} = useAppDispatch()
+  const {setCol} = useAppDispatch()
   const [modifiedCol, setModifiedCol] = useState({})
   const [modalDescription, setModalDescription] = useState("")
+  const [chosenLabels, setChosenLables] = useState([]);
 
   const modalHandler = (arg) => {
     switch(arg) {
@@ -68,6 +69,7 @@ const Board = () => {
     }
   }
 
+  console.log(chosenLabels)
   // useEffect(() => {
   //     axios.get("http://localhost:5000/")
   //     .then((result) => {
@@ -116,26 +118,13 @@ const Board = () => {
     const neS = {...data}
     neS[state.index].items = prevItems;
     setData(neS)
-     
-    // console.log("debut", [...state.changedCol.items])
-    // const previousitem = [...state.changedCol.items, {_id: uuidv4(), id: uuidv4(), name: description}]
-    // console.log("fin", previousitem)
-
-    // const nS = {...state}
-    // nS[state.index].items = previousitem;
-    // delete nS.index;
-    // delete nS.changedCol;
-    // setOpenModal(false);
-    // setModalDescription("")
-    // newState(nS)
-
-    console.log(state)
   }
   console.log(data)
     return (
         <div className="board">
             <Navigation/>
             <Modal 
+
               val={modalDescription}
               changeDesc={changeDesModal}
               modalHandler={modalHandler} 

@@ -7,23 +7,23 @@ const Labels = (props) => {
         case "Urgent":
             color = "red";
             break;
-        case "Team IT":
+        case "TeamIt":
             color = "#f2d600";
             break;
-        case "Soon finished":
+        case "Soonfinished":
             color = "#ff9f1a";
             break;
         case "Prioritize":
             color = "#0079bf";
             break;
-        case "S.O.S.":
+        case "SOS":
             color = "darkred";
             break;
     }
 
     return (
         <React.Fragment>
-            <p className={!props.sideMenu ? "labelModal" : "labelSideMenu labelModal"} style={{backgroundColor: color}}>{props.type} <span>{props.sideMenu ? <CheckIcon/> : null}</span></p>
+            <p onClick={props.click} className={!props.sideMenu ? "labelModal" : "labelSideMenu labelModal"} style={{backgroundColor: color}}>{props.type} <span>{props.sideMenu && props.active ? <CheckIcon/> : null}</span></p>
             
         </React.Fragment>
         

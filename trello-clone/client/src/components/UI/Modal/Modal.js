@@ -11,8 +11,29 @@ import {useAppData} from "../../../Context/index"
 
 const Modal = (props) => {
     const state = useAppData()
+    //Side menu variables
     const [openInput, setOpenInput] = useState(false)
     const [openMenuLabel, setOpenMenuLabel] = useState(false);
+    const [labelsHandler, setLabelsHandler] = useState(
+        {Urgent: true,
+        TeamIt: false,
+        Soonfinished: false,
+        Prioritize: false,
+        SOS: false
+    });
+
+    
+    const labelChangeHandler = (type) => {
+       const prevState = {...labelsHandler}
+       if(prevState[type]) {
+            prevState[type] = false
+       } else {
+            prevState[type] = true
+       }
+       
+       setLabelsHandler(prevState)
+    }
+
 
     const menuLabelHandler = () => {
         setOpenMenuLabel(!openMenuLabel)
@@ -28,10 +49,11 @@ const Modal = (props) => {
                     <div className="modal__labelContainer">
                         <p className="modal__labelTitle">LABELS</p>
                         <div className="modal__labelList">
-                            <Labels type="Soon finished"/>
-                            <Labels type="Team IT"/>
+                            {Object.entries(labelsHandler).map(([key, val]) => {
+                                return labelsHandler[key] ? <Labels click={() => labelChangeHandler(key)} type={key} key={key}/> : null
+                            })}
                             <AddIcon className="modal__labelListAddItem" onClick={menuLabelHandler}/>
-                            <MenuLabels show={openMenuLabel} click={menuLabelHandler}/>
+                            <MenuLabels  data={labelsHandler} labelChangeHandler={labelChangeHandler} show={openMenuLabel} click={menuLabelHandler}/>
                         </div>
                     </div>
                     <div className="modal__descriptionContainer">
