@@ -14,26 +14,6 @@ const Modal = (props) => {
     //Side menu variables
     const [openInput, setOpenInput] = useState(false)
     const [openMenuLabel, setOpenMenuLabel] = useState(false);
-    const [labelsHandler, setLabelsHandler] = useState(
-        {Urgent: true,
-        TeamIt: false,
-        Soonfinished: false,
-        Prioritize: false,
-        SOS: false
-    });
-
-    
-    const labelChangeHandler = (type) => {
-       const prevState = {...labelsHandler}
-       if(prevState[type]) {
-            prevState[type] = false
-       } else {
-            prevState[type] = true
-       }
-       
-       setLabelsHandler(prevState)
-    }
-
 
     const menuLabelHandler = () => {
         setOpenMenuLabel(!openMenuLabel)
