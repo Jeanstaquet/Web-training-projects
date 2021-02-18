@@ -24,7 +24,6 @@ const Labels = (props) => {
     return (
         <React.Fragment>
             <p onClick={props.click} className={!props.sideMenu ? "labelModal" : "labelSideMenu labelModal"} style={{backgroundColor: color}}>{props.type} <span>{props.sideMenu && props.active ? <CheckIcon/> : null}</span></p>
-            
         </React.Fragment>
         
     );

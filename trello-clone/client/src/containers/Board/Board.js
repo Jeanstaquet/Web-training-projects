@@ -57,6 +57,24 @@ const Board = () => {
   const [modifiedCol, setModifiedCol] = useState({})
   const [modalDescription, setModalDescription] = useState("")
   const [chosenLabels, setChosenLables] = useState([]);
+  const [labelsHandler, setLabelsHandler] = useState(
+    {Urgent: true,
+    TeamIt: false,
+    Soonfinished: false,
+    Prioritize: false,
+    SOS: false
+  });
+
+  const labelChangeHandler = (type) => {
+    const prevState = {...labelsHandler}
+    if(prevState[type]) {
+        prevState[type] = false
+    } else {
+        prevState[type] = true
+    }
+    
+    setLabelsHandler(prevState)
+  }
 
   const modalHandler = (arg) => {
     switch(arg) {
@@ -124,7 +142,8 @@ const Board = () => {
         <div className="board">
             <Navigation/>
             <Modal 
-
+              labelsHandler={labelsHandler}
+              labelChangeHandler={labelChangeHandler}
               val={modalDescription}
               changeDesc={changeDesModal}
               modalHandler={modalHandler} 
