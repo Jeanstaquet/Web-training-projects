@@ -132,7 +132,13 @@ const Board = () => {
     setModalDescription(des)
   }
   const saveNewElement = (description) => {
-    const prevItems = [...state.changedCol.items, {id: uuidv4(), name: description}];
+    let labels = []
+    Object.entries(labelsHandler).map(([key, val]) => {
+      if(val) {
+        labels.push(key)
+      }
+    })
+    const prevItems = [...state.changedCol.items, {id: uuidv4(), name: description, tags: labels.join(" ")}];
     const neS = {...data}
     neS[state.index].items = prevItems;
     setData(neS)
