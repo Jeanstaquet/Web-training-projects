@@ -9,52 +9,11 @@ import {useAppData} from "../../Context/index";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 
-const item = {
-    id: "zefzef",
-    name: "Clean the house",
-    tags: "Urgent S.O.S."
-  }
-
-  const item2 = {
-    id: "zefze",
-    name: "Wash the car"
-  }
-
-  const item3 = {
-    id: "eifjefd",
-    name: "Go forward in this project"
-  }
-
-  const item4 = {
-    id: "eifjzsefd",
-    name: "Go forzszsward in this project"
-  }
-
-  const item5 = {
-    id: "zdzjefd",
-    name: "zdszorward in this project"
-  }
-
-const dataCol = {
-    0: {
-        title: "Todo",
-        items: [item, item2]
-      },
-    1: {
-        title: "In Progress",
-        items: [item5]
-      },
-    2: {
-        title: "Completed",
-        items: [item3, item4]}
-}
-
 const Board = () => {
   const {setCol, setItem} = useAppDispatch();
   const state = useAppData();
-
   const [openModal, setOpenModal] = useState(false)
-  const [data, setData] = useState(dataCol)
+  const [data, setData] = useState({})
   const [titleNewCol, setTitleNewCol] = useState("")
   const [modalDescription, setModalDescription] = useState("")
   const [labelsHandler, setLabelsHandler] = useState(
@@ -66,17 +25,14 @@ const Board = () => {
   });
   const url = "http://localhost:5000/"
 
+  //fetch datas for every modal opening and changes
   useEffect(() => {
     console.log("fetching new data")
     fetchData()
   }, [data.keys, openModal])
 
-  // useEffect(() => {
-  //   axios.get(url + encodeURIComponent(JSON.stringify(item)))
-  //     .then(result => console.log(result))
-  //     .catch(err => console.log(err.message))
-  // }, [])
 
+  //Used to fetch data from the server
   const fetchData = () => {
     axios.get(url)
       .then(result => {
@@ -84,26 +40,18 @@ const Board = () => {
       })
   }
 
+  //Set items the the datalayer
   const setItemState = (itemSelected, item) => {
     setItem(itemSelected, item);
     setOpenModal(true);
   }
 
-  // useEffect(() => {
-  //   const dataToSend = {
-  //     title: "ok let's go guys"
-  //   }
-  //   axios.post(url, dataToSend)
-  // }, [])
-
+  //Handle the dragend props for a draggable & droppable from rbdnd
   const handleDragEnd = ({destination, source}) => {
     if(!destination) {
       return;
     }
 
-    //If the user has reset the position of the element where it has started
-
-    //return updateCol(source.droppableId, source.index, destination.droppableId, destination.index)
     const itemCopy = {...data[source.droppableId].items[source.index]}
     const dataForSwop = {srcDroppableId: data[source.droppableId], 
                   srcIndex: source.index,
@@ -119,10 +67,6 @@ const Board = () => {
           // Remove from previous items array
           prev[source.droppableId].items.splice(source.index, 1)
       
-      
-          // // Adding to new items array location
-          // prev[destination.droppableId].items.splice(destination.index, 0, itemCopy)
-      
           return prev
         })
       })
@@ -132,6 +76,7 @@ const Board = () => {
 
   }
 
+  //Manages the change of labels in the modal
   const labelChangeHandler = (type) => {
     const prevState = {...labelsHandler}
     if(prevState[type]) {
@@ -139,11 +84,10 @@ const Board = () => {
     } else {
         prevState[type] = true
     }
-    
     setLabelsHandler(prevState)
   }
 
-
+  //Manages the opening & closing of the modal
   const modalHandler = (arg) => {
     switch(arg) {
       case "close":
@@ -155,6 +99,7 @@ const Board = () => {
     }
   }
   
+  //Create a new column
   const newColHandler = () => {
     const dataToSend = {
       title: titleNewCol
@@ -166,6 +111,7 @@ const Board = () => {
     })
   }
   
+  //Add a column's data to the data layer
   const handleColumnName = (colNbr, data) => {
     setOpenModal(true);
     setCol(data, colNbr)
@@ -174,6 +120,7 @@ const Board = () => {
     setModalDescription(des)
   }
 
+  //Add a new card to a column
   const saveNewElement = (description) => {
     let labels = []
     Object.entries(labelsHandler).map(([key, val]) => {
@@ -195,7 +142,7 @@ const Board = () => {
       })
   }
 
-
+  //Update the informations about an item
   const updateItem = () => {
     let labels = []
     Object.entries(labelsHandler).map(([key, val]) => {
@@ -217,11 +164,11 @@ const Board = () => {
               setOpenModal(false)})
 
   }
-  console.log(state)
     return (
         <div className="board">
             <Navigation/>
             <Modal 
+              setLabelsHandler={setLabelsHandler}
               labelsHandler={labelsHandler}
               labelChangeHandler={labelChangeHandler}
               val={modalDescription}

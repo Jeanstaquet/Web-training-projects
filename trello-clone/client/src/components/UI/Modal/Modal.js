@@ -16,6 +16,7 @@ const Modal = (props) => {
     const menuLabelHandler = () => {
         setOpenMenuLabel(!openMenuLabel)
     }
+
     return (
         <React.Fragment>
             <Backdrop click={() => props.modalHandler("close")} show={props.show}/>
@@ -26,9 +27,11 @@ const Modal = (props) => {
                     <div className="modal__labelContainer">
                         <p className="modal__labelTitle">LABELS</p>
                         <div className="modal__labelList">
-                            {Object.entries(props.labelsHandler).map(([key, val]) => {
-                                return props.labelsHandler[key] ? <Labels click={() => props.labelChangeHandler(key)} type={key} key={key}/> : null
-                            })}
+                            {
+                                Object.entries(props.labelsHandler).map(([key, val]) => {
+                                    return props.labelsHandler[key] ? <Labels click={() => props.labelChangeHandler(key)} type={key} key={key}/> : null
+                                })
+                            }
                             <AddIcon className="modal__labelListAddItem" onClick={menuLabelHandler}/>
                             <MenuLabels  data={props.labelsHandler} labelChangeHandler={props.labelChangeHandler} show={openMenuLabel} click={menuLabelHandler}/>
                         </div>

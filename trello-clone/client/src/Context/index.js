@@ -36,21 +36,13 @@ export const useAppDispatch = () => {
     dispatch({ type: ActionTypes.SET_ITEM, itemSelected: itemSelected, item: item })
   }, [dispatch])
 
-  const updateCol = React.useCallback((sourceId, sourceIndex, destDropId, destIndex) => {
-    dispatch({type: ActionTypes.UPDATE_COL, 
-          sourceId: sourceId, 
-          sourceIndex: sourceIndex, 
-          destDropId: destDropId, 
-          destIndex: destIndex})
-  })
-
   const newState = React.useCallback((newState) => {
     dispatch({type: ActionTypes.NEW_STATE, newState: newState})
-  })
+  }, [dispatch])
 
   const setCol = React.useCallback((changedCol, index) => {
     dispatch({type: ActionTypes.SET_COL, changedCol: changedCol, index: index})
-  })
+  }, [dispatch])
 
   const labelHandler = React.useCallback((addLabels) => {
     dispatch({type: ActionTypes.LABELS_UPDATE, addLabels: addLabels})
@@ -60,7 +52,6 @@ export const useAppDispatch = () => {
     () => ({
       addColumn,
       setItem,
-      updateCol,
       newState,
       setCol,
       labelHandler

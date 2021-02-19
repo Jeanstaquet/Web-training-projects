@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Card from "../Card/Card";
 import AddIcon from '@material-ui/icons/Add';
-import { Droppable, Draggable} from "react-beautiful-dnd";
+import { Droppable} from "react-beautiful-dnd";
 import "./Column.css";
 
 
