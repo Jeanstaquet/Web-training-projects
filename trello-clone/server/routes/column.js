@@ -8,4 +8,6 @@ const router = express.Router();
 
  router.post("/swop", column.postColumnSwop);
 
+ router.post("/newcard", column.postNewCard);
+
 module.exports = router

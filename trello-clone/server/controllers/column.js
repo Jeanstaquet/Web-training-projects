@@ -27,7 +27,6 @@ exports.postColumnSwop = (req, res, next) => {
     const srcDroppableId = id.srcDroppableId._id;
     const destDroppableId = id.destDroppableId._id
     const srcIndex = id.srcIndex;
-    console.log(id)
     Column.findByIdAndUpdate(
         srcDroppableId, {$pull: {items : {_id: itemCopy._id}}}, { safe: true, upsert: true }
     ).then(() => {
@@ -38,6 +37,15 @@ exports.postColumnSwop = (req, res, next) => {
 
 
 
+}
+
+exports.postNewCard = (req, res, next) => {
+    const id = req.body.idCol;
+    const newItem = req.body.newItem;
+
+    Column.findByIdAndUpdate(
+        id, {$push: {items: newItem}}, { safe: true, upsert: true }
+    ).then(result => res.send("Item added"))
 }
 
 const item = {

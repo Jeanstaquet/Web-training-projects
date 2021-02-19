@@ -69,7 +69,7 @@ const Board = () => {
   useEffect(() => {
     console.log("fetching new data")
     fetchData()
-  }, [data.keys])
+  }, [data.keys, openModal])
 
   // useEffect(() => {
   //   axios.get(url + encodeURIComponent(JSON.stringify(item)))
@@ -167,6 +167,7 @@ const Board = () => {
   const changeDesModal = (des) => {
     setModalDescription(des)
   }
+
   const saveNewElement = (description) => {
     let labels = []
     Object.entries(labelsHandler).map(([key, val]) => {
@@ -174,12 +175,17 @@ const Board = () => {
         labels.push(key)
       }
     })
-    const prevItems = [...state.changedCol.items, {id: uuidv4(), name: description, tags: labels.join(" ")}];
-    const neS = {...data}
-    neS[state.index].items = prevItems;
-    setOpenModal(false);
-    setModalDescription("");
-    setData(neS);
+    const newItem = {id: uuidv4(), name: description, tags: labels.join(" ")};
+    const idCol = state.changedCol._id
+
+    const dataToSend = {newItem: newItem, 
+                        idCol: idCol}
+
+    axios.post(url + "newcard", dataToSend).
+      then(res => {
+        setOpenModal(false);
+        setModalDescription("");
+      })
   }
     return (
         <div className="board">
