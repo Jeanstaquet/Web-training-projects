@@ -64,17 +64,24 @@ const Board = () => {
     Prioritize: false,
     SOS: false
   });
-  const url = "http://localhost:5000"
+  const url = "http://localhost:5000/"
 
   useEffect(() => {
-    console.log("fetch")
+    console.log("fetching new data")
     fetchData()
   }, [data.keys])
+
+  // useEffect(() => {
+  //   axios.get(url + encodeURIComponent(JSON.stringify(item)))
+  //     .then(result => console.log(result))
+  //     .catch(err => console.log(err.message))
+  // }, [])
 
   const fetchData = () => {
     axios.get(url)
       .then(result => {
         setData(result.data)
+        console.log(data)
       })
   }
 
@@ -95,6 +102,15 @@ const Board = () => {
     }
     //return updateCol(source.droppableId, source.index, destination.droppableId, destination.index)
     const itemCopy = {...data[source.droppableId].items[source.index]}
+    const dataForSwop = {srcDroppableId: data[source.droppableId], 
+                  srcIndex: source.index,
+                  destDroppableId: data[destination.droppableId],
+                  destIndex: destination.index,
+                  itemCopyt: itemCopy}
+    
+    axios.post(url + "swop", dataForSwop)
+      .then(r => console.log(r))
+
     setData(prev => {
       prev = {...prev}
       // Remove from previous items array
@@ -131,14 +147,14 @@ const Board = () => {
   }
   
   const newColHandler = () => {
-    setData(prev => {
-      return {...prev, [uuidv4()]: {title: titleNewCol, items: []}}
-    })
     const dataToSend = {
       title: titleNewCol
     }
-    setTitleNewCol("")
     axios.post(url, dataToSend)
+    setTitleNewCol("")
+    setData(prev => {
+      return {...prev, [uuidv4()]: {title: titleNewCol, items: []}}
+    })
   }
   
   const handleColumnName = (colNbr, data) => {
