@@ -25,7 +25,7 @@ export const ActionTypes = {
         return {...state, [uuidv4()]: {title: action.title, items: []}}
 
       case ActionTypes.SET_ITEM:
-        return {...state, itemSelected: action.itemSelected}
+        return {...state, itemSelected: action.itemSelected, item: action.item}
 
       case ActionTypes.UPDATE_COL:
         const itemCopy = {...state[action.sourceId].items[action.sourceIndex]}

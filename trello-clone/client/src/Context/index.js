@@ -32,8 +32,8 @@ export const useAppDispatch = () => {
     dispatch({ type: ActionTypes.ADD_COLUMN, title: title, plus: plus })
   }, [dispatch])
 
-  const setItem = React.useCallback((itemSelected) => {
-    dispatch({ type: ActionTypes.SET_ITEM, itemSelected: itemSelected })
+  const setItem = React.useCallback((itemSelected, item) => {
+    dispatch({ type: ActionTypes.SET_ITEM, itemSelected: itemSelected, item: item })
   }, [dispatch])
 
   const updateCol = React.useCallback((sourceId, sourceIndex, destDropId, destIndex) => {

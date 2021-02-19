@@ -10,4 +10,6 @@ const router = express.Router();
 
  router.post("/newcard", column.postNewCard);
 
+ router.post("/update", column.postUpdateCard);
+
 module.exports = router

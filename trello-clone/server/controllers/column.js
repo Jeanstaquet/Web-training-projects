@@ -1,17 +1,16 @@
 const Column = require("../models/column");
-const uuidv4 = require("uuid");
 
 exports.postColumn = (req, res, next) => {
-    // const title = req.body.title
-    const title = "Hello there"
+    const title = req.body.title
+    // const title = "Hello there"
     const col = new Column({
             title: title,
-            items: [item]
     })
     col.save()  
         .then(result => {
             res.send("Data added")
         })  
+        .catch(err => res.statut(404).send(err.message))
 }
 
 exports.getColums = (req, res, next) => {
@@ -19,6 +18,7 @@ exports.getColums = (req, res, next) => {
         .then(col => {
             res.send(col)
         })
+        .catch(err => res.statut(404).send(err.message))
 }
 
 exports.postColumnSwop = (req, res, next) => {
@@ -33,6 +33,7 @@ exports.postColumnSwop = (req, res, next) => {
         Column.findByIdAndUpdate(
             destDroppableId, {$push: {items : itemCopy}}, { safe: true, upsert: true }
         ).then(response => res.send("Good")) 
+        .catch(err => res.statut(404).send(err.message))
     })
 
 
@@ -46,10 +47,23 @@ exports.postNewCard = (req, res, next) => {
     Column.findByIdAndUpdate(
         id, {$push: {items: newItem}}, { safe: true, upsert: true }
     ).then(result => res.send("Item added"))
+    .catch(err => res.statut(404).send(err.message))
 }
 
-const item = {
-    id: "zdddd",
-    name: "Clean ",
-    tags: "Urgent"
-  }
+exports.postUpdateCard = (req, res, next) => {
+    const colId = req.body.colId;
+    const completeItem = req.body.completeItem;
+
+    const completeItemId = completeItem.id
+    const completeItemIndex = completeItem.indexOfItem
+    const completeItemName = completeItem.name
+    const completeItemTags = completeItem.tags
+
+    Column.findOneAndUpdate({_id: colId, items: {$elemMatch:{id: completeItemId}}},
+                            {$set: {"items.$.name": completeItemName,
+                                    "items.$.tags": completeItemTags}},
+                            {'new': true, 'safe': true, 'upsert': true})
+                            .then(resp => res.send("UpdatedItem"))
+    
+
+}

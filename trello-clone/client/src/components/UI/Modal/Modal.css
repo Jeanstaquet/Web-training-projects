@@ -180,6 +180,20 @@
     cursor: pointer;
 }
 
+.modal__deleteBtn {
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+    background-color: rgba(255, 41, 41, 0.596);
+    color: white;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.modal__deleteBtn:hover {
+    background-color: rgba(255, 41, 41, 0.884);
+}
+
 .transitOffScreen {
     transform: translateX(-100vw);
 }

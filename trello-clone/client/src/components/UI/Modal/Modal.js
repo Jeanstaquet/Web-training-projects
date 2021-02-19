@@ -7,10 +7,8 @@ import Labels from "./Labels/Labels"
 import SubjectIcon from '@material-ui/icons/Subject';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import MenuLabels from './MenuLabels/MenuLabels';
-import {useAppData} from "../../../Context/index"
 
 const Modal = (props) => {
-    const state = useAppData()
     //Side menu variables
     const [openInput, setOpenInput] = useState(false)
     const [openMenuLabel, setOpenMenuLabel] = useState(false);
@@ -18,14 +16,13 @@ const Modal = (props) => {
     const menuLabelHandler = () => {
         setOpenMenuLabel(!openMenuLabel)
     }
-
     return (
         <React.Fragment>
             <Backdrop click={() => props.modalHandler("close")} show={props.show}/>
             <div className={props.show ? "modal__box" : "hide modal_box transitOffScreen"}>
                 <div className="modal">
                         <ClearIcon onClick={() => props.modalHandler("close")} className="modal__close"/>
-                    <h2>Column: {props.title}</h2>
+                    <h2>{props.stateItem ? props.stateItem.name :("Column: "  + props.title)}</h2>
                     <div className="modal__labelContainer">
                         <p className="modal__labelTitle">LABELS</p>
                         <div className="modal__labelList">
@@ -41,7 +38,6 @@ const Modal = (props) => {
                             <SubjectIcon/>
                             <h2>Description</h2>
                         </div>
-
                         <div className="modal__descriptionInputContainer">
                             <textarea placeholder="Description..." value={props.val} onChange={e => props.changeDesc(e.target.value)}></textarea>
                         </div>
@@ -61,7 +57,8 @@ const Modal = (props) => {
                         </div>
 
                     </div>
-                    <button className="modal__saveBtn" onClick={props.save}>Save</button>
+                    <button className="modal__saveBtn" onClick={props.stateItem ? () => props.updateItem() : () => props.save()}>Save</button>
+                    <button className="modal__deleteBtn">Delete card</button>
                 </div>
             </div>
         </React.Fragment>

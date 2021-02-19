@@ -50,7 +50,7 @@ const dataCol = {
 }
 
 const Board = () => {
-  const {setCol} = useAppDispatch();
+  const {setCol, setItem} = useAppDispatch();
   const state = useAppData();
 
   const [openModal, setOpenModal] = useState(false)
@@ -82,6 +82,11 @@ const Board = () => {
       .then(result => {
         setData(result.data)
       })
+  }
+
+  const setItemState = (itemSelected, item) => {
+    setItem(itemSelected, item);
+    setOpenModal(true);
   }
 
   // useEffect(() => {
@@ -138,6 +143,7 @@ const Board = () => {
     setLabelsHandler(prevState)
   }
 
+
   const modalHandler = (arg) => {
     switch(arg) {
       case "close":
@@ -180,6 +186,7 @@ const Board = () => {
 
     const dataToSend = {newItem: newItem, 
                         idCol: idCol}
+                        
 
     axios.post(url + "newcard", dataToSend).
       then(res => {
@@ -187,6 +194,30 @@ const Board = () => {
         setModalDescription("");
       })
   }
+
+
+  const updateItem = () => {
+    let labels = []
+    Object.entries(labelsHandler).map(([key, val]) => {
+      if(val) {
+        labels.push(key)
+      }
+    })
+    const dataToSend = {
+      colId: state.itemSelected,
+      completeItem: {
+        id: state.item.id,
+        name: modalDescription,
+        tags: labels.join(" ")
+      }
+    }
+    axios.post(url + "update", dataToSend)
+      .then(res => {
+              setModalDescription("")
+              setOpenModal(false)})
+
+  }
+  console.log(state)
     return (
         <div className="board">
             <Navigation/>
@@ -197,12 +228,13 @@ const Board = () => {
               changeDesc={changeDesModal}
               modalHandler={modalHandler} 
               show={openModal}
-              title={state ? state.changedCol.title: null}
-              save={() => saveNewElement(modalDescription)}/>
+              updateItem={updateItem}
+              save={() => saveNewElement(modalDescription)}
+              stateItem={state !== null ? state.item: null}/>
             <DragDropContext onDragEnd={handleDragEnd}>
               {data ? 
                  Object.entries(data).map(([key, val]) => {
-                  return <Column click={handleColumnName} title={val.title} key={key} data={val} id={key}/>
+                  return <Column setItemState={setItemState} click={handleColumnName} title={val.title} key={key} data={val} id={key}/>
                 })
               : null}
             </DragDropContext>

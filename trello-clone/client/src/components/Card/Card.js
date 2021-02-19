@@ -10,6 +10,14 @@ const Card = (props) => {
     if(props.tags) {
         types = props.tags.split(" ")
     }
+    let fullItem;
+    (props.data.items).map((el, index) => {
+        if(el.id === props.id) {
+            fullItem = el;
+            return fullItem.indexOfItem = index
+        }
+    })
+
     return (
         <Draggable key={props.id} index={props.index} draggableId={props.id}>
             {(provided, snapshot) => {
@@ -24,7 +32,7 @@ const Card = (props) => {
                         }) : null}
                         </div>
                         <div className="card__createIconContainer" >
-                        <CreateIcon className="card__createIcon" />
+                        <CreateIcon className="card__createIcon" onClick={() => {props.setItemState(props.idColum, fullItem)}} />
                         </div>
                         <div className="card__labelText"></div>
                         <p className="card__text">{props.text}</p>

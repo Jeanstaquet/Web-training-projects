@@ -2,21 +2,13 @@ import React, { useState } from 'react';
 import Card from "../Card/Card";
 import AddIcon from '@material-ui/icons/Add';
 import { Droppable, Draggable} from "react-beautiful-dnd";
-import {useAppDispatch} from "../../Context/index";
-import {useAppData} from "../../Context/index";
 import "./Column.css";
 
 
 const Column = (props) => {
-    const [title, setTitle] = useState("")
-    const {addColumn} = useAppDispatch()
-    const state = useAppData()
-
-
     let column = null;
     if(props.title) {
         column = (
-
             <div className="column">
                 <h3 className="column__title">{props.title}</h3>
                 <Droppable droppableId={props.id} key={props.id}>
@@ -26,10 +18,9 @@ const Column = (props) => {
                                 {...provided.droppableProps}
                                 className={snapshot.isDraggingOver ? "droppable-col skyblue" : "droppable-col"}>
                                 {props.data.items.map(({id, name, tags}, index) => {
-                                    return <Card tags={tags} dragggableId={id} data={props.data} id={id} text={name} key={id} index={index}/>
+                                    return <Card setItemState={props.setItemState} tags={tags} dragggableId={id} data={props.data} id={id} text={name} key={id} idColum={props.data._id} index={index}/>
                                 })}
                                 {provided.placeholder}
-                                
                             </div>
                         )
                     }}
