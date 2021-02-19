@@ -6,6 +6,6 @@ const router = express.Router();
  
  router.get("/", column.getColums);
 
- router.post("/swop", column.postColumn);
+ router.post("/swop", column.postColumnSwop);
 
 module.exports = router

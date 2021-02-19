@@ -2,10 +2,11 @@ const Column = require("../models/column");
 const uuidv4 = require("uuid");
 
 exports.postColumn = (req, res, next) => {
-    const title = req.body.title
+    // const title = req.body.title
+    const title = "Hello there"
     const col = new Column({
             title: title,
-            items: []
+            items: [item]
     })
     col.save()  
         .then(result => {
@@ -20,23 +21,27 @@ exports.getColums = (req, res, next) => {
         })
 }
 
-exports.postColumn = (req, res, next) => {
+exports.postColumnSwop = (req, res, next) => {
     const id = req.body;
+    const itemCopy = req.body.itemCopyt
     const srcDroppableId = id.srcDroppableId._id;
+    const destDroppableId = id.destDroppableId._id
     const srcIndex = id.srcIndex;
     console.log(id)
-    Column.findById(srcDroppableId)
-        .then(col => {
-            col.items.splice(srcIndex, 1)
-            col.save
-        })
-        .catch(err => console.log(err.message))
+    Column.findByIdAndUpdate(
+        srcDroppableId, {$pull: {items : {_id: itemCopy._id}}}, { safe: true, upsert: true }
+    ).then(() => {
+        Column.findByIdAndUpdate(
+            destDroppableId, {$push: {items : itemCopy}}, { safe: true, upsert: true }
+        ).then(response => res.send("Good")) 
+    })
 
-    Column.findById()
+
+
 }
 
 const item = {
-    id: "zefzef",
-    name: "Clean the house",
-    tags: "Urgent S.O.S."
+    id: "zdddd",
+    name: "Clean ",
+    tags: "Urgent"
   }

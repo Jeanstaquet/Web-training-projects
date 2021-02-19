@@ -81,7 +81,6 @@ const Board = () => {
     axios.get(url)
       .then(result => {
         setData(result.data)
-        console.log(data)
       })
   }
 
@@ -96,10 +95,9 @@ const Board = () => {
     if(!destination) {
       return;
     }
+
     //If the user has reset the position of the element where it has started
-    if (destination.index === source.index && destination.droppableId === source.droppableId) {
-      return
-    }
+
     //return updateCol(source.droppableId, source.index, destination.droppableId, destination.index)
     const itemCopy = {...data[source.droppableId].items[source.index]}
     const dataForSwop = {srcDroppableId: data[source.droppableId], 
@@ -107,21 +105,26 @@ const Board = () => {
                   destDroppableId: data[destination.droppableId],
                   destIndex: destination.index,
                   itemCopyt: itemCopy}
+
     
     axios.post(url + "swop", dataForSwop)
-      .then(r => console.log(r))
+      .then(r => {
+        setData(prev => {
+          prev = {...prev}
+          // Remove from previous items array
+          prev[source.droppableId].items.splice(source.index, 1)
+      
+      
+          // // Adding to new items array location
+          // prev[destination.droppableId].items.splice(destination.index, 0, itemCopy)
+      
+          return prev
+        })
+      })
+    if (destination.index === source.index && destination.droppableId === source.droppableId) {
+      return
+    }
 
-    setData(prev => {
-      prev = {...prev}
-      // Remove from previous items array
-      prev[source.droppableId].items.splice(source.index, 1)
-
-
-      // Adding to new items array location
-      prev[destination.droppableId].items.splice(destination.index, 0, itemCopy)
-
-      return prev
-    })
   }
 
   const labelChangeHandler = (type) => {
