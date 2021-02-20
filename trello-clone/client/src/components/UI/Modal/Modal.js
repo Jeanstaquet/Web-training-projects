@@ -61,7 +61,7 @@ const Modal = (props) => {
 
                     </div>
                     <button className="modal__saveBtn" onClick={props.stateItem ? () => props.updateItem() : () => props.save()}>Save</button>
-                    <button className="modal__deleteBtn">Delete card</button>
+                    <button className="modal__deleteBtn" onClick={props.deleteCard}>Delete card</button>
                 </div>
             </div>
         </React.Fragment>

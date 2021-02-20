@@ -162,7 +162,19 @@ const Board = () => {
       .then(res => {
               setModalDescription("")
               setOpenModal(false)})
+  }
 
+  //Delete a card from a column
+  const deleteCard = () => {
+    const dataToSend = {
+      colId: state.itemSelected,
+      itemId: state.item.id}
+    axios.post(url + "delete", dataToSend).
+      then(res => {
+        setOpenModal(false);
+      })
+      .catch(err => console.log(err.msg))
+    
   }
     return (
         <div className="board">
@@ -176,6 +188,7 @@ const Board = () => {
               modalHandler={modalHandler} 
               show={openModal}
               updateItem={updateItem}
+              deleteCard={deleteCard}
               save={() => saveNewElement(modalDescription)}
               stateItem={state !== null ? state.item: null}/>
             <DragDropContext onDragEnd={handleDragEnd}>

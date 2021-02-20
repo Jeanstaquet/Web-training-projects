@@ -1,16 +1,18 @@
 const Column = require("../models/column");
-
+const User = require("../models/user");
 exports.postColumn = (req, res, next) => {
     const title = req.body.title
     // const title = "Hello there"
     const col = new Column({
             title: title,
+            items: [],
+            userId: req.user
     })
     col.save()  
         .then(result => {
             res.send("Data added")
         })  
-        .catch(err => res.statut(404).send(err.message))
+        .catch(err => res.send(err.message))
 }
 
 exports.getColums = (req, res, next) => {
@@ -53,9 +55,7 @@ exports.postNewCard = (req, res, next) => {
 exports.postUpdateCard = (req, res, next) => {
     const colId = req.body.colId;
     const completeItem = req.body.completeItem;
-
     const completeItemId = completeItem.id
-    const completeItemIndex = completeItem.indexOfItem
     const completeItemName = completeItem.name
     const completeItemTags = completeItem.tags
 
@@ -64,6 +64,13 @@ exports.postUpdateCard = (req, res, next) => {
                                     "items.$.tags": completeItemTags}},
                             {'new': true, 'safe': true, 'upsert': true})
                             .then(resp => res.send("UpdatedItem"))
-    
+}
 
+exports.postDeleteCard = (req, res, next) => {
+    const colId = req.body.colId;
+    const itemId = req.body.itemId;
+
+    Column.findByIdAndDelete({_id: colId, items: {$elemMatch:{id: itemId}}},
+        {'safe': true})
+        .then(resp => res.send("UpdatedItem"))
 }

@@ -12,4 +12,6 @@ const router = express.Router();
 
  router.post("/update", column.postUpdateCard);
 
-module.exports = router
+ router.post("/delete", column.postDeleteCard)
+
+module.exports = router;
