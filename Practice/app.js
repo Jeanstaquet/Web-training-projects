@@ -1,16 +1,11 @@
 const path = require('path');
+
 const express = require('express');
 const bodyParser = require('body-parser');
-var cors = require("cors");
-
-
-const mongoConnect = require('./util/database');
+const mongoose = require('mongoose');
 
 const errorController = require('./controllers/error');
-
-
-const User = require("./models/user");
-
+const User = require('./models/user');
 
 const app = express();
 
@@ -19,30 +14,45 @@ app.set('views', 'views');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
-
-
+const authRoutes = require('./routes/auth');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors());
+
 app.use((req, res, next) => {
-    User.findByPk(1)
-        //Storing a user in a request
-        //Renvoie un sequelize object with the methods
-        .then(user => {
-            req.user = user;
-            next();
-        });
-})
+  User.findById('5bab316ce0a7c75f783cb8a8')
+    .then(user => {
+      req.user = user;
+      next();
+    })
+    .catch(err => console.log(err));
+});
 
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
-
+app.use(authRoutes);
 
 app.use(errorController.get404);
 
-
-mongoConnect(() => {
+mongoose
+  .connect(
+    'mongodb+srv://AdminJean:TrelloClone@cluster0.2rxqq.mongodb.net/<dbname>?retryWrites=true&w=majority'
+  )
+  .then(result => {
+    User.findOne().then(user => {
+      if (!user) {
+        const user = new User({
+          name: 'Max',
+          email: 'max@test.com',
+          cart: {
+            items: []
+          }
+        });
+        user.save();
+      }
+    });
     app.listen(3000);
+  })
+  .catch(err => {
+    console.log(err);
   });
-  
