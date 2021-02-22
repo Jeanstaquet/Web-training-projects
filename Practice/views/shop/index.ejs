@@ -31,5 +31,10 @@
         <% } else { %>
             <h1>No Products Found!</h1>
         <% } %>
+        <% if(isAuthenticated) { %>
+            <h1>Hello</h1>
+        <% } else { %>
+            <h1>It doesn't work</h1>
+        <% } %>
     </main>
 <%- include('../includes/end.ejs') %>
