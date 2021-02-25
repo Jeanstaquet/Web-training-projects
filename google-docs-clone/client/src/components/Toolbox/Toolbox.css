@@ -1,0 +1,58 @@
+.toolbox {
+    display: flex;
+    position: fixed;
+    top: 6.7vh;
+    align-items: center;
+    width: 100vw;
+    padding: 8px;
+    border-bottom: 1px solid lightgray;
+    box-shadow: #fff;
+    background-color: #ffffff;
+    z-index: 10;
+}
+
+.toolbox__mainActions {
+    display: flex;
+    align-items: center;
+    padding-right: 15px;
+    flex: 0.15;
+    border-right: 1px solid lightgray ;
+}
+
+.toolbox__mainActions * {
+    margin-left: 12px;
+    color: #5f6368;
+    font-size: 1.25rem !important;
+}
+
+.toolbox_zoom {
+    margin-left: 15px;
+    margin-right: 15px;
+    padding-right: 10px;
+    border-right: 1px solid lightgray;
+}
+
+.toolboxTextType {
+    margin-right: 15px;
+    padding-right: 15px;
+    border-right: 1px solid lightgray;
+}
+
+.toolbox__fontFam {
+    margin-right: 15px;
+    padding-right: 15px;
+    border-right: 1px solid lightgray;
+}
+
+.toolbox__textSize {
+    margin-right: 15px;
+    padding-right: 15px;
+    border-right: 1px solid lightgray;
+    flex: 1;
+}
+
+.toolbox__editMode {
+    margin-right: 15px;
+    padding-right: 15px;
+    border-right: 1px solid lightgray;
+}

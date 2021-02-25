@@ -5,6 +5,7 @@ import CommentIcon from '@material-ui/icons/Comment';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import CloudDoneIcon from '@material-ui/icons/CloudDone';
 import FolderIcon from '@material-ui/icons/Folder';
+import Avatar from '@material-ui/core/Avatar';
 
 const Banner = () => {
     return (
@@ -25,8 +26,8 @@ const Banner = () => {
                 </div>
             </div>
             <div className="banner__account">
-                <CommentIcon/>
-                <AccountCircleIcon/>
+                <CommentIcon className="banner__commentIcon"/>
+                <Avatar className="banner__avatarIcon"/>
             </div>
         </div>
     );

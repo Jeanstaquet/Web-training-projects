@@ -1,30 +1,11 @@
-*,
-*:before,
-*:after {
-	box-sizing: border-box;
+.editor__container {
+	padding: 40px 100px 40px 100px;
+	height: 1000px;
 }
 
-.toolbar {}
-.tool-list {
+.App {
 	display: flex;
-	flex-flow: row nowrap;
-	list-style: none;
-	padding: 0;
-	margin: 1rem;
-	overflow: hidden;
-	border-raduis: 10px;
-}
-.tool {}
-.tool--btn {
-	display: block;
-	border: none;
-	padding: .5rem;
-	font-size: 20px;
-}
-
-#output {
-	height: 400px; 
-	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-	margin: 1rem;
-	padding: 1rem;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }

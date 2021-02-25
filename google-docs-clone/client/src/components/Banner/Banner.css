@@ -1,6 +1,7 @@
 .banner {
     position: fixed;
     background-color: #ffffff;
+    top: 0;
     width: 100vw;
     height: 6.7vh;
     display: flex;
@@ -8,6 +9,7 @@
     align-items: center;
     border-bottom: 1px solid lightgray;
     font-family: Roboto;
+    z-index: 100;
 }
 
 .banner__logo {
@@ -17,7 +19,7 @@
 }
 
 .banner__logo .banner__folderLogo {
-    color: rgb(28, 28, 194);
+    color: rgba(28, 28, 194, 0.719);
     font-size: 2.7rem !important;
     cursor: pointer;
 }
@@ -70,7 +72,13 @@
 }
 
 .banner__account {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex: 0.2;
-    
+}
+
+.banner__account .banner__commentIcon {
+    margin-right: 20px;
 }
 

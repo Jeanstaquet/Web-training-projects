@@ -1,9 +1,35 @@
 import React from 'react';
 import "./Toolbox.css";
-const Toolbox = () => {
+import RedoIcon from '@material-ui/icons/Redo';
+import UndoIcon from '@material-ui/icons/Undo';
+import SpellcheckIcon from '@material-ui/icons/Spellcheck';
+import FormatPaintIcon from '@material-ui/icons/FormatPaint';
+import EditIcon from '@material-ui/icons/Edit';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+const Toolbox = (props) => {
     return (
-        <div>
-            
+        <div className="toolbox">
+            <div className="toolbox__mainActions">
+                <UndoIcon/>
+                <RedoIcon/>
+                <SpellcheckIcon/>
+                <FormatPaintIcon/>
+            </div>
+            <div className="toolbox_zoom">
+                <p>100%</p>
+            </div>
+            <div className="toolboxTextType">
+                <p>Normal text</p>
+            </div>
+            <div className="toolbox__fontFam">
+                <p>Arial</p>
+            </div>
+            <div className="toolbox__textSize">
+                <p>11</p>
+            </div>
+            <div className="toolbox__editMode">
+                <EditIcon/>
+            </div>
         </div>
     );
 };
