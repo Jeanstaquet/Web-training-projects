@@ -1,0 +1,48 @@
+.banner {
+    position: fixed;
+    background-color: #ffffff;
+    width: 100vw;
+    height: 6.7vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
+}
+
+.banner__logo {
+    flex: 0.07;
+    margin-left: 10px;
+}
+
+.banner__logo .banner__folderLogo {
+    color: rgb(28, 28, 194);
+    width: 50px;
+}
+
+.banner__details {
+    flex: 0.7;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+
+.banner__details .banner__docInfo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 7px 0 7px 0;
+}
+
+.banner__docInfo h3 {
+    font-size: 1.3rem;
+    margin-right: 20px;
+}
+
+.banner__docInfo .MuiSvgIcon-root{
+    margin-right: 10px;
+    color: lightgray;
+}
+
+.banner__details .banner__subMenu {
+    display: flex;
+}
