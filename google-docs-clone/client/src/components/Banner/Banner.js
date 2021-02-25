@@ -19,16 +19,14 @@ const Banner = () => {
                     <CloudDoneIcon/>
                 </div>
                 <div className="banner__subMenu">
-                    <p>File</p>
-                    <p>View</p>
-                    <p>Editor</p>
+                    <div className="banner__subMenuFile subMenuItem"><p>File</p></div>
+                    <div className="banner__subMenuEdit subMenuItem"><p>Edit</p></div>
+                    <div className="banner__subMenuInsert subMenuItem"><p>Insert</p></div>
                 </div>
             </div>
             <div className="banner__account">
-                <div>
-                    <AccountCircleIcon/>
-                    <CommentIcon/>
-                </div>
+                <CommentIcon/>
+                <AccountCircleIcon/>
             </div>
         </div>
     );

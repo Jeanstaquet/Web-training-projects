@@ -3,6 +3,7 @@ import "./App.css";
 import {Editor, EditorState, RichUtils} from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import Banner from "./components/Banner/Banner";
+import Toolbox from "./components/Toolbox/Toolbox";
 const App = () => {
   // const [editorState, setEditorState] = useState(
   //   () => EditorState.createEmpty(),
@@ -28,6 +29,7 @@ const App = () => {
   return (
     <div>
       <Banner/>
+      <Toolbox/>
        {/* <button onClick={_onBoldClick}>Bold</button>
       <Editor editorState={editorState} 
               onChange={onChange}
