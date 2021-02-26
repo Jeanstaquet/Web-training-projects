@@ -1,0 +1,53 @@
+.leftMenu {
+    position: fixed;
+    width: 164px;
+    height: 100vh;
+    border-right: 1px solid lightgray;
+}
+
+.leftMenu__content {
+    margin-top: 125px;
+    color: #848d95;
+}
+
+.leftMenu__stackOverflow {
+    display: flex;
+    transition: all .1s ease;
+    align-items: center;
+    cursor: pointer;
+    border-right: 2px solid transparent;
+    font-size: 0.95rem;
+    padding: 10px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+
+}
+
+.leftMenu__stackOverflow:hover {
+    color: black;
+}
+
+.leftMenu__stackOverflow .leftMenu__world {
+    margin: 0 5px;
+}
+
+.leftMenu__tags,
+.leftMenu__users {
+    transition: all .1s ease;
+    padding: 6px;
+    padding-left: 43px;
+    border-right: 2px solid transparent;
+}
+
+.leftMenu__tags:hover,
+.leftMenu__users:hover {
+    cursor: pointer;
+    color: black;
+}
+
+.leftMenuActive {
+    background-color: #eff0f1;
+    border-right: 3px solid #f48024;
+    color: black;
+    font-weight: 600;
+}
