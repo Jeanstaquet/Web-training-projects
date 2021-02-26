@@ -1,0 +1,9 @@
+.modalJob__container {
+    z-index: 100;
+    width: 90vw;
+    height: 90vh;
+    position: fixed;
+    background-color: white;
+    top: 5vh;
+    left: 5vw;
+}

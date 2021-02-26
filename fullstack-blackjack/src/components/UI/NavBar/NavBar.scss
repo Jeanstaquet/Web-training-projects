@@ -1,0 +1,21 @@
+.navbar__container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    display: flex;
+    justify-content: flex-end;
+    a{
+        border: 2px solid transparent;
+        text-decoration: none;
+        padding: 12px;
+        margin: 12px;
+        color: black;
+        background-color: #90ee90;
+
+        &:hover {
+            border: 2px solid black;
+            cursor: pointer;
+        }
+    }
+}
