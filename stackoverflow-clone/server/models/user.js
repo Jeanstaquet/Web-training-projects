@@ -11,14 +11,14 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    posts: [{
+    post: [{
                 postId: {
                     type: Schema.Types.ObjectId,
                     ref: "Post",
                     required: true
                 }
             }],
-    answers: [{
+    answer: [{
                 answerId: {
                     type: Schema.Types.ObjectId,
                     ref: "Answer",

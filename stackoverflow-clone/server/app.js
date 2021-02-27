@@ -17,7 +17,8 @@ const store = new MongoDBStore({
 const authRoutes = require("./routes/auth");
 
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit: "30mb", extended: true}))
+app.use(bodyParser.urlencoded({limit: "30mb", extended: true}))
 app.use(
     session({
       secret: 'secret',
