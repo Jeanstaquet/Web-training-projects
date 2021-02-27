@@ -1,6 +1,6 @@
 .leftMenu {
     position: fixed;
-    width: 164px;
+    width: 165.5px;
     height: 100vh;
     border-right: 1px solid lightgray;
 }
@@ -17,7 +17,6 @@
     cursor: pointer;
     border-right: 2px solid transparent;
     font-size: 0.95rem;
-    padding: 10px;
     padding-top: 7px;
     padding-bottom: 7px;
 

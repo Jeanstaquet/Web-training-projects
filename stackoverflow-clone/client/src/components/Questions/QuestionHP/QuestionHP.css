@@ -1,0 +1,68 @@
+.QuestionHP {
+    display: flex;
+    padding: 12px;
+    border-bottom: 1px solid lightgray;
+}
+
+.QuestionHP__nbr {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 58px;
+    min-width: 58px;
+    margin: 0 16px 0 8px;
+}
+
+.QuestionHP__vote,
+.QuestionHP__answers {
+    display: flex;
+    flex-direction: column;
+    height: 51px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.QuestionHP__vote h4,
+.QuestionHP__answers h4 {
+    color: #6a83a5;
+    font-size: 20px;
+}
+
+.QuestionHP__vote p,
+.QuestionHP__answers p {
+    color: #6a83a5;
+    font-size: 11px;
+}
+
+.QuestionHP__viewNbr {
+    font-size: 11px;
+    width: 100%;
+    text-align: center;
+}
+
+.QuestionHP__info {
+    display: flex;
+    flex-direction: column;
+}
+
+.QuestionHP__text {
+    margin-bottom: 5px;
+}
+
+.QuestionHP__text h3 {
+    font-size: 16px;
+    color: #1f77cc;
+    margin-bottom: 14.2px;
+    font-weight: 400;
+}
+
+.QuestionHP__text p {
+    font-size: 14px;
+}
+
+.QuestionHP__tagsProfile {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}

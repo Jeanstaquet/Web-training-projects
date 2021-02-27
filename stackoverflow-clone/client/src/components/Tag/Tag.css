@@ -1,0 +1,15 @@
+.tag {
+    font-size: 12px;
+    background-color: #e1ecf4;
+    display: inline-block;
+    padding: 4px 5px;
+    border-radius: 2px;
+    color: #39739d;
+    cursor: pointer;
+    margin: 4px;
+    transition: all 0.1s ease;
+}
+
+.tag:hover {
+    background-color: #d1e5f1;
+}
