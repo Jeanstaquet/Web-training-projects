@@ -11,13 +11,11 @@ const postSchema = new Schema({
         type: String,
         required: true
     },
-    creator: [{
-        userId: {
+    creator: {
             type: Schema.Types.ObjectId,
             ref: "User",
             required: true
-        }
-    }],
+        },
     answer: [{
         answerId: {
             type: Schema.Types.ObjectId,
@@ -37,6 +35,13 @@ const postSchema = new Schema({
         type: Number,
         required: true
     },
+    comment: [{
+        commentId: {
+            type: Schema.Types.ObjectId,
+            ref: "Comment",
+            required: true
+        }
+    }]
 });
 
 module.exports = mongoose.model('Post', postSchema);

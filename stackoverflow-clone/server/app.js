@@ -14,6 +14,7 @@ const store = new MongoDBStore({
     collection: 'sessions',
 })
 
+const authRoutes = require("./routes/auth");
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -26,9 +27,11 @@ app.use(
     })
   );
 
+app.use(authRoutes)
+
 
 mongoose.connect(MONGODB_URI)
-  .then(result => {
+  .then(() => {
     console.log("Connected to the db")
     app.listen(PORT)
   })

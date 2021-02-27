@@ -42,6 +42,13 @@ const userSchema = new Schema({
             ref: "Post",
             required: true
         }
+    }],
+    comment: [{
+        commentId: {
+            type: Schema.Types.ObjectId,
+            ref: "Comment",
+            required: true
+        }
     }]
 });
 
