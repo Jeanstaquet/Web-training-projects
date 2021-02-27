@@ -4,24 +4,6 @@ const cors = require("cors");
 const User = require("./models/user");
 const mongoose = require("mongoose")
 
-const admin = require("firebase-admin")
-const serviceAccount = require("./trelloclone-2dc98-firebase-adminsdk-55ai2-40290939a1.json");
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-})
-
-const db = admin.firestore()
-
-const test = () => {
-  const data = {
-    User: "jefef"
-  }
-  return db.collection("U").doc().set(data).then(rep => console.log(rep))
-}
-
-test();
-
 const app = express()
 const PORT = process.env.PORT || 5000;
 
