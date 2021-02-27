@@ -1,6 +1,6 @@
 const User = require("../models/user");
 
-exports.postSignUp = (req, res, next) => {
+exports.postSignIn = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
 
@@ -25,7 +25,7 @@ exports.postSignUp = (req, res, next) => {
         })
 }
 
-exports.postSignIn = (req, res, next) => {
+exports.postSignUp = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
 

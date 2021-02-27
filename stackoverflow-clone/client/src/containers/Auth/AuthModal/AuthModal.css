@@ -1,0 +1,85 @@
+.AuthModal {
+    position: fixed;
+    padding: 30px;
+    background-color: #fafafb;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    left: 40vw;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05),0 1px 4px rgba(0,0,0,0.05),0 2px 8px rgba(0,0,0,0.05);
+    width: 30vw;
+    border-radius: 6px;
+    transition: all 0.1s ease;
+    transform: scale(1);
+}
+
+.AuthModal input:focus {
+    outline: none
+}
+
+.AuthModal__clear {
+    position: absolute;
+    cursor: pointer;
+    top: 15px;
+    right: 10px;
+    color: lightgray;
+    transition: all 0.15s ease;
+}
+
+.AuthModal__clear:hover {
+    color: rgb(20, 20, 20);
+}
+
+.AuthModal form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.AuthModal__email {
+    margin-top: 20px;
+    font-size: 1.15rem;
+    margin-bottom: 5px;
+}
+
+.AuthModal__password {
+    font-size: 1.15rem;
+    margin-bottom: 5px;
+}
+
+.AuthModal__emailInput {
+    margin-bottom: 25px;
+    font-family: inherit;
+    padding: 5px;
+    border-radius: 6px;
+    border: 1px solid lightgray;
+}
+
+.AuthModal__passwordInput {
+    margin-bottom: 25px;
+    width: 100%;
+    padding: 5px;
+    border-radius: 6px;
+    border: 1px solid lightgray;
+}
+
+.AuthModal__signUpLink {
+    font-size: 13px;
+    color: #242729;
+    margin: 20px auto;
+}
+
+.AuthModal__link {
+    color: #0095ff;
+    cursor: pointer;
+}
+
+.AuthModal__link:hover {
+    color: #0077cc;
+}
+
+.closeModal {
+    display: none;
+    transform: scale(0) !important;
+}

@@ -11,6 +11,10 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    pseudo: {
+        type: String,
+        required: true
+    },
     post: [{
                 postId: {
                     type: Schema.Types.ObjectId,
