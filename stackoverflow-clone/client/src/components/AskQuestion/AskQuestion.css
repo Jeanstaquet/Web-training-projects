@@ -1,0 +1,60 @@
+.AskQuestion {
+    padding-top: 75px;
+    width: 100vw;
+    height: 100vh;
+    background-color: #eff0f1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.AskQuestion h1 {
+    margin-bottom: 30px;
+}
+
+.AskQuestion__form {
+    display: flex;
+    background-color: #ffff;
+    padding: 20px;
+    width: 75vw;
+    flex-direction: column;
+    margin-bottom: 30px;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05),0 1px 4px rgba(0,0,0,0.05),0 2px 8px rgba(0,0,0,0.05);;
+}
+
+.AskQuestion__title,
+.AskQuestion__body,
+.AskQuestion__tags {
+    margin-bottom: 30px;
+}
+
+.AskQuestion__title h4,
+.AskQuestion__body h4,
+.AskQuestion__tags h4{
+    margin-bottom: 5px;
+}
+
+.AskQuestion__title p,
+.AskQuestion__body p,
+.AskQuestion__tags p {
+    margin-bottom: 5px;
+    font-size: 12px;
+    color: #3c4146;
+}
+
+.AskQuestion__title input,
+.AskQuestion__body textarea,
+.AskQuestion__tags input {
+    padding: 10px;
+    width: 100%;
+    font-family: inherit;
+    border-radius: 4px;
+    border: 1px solid lightgray;
+}
+
+.AskQuestion__title input:focus,
+.AskQuestion__body textarea:focus,
+.AskQuestion__tags input:focus{
+    outline: none;
+}

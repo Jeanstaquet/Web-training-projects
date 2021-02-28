@@ -23,7 +23,7 @@
 .logo {
     flex: 0.2;
     background-repeat: no-repeat;
-    height: 60%;
+    height: 35px;
     background-position: center;
     background-size: contain;
     background-image: url("https://stackoverflow.design/assets/img/logos/so/logo-stackoverflow.svg");
