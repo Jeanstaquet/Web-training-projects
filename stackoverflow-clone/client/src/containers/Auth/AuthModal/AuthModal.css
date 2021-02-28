@@ -3,6 +3,7 @@
     padding: 30px;
     background-color: #fafafb;
     display: flex;
+    z-index: 100;
     flex-direction: column;
     align-items: flex-start;
     left: 40vw;
@@ -79,7 +80,7 @@
     color: #0077cc;
 }
 
-.closeModal {
+.hideModal {
     display: none;
     transform: scale(0) !important;
 }

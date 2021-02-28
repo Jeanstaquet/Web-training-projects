@@ -9,7 +9,12 @@ const App = () => {
   const [showModal, setShowModal] = useState(true)
   //Set modal to Login or sign up
   const [authMethod, setAuthMethod] = useState("Login")
-
+  //Input tracking
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [pseudo, setPseudo] = useState("");
+  //Error message for the auth flow
+  const [errorAuth, setErrorAuth] = useState("")
   //Open close the modal
   const showModalHandler = () => {
     setShowModal(false)
@@ -20,20 +25,62 @@ const App = () => {
     authMethod === "Login" ? setAuthMethod("Signup") : setAuthMethod("Login")
   }
 
+  //URL for requests
   const URL = 'http://localhost:5000/signin'
 
-  // useEffect(() => {
-  //   const dataa = {
-  //     email: "jeanstaquet8@gmail.com",
-  //     password: "hello"
-  //   }
+  //Login Method
+  const authHandler = (e, method) => {
+    e.preventDefault()
+    const data = {
+      email: email,
+      password: password,
+      pseudo: pseudo
+    }
+    switch(method) {
+      case "Login":
+        axios.post('http://localhost:5000/signin', data)
+          .then(resp => {
+            if(resp.data === "Existing User") {
+              setErrorAuth(resp.data)
+              setTimeout(() => {
+                setErrorAuth("")
+              }, 5000)
+            } else {
+              setEmail("");
+              setPassword("");
+              setPseudo("")
+              setErrorAuth("")
+              console.log(resp.data)
+            }
+          })
+          .catch(err => {
+            setErrorAuth(err)
+            console.log(err)
+          })
+          break;
+      case "Signup":
+        axios.post('http://localhost:5000/signup', data)
+          .then(resp => {
+            if(resp.data === "Existing User") {
+              console.log(resp)
+              setErrorAuth(resp.data)
+              setTimeout(() => {
+                setErrorAuth("")
+              }, 5000)
+            } else {
+              setEmail("")
+              setPassword("")
+              setPseudo("")
+              setErrorAuth("")
+              console.log(resp.data)
+            }
+          })
+          .catch(err => setErrorAuth(err))
+          break;
+    } 
+  }
 
-  //   axios.post(URL, dataa)
-  //     .then(resp => console.log(resp))
-  //     .catch(err => console.log(err))
 
-
-  // }, [])
   return (
     <div>
       <MainLayout>
@@ -41,7 +88,16 @@ const App = () => {
           close={showModalHandler} 
           show={showModal}
           changeMethod={authMethodHandler}
-          method={authMethod}
+          authMethod={authMethod}
+          //Send auth requests
+          authHandler={authHandler}
+          setEmail={setEmail}
+          email={email}
+          setPassword={setPassword}
+          password={password}
+          setPseudo={setPseudo}
+          pseudo={pseudo}
+          errorAuth={errorAuth}
         />
         <HomePage/>
       </MainLayout>

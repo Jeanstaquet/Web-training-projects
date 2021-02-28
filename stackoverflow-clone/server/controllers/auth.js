@@ -1,9 +1,9 @@
 const User = require("../models/user");
 
-exports.postSignIn = (req, res, next) => {
+exports.postSignUp = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
-
+    const pseudo = req.body.pseudo
     User.findOne({email: email})
         .then(user => {
             if(user) {
@@ -12,6 +12,7 @@ exports.postSignIn = (req, res, next) => {
                 const user = new User({
                     email: email,
                     password: password,
+                    pseudo: pseudo,
                     post: [],
                     answer: [],
                     points: 0,
@@ -19,13 +20,16 @@ exports.postSignIn = (req, res, next) => {
                     downVotedPost: [],
                     comment: []
                 });
+                req.session.isLoggedIn = true
+                req.session.user = user
+                req.session.save();
                 user.save();
                 return res.send("User created!")
             }
         })
 }
 
-exports.postSignUp = (req, res, next) => {
+exports.postSignIn = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
 
