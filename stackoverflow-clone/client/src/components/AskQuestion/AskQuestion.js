@@ -3,7 +3,7 @@ import "./AskQuestion.css";
 import Banner from "../Banner/Banner";
 import Button from "../UI/Button/Button";
 
-const AskQuestion = () => {
+const AskQuestion = (props) => {
     //Manages the state of the button
     const [btnLoad, setBtnLoad] = useState(false)
     const [btnOk, setBtnOk] = useState(false)
@@ -21,7 +21,7 @@ const AskQuestion = () => {
 
     return (
         <>
-            <Banner/>
+            <Banner showModalHandler={props.showModalHandler}/>
             <div className="AskQuestion">
                 <div className="AskQuestion__center">
                 <h1>Ask a public question</h1>

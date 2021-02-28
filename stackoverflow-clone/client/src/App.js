@@ -8,7 +8,7 @@ import AuthModal from "./containers/Auth/AuthModal/AuthModal";
 import {Route, Switch} from "react-router-dom";
 const App = () => {
   //Show the modal
-  const [showModal, setShowModal] = useState(true)
+  const [showModal, setShowModal] = useState(false)
   //Set modal to Login or sign up
   const [authMethod, setAuthMethod] = useState("Login")
   //Input tracking
@@ -18,9 +18,11 @@ const App = () => {
   //Error message for the auth flow
   const [errorAuth, setErrorAuth] = useState("")
   //Open close the modal
-  const showModalHandler = () => {
-    setShowModal(false)
+  const showModalHandler = (type) => {
+    setShowModal(!showModal)
+    type === "Login" ? setAuthMethod("Login") : setAuthMethod("Signup")
   }
+
 
   //Change the auth method
   const authMethodHandler = () => {
@@ -42,7 +44,7 @@ const App = () => {
       case "Login":
         axios.post('http://localhost:5000/signin', data)
           .then(resp => {
-            if(resp.data === "Existing User") {
+            if(resp.data === "Existing User" || resp.data === "User not found") {
               setErrorAuth(resp.data)
               setTimeout(() => {
                 setErrorAuth("")
@@ -52,6 +54,7 @@ const App = () => {
               setPassword("");
               setPseudo("")
               setErrorAuth("")
+              setShowModal(false)
               console.log(resp.data)
             }
           })
@@ -82,14 +85,7 @@ const App = () => {
     } 
   }
 
-
-  return (
-    <div>
-      <Switch>
-      <Route exact path="/ask">
-        <AskQuestion/>
-      </Route>
-      <MainLayout>
+  const authModal = (
         <AuthModal 
             close={showModalHandler} 
             show={showModal}
@@ -105,6 +101,17 @@ const App = () => {
             pseudo={pseudo}
             errorAuth={errorAuth}
           />
+  )
+
+  return (
+    <div>
+      <Switch>
+      <Route exact path="/ask">
+        {authModal}
+        <AskQuestion showModalHandler={showModalHandler}/>
+      </Route>
+      <MainLayout showModalHandler={showModalHandler}>
+          {authModal}
           <Route exact path="/">
               <HomePage/>
           </Route>
