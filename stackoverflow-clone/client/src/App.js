@@ -18,6 +18,8 @@ const App = () => {
   //Error message for the auth flow
   const [errorAuth, setErrorAuth] = useState("")
   //Open close the modal
+
+
   const showModalHandler = (type) => {
     setShowModal(!showModal)
     type === "Login" ? setAuthMethod("Login") : setAuthMethod("Signup")
@@ -42,7 +44,12 @@ const App = () => {
     }
     switch(method) {
       case "Login":
-        axios.post('http://localhost:5000/signin', data)
+        axios.post('http://localhost:5000/signin', data, {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+           withCredentials: true 
+        })
           .then(resp => {
             if(resp.data === "Existing User" || resp.data === "User not found") {
               setErrorAuth(resp.data)
