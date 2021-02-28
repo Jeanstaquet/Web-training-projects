@@ -1,5 +1,6 @@
 .AuthModal {
     position: fixed;
+    top: 20vh;
     padding: 30px;
     background-color: #fafafb;
     display: flex;

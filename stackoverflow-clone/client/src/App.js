@@ -3,7 +3,9 @@ import "./App.css";
 import MainLayout from "./containers/MainLayout/MainLayout";
 import HomePage from "./containers/HomePage/HomePage";
 import axios from "axios";
+import AskQuestion from "./components/AskQuestion/AskQuestion";
 import AuthModal from "./containers/Auth/AuthModal/AuthModal";
+import {Route, Switch} from "react-router-dom";
 const App = () => {
   //Show the modal
   const [showModal, setShowModal] = useState(true)
@@ -83,24 +85,31 @@ const App = () => {
 
   return (
     <div>
+      <Switch>
+      <Route exact path="/ask">
+        <AskQuestion/>
+      </Route>
       <MainLayout>
         <AuthModal 
-          close={showModalHandler} 
-          show={showModal}
-          changeMethod={authMethodHandler}
-          authMethod={authMethod}
-          //Send auth requests
-          authHandler={authHandler}
-          setEmail={setEmail}
-          email={email}
-          setPassword={setPassword}
-          password={password}
-          setPseudo={setPseudo}
-          pseudo={pseudo}
-          errorAuth={errorAuth}
-        />
-        <HomePage/>
+            close={showModalHandler} 
+            show={showModal}
+            changeMethod={authMethodHandler}
+            authMethod={authMethod}
+            //Send auth requests
+            authHandler={authHandler}
+            setEmail={setEmail}
+            email={email}
+            setPassword={setPassword}
+            password={password}
+            setPseudo={setPseudo}
+            pseudo={pseudo}
+            errorAuth={errorAuth}
+          />
+          <Route exact path="/">
+              <HomePage/>
+          </Route>
       </MainLayout>
+      </Switch>
     </div>
   );
 };

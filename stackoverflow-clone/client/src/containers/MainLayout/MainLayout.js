@@ -5,8 +5,10 @@ import LeftMenu from "../../components/LeftMenu/LeftMenu";
 import TagsList from "../../components/TagsList/TagsList";
 import RelatedTags from "../../components/RelatedTags/RelatedTags";
 import MainTitle from "../../components/MainTitle/MainTitle";
+import {withRouter} from "react-router-dom";
 
 const MainPage = (props) => {
+    console.log(props)
     return (
         <div className="MainLayout">
             <Banner/>

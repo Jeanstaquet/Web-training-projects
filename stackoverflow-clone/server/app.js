@@ -4,6 +4,7 @@ const cors = require("cors");
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
+const authRoutes = require("./routes/auth");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -14,11 +15,11 @@ const store = new MongoDBStore({
     collection: 'sessions',
 })
 
-const authRoutes = require("./routes/auth");
+
 
 app.use(cors());
-app.use(bodyParser.json({limit: "30mb", extended: true}))
-app.use(bodyParser.urlencoded({limit: "30mb", extended: true}))
+app.use(bodyParser.json({limit: "30mb"}))
+app.use(bodyParser.urlencoded({limit: "30mb"}))
 app.use(
     session({
       secret: 'secret',
@@ -28,6 +29,10 @@ app.use(
     })
   );
 
+app.use((req, res, next) => {
+  console.log(req.session)
+  next()
+})
 app.use(authRoutes)
 
 
