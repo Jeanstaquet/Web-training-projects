@@ -126,7 +126,10 @@ const App = () => {
         <Switch>
           <Route exact path="/ask">
             {authModal}
-            <AskQuestion showModalHandler={showModalHandler}/>
+            <AskQuestion 
+              showModalHandler={showModalHandler}
+              logoutHandler={logoutHandler}
+            />
           </Route>
           <MainLayout 
             logoutHandler={logoutHandler}

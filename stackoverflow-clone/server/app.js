@@ -4,7 +4,9 @@ const cors = require("cors");
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
+
 const authRoutes = require("./routes/auth");
+const postsRoutes = require('./routes/posts')
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -16,12 +18,13 @@ const store = new MongoDBStore({
 })
 
 
-
+//Enable session cookie in the client browser
 app.use(cors({
   origin: 'http://localhost:3000',
   methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
   credentials: true
 }));
+
 app.use(bodyParser.json({limit: "30mb"}))
 app.use(bodyParser.urlencoded({limit: "30mb"}))
 app.use(
@@ -37,7 +40,8 @@ app.use((req, res, next) => {
   console.log(req.session)
   next()
 })
-app.use(authRoutes)
+app.use(postsRoutes);
+app.use(authRoutes);
 
 
 mongoose.connect(MONGODB_URI)

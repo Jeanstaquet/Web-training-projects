@@ -2,6 +2,8 @@ import React from 'react';
 import "./MainTitle.css";
 import Filter from "../UI/Filter/Filter";
 import Button from "../UI/Button/Button";
+import { Link } from 'react-router-dom';
+
 const MainTitle = (props) => {
     return (
         <div className="MainTitle">
@@ -10,7 +12,7 @@ const MainTitle = (props) => {
                 <p>20,895, 410 quesyions</p>
             </div>
             <div className="MainTitle__controls">
-                <Button btnOk={true}>Ask Question</Button>
+                <Link to='/ask'><Button btnOk={true}>Ask Question</Button></Link>
                 <Filter/>
             </div>
         </div>
