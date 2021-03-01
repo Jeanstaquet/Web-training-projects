@@ -88,12 +88,18 @@ const App = () => {
               setPassword("")
               setPseudo("")
               setErrorAuth("")
-              console.log(resp.data)
+              setUser(resp.data)
             }
           })
           .catch(err => setErrorAuth(err))
           break;
     } 
+  }
+
+  //Logout Handler
+  const logoutHandler = () => {
+    setUser(null);
+    axios.get('http://localhost:5000/logout')
   }
 
   const authModal = (
@@ -122,7 +128,10 @@ const App = () => {
             {authModal}
             <AskQuestion showModalHandler={showModalHandler}/>
           </Route>
-          <MainLayout showModalHandler={showModalHandler}>
+          <MainLayout 
+            logoutHandler={logoutHandler}
+            showModalHandler={showModalHandler}
+          >
           {authModal}
             <Route exact path="/">
                 <HomePage/>

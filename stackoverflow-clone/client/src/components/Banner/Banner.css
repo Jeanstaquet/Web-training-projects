@@ -38,9 +38,39 @@
 
 .banner__profilePhoto  {
     background-image: url("https://picsum.photos/300/300");
-    flex: 0.5;
+    flex: 0.2;
+    margin-left: 15px;
     background-repeat: no-repeat;
     height: 60%;
     background-position: center;
     background-size: contain;
+    cursor: pointer;
+}
+
+.banner__points {
+    margin-right: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    color: #6a83a5;
+    font-weight: bold;
+}
+
+.banner__pseudo {
+    margin-right: 10px;
+    color: #0095ff;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.banner__logout {
+    margin-right: 5px;
+    color: #0095ff;
+    cursor: pointer;
+    font-size: 15px;
+    margin-right: -60px;
+}
+
+.banner__logout:hover {
+    text-decoration: underline;
+
 }

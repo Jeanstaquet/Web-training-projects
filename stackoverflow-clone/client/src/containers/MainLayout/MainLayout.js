@@ -9,7 +9,10 @@ import MainTitle from "../../components/MainTitle/MainTitle";
 const MainPage = (props) => {
     return (
         <div className="MainLayout">
-            <Banner showModalHandler={props.showModalHandler}/>
+            <Banner 
+                showModalHandler={props.showModalHandler}
+                logoutHandler={props.logoutHandler}
+            />
             <LeftMenu/>
             <div className="MainLayout__content">
                 <div className="MainLayout__questions">

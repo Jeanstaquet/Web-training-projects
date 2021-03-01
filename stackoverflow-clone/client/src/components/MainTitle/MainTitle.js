@@ -10,7 +10,7 @@ const MainTitle = (props) => {
                 <p>20,895, 410 quesyions</p>
             </div>
             <div className="MainTitle__controls">
-                <Button>Ask Question</Button>
+                <Button btnOk={true}>Ask Question</Button>
                 <Filter/>
             </div>
         </div>

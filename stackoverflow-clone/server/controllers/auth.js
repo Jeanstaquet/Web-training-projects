@@ -1,5 +1,6 @@
 const User = require("../models/user");
 
+//Sign up a user
 exports.postSignUp = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -24,11 +25,12 @@ exports.postSignUp = (req, res, next) => {
                 req.session.user = user
                 req.session.save();
                 user.save();
-                return res.send("User created!")
+                return res.send(user)
             }
         })
 }
 
+//Sign in a user
 exports.postSignIn = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -49,4 +51,12 @@ exports.postSignIn = (req, res, next) => {
             }
             
         })
+}
+
+//Logout handler
+exports.postLogout = (req, res, next) => {
+    req.session.destroy(err => {
+        console.log(err);
+        res.send("Logout")
+      });
 }
