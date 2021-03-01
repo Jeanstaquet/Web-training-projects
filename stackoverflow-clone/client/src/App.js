@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import "./App.css";
 import MainLayout from "./containers/MainLayout/MainLayout";
 import HomePage from "./containers/HomePage/HomePage";
@@ -6,6 +6,8 @@ import axios from "axios";
 import AskQuestion from "./components/AskQuestion/AskQuestion";
 import AuthModal from "./containers/Auth/AuthModal/AuthModal";
 import {Route, Switch} from "react-router-dom";
+import {UserContext} from "./UserContext";
+
 const App = () => {
   //Show the modal
   const [showModal, setShowModal] = useState(false)
@@ -18,7 +20,9 @@ const App = () => {
   //Error message for the auth flow
   const [errorAuth, setErrorAuth] = useState("")
   //Open close the modal
+  const [user, setUser] = useState(null)
 
+  const providerValue = useMemo(() => ({user, setUser}), [user, setUser])
 
   const showModalHandler = (type) => {
     setShowModal(!showModal)
@@ -62,7 +66,7 @@ const App = () => {
               setPseudo("")
               setErrorAuth("")
               setShowModal(false)
-              console.log(resp.data)
+              setUser(resp.data)
             }
           })
           .catch(err => {
@@ -112,18 +116,20 @@ const App = () => {
 
   return (
     <div>
-      <Switch>
-      <Route exact path="/ask">
-        {authModal}
-        <AskQuestion showModalHandler={showModalHandler}/>
-      </Route>
-      <MainLayout showModalHandler={showModalHandler}>
-          {authModal}
-          <Route exact path="/">
-              <HomePage/>
+      <UserContext.Provider value={providerValue}>
+        <Switch>
+          <Route exact path="/ask">
+            {authModal}
+            <AskQuestion showModalHandler={showModalHandler}/>
           </Route>
-      </MainLayout>
-      </Switch>
+          <MainLayout showModalHandler={showModalHandler}>
+          {authModal}
+            <Route exact path="/">
+                <HomePage/>
+            </Route>
+          </MainLayout>
+        </Switch>
+      </UserContext.Provider>
     </div>
   );
 };

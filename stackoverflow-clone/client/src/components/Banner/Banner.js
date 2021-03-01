@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import "./Banner.css";
 import Button from "../UI/Button/Button";
+
 const Banner = (props) => {
     return (
         <div className="banner">
@@ -16,7 +17,7 @@ const Banner = (props) => {
                     onClick={() => props.showModalHandler("Signup")}>Sign up
                 </Button>
                 <div className="banner__profilePhoto"></div>
-                <p>2 *</p>
+                <p></p>
             </div>
         </div>
     );

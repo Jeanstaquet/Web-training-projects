@@ -7,7 +7,6 @@ import RelatedTags from "../../components/RelatedTags/RelatedTags";
 import MainTitle from "../../components/MainTitle/MainTitle";
 
 const MainPage = (props) => {
-    console.log(props)
     return (
         <div className="MainLayout">
             <Banner showModalHandler={props.showModalHandler}/>

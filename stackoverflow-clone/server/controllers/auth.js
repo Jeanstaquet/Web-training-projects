@@ -43,7 +43,7 @@ exports.postSignIn = (req, res, next) => {
                 req.session.isLoggedIn = true
                 req.session.user = user
                 req.session.save();
-                res.send("Connected")
+                return res.send(user)
             } else {
                 return res.send("Wrong email or password")
             }
