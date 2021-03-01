@@ -1,5 +1,7 @@
+const { populate } = require("../models/post");
 const Post = require("../models/post")
 
+//Post a post in the db
 exports.postPost = (req, res, next) => {
     const title = req.body.title;
     const body = req.body.body;
@@ -22,4 +24,18 @@ exports.postPost = (req, res, next) => {
         console.log(err);
         res.send("Error");
     })
+}
+
+//Gets all the posts of the db
+exports.getAllPosts = (req, res, next) => {
+    Post.find()
+        .populate("creator")
+        // .execPopulate()
+        .then(posts => {
+            posts && true ? res.send(posts) : res.send("no posts") 
+        })
+        .catch(err => {
+            console.log(err)
+            res.send("error")
+        })
 }
