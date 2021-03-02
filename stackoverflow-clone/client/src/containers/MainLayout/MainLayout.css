@@ -14,11 +14,9 @@
     padding: 24px;
     padding-bottom: 0;
     padding-left: 0;
-    overflow: hidden;
 }
 
 .MainLayout__Title {
-
     width: 100%;
     background-color:lightsalmon;
     height: 150px;

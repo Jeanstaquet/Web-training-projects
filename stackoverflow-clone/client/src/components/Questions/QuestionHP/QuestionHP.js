@@ -3,7 +3,6 @@ import "./QuestionHP.css";
 import Tags from "../../Tag/Tag";
 import UserInfo from "../../UI/UserInfo/UserInfo";
 const QuestionHP = (props) => {
-    console.log(props)
     return (
         <div className="QuestionHP">
             <div className="QuestionHP__nbr">

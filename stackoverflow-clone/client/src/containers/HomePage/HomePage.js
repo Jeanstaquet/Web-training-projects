@@ -5,7 +5,7 @@ const HomePage = (props) => {
 
     return (
         <>
-            {props.posts ? props.posts.map((post, index) => {
+            {props.posts ? props.posts.sort((posta, postb) => new Date(postb.time) - new Date(posta.time)).map((post, index) => {
                     console.log()
                 return  <QuestionHP 
                             key={post._id}
