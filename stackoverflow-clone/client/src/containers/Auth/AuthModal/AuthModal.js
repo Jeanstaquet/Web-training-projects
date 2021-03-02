@@ -1,14 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import "./AuthModal.css";
 import ClearIcon from '@material-ui/icons/Clear';
 import Button from "../../../components/UI/Button/Button";
-import {UserContext} from "../../../UserContext";
-
 
 const AuthModal = (props) => {
-    const {user, setUser} = useContext(UserContext);
     
-
     return (
         <div className={props.show ? "AuthModal" : "AuthModal hideModal"}>
             {props.authMethod === "Login" ? <h2>Login</h2> : <h2>Sign Up</h2>}

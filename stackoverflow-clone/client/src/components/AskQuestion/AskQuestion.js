@@ -3,6 +3,7 @@ import axios from "axios"
 import "./AskQuestion.css";
 import Banner from "../Banner/Banner";
 import Button from "../UI/Button/Button";
+import { useHistory } from "react-router-dom";
 import {UserContext} from "../../UserContext";
 
 const AskQuestion = (props) => {
@@ -13,10 +14,13 @@ const AskQuestion = (props) => {
     //Manages the inputs
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
-    const [tags, setTags] = useState([])
+    const [tags, setTags] = useState([]);
 
+    //Acces to the context of the user
     const {user} = useContext(UserContext);
 
+    //Redirect 
+    let history = useHistory();
 
     //Handle the state of the button
     const btnHandler = (e) => {
@@ -26,7 +30,8 @@ const AskQuestion = (props) => {
         setTimeout(() => {
             setBtnLoad(false)
             setBtnOk(true)
-        }, 4000)
+            history.push("/")
+        }, 3000)
     }
 
     const askQuestionHandler = () => {

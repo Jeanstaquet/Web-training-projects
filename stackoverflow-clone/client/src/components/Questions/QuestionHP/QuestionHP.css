@@ -44,6 +44,7 @@
 .QuestionHP__info {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .QuestionHP__text {

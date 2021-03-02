@@ -6,9 +6,9 @@ const Button = (props) => {
    
 
     return (
-        !props.loading ? <button className="btn" style={{backgroundColor: !props.btnOk ? "green" : "#0095ff"}} onClick={props.onClick}>{props.btnOk ? props.children : "Send"}</button> 
+        !props.loading ? <button className="btn" style={{backgroundColor: !props.btnOk ? "green" : "#0095ff"}} onClick={props.onClick}>{props.btnOk ? props.children : "Sent"}</button> 
             : <button className="buttonload btn">
-                <i className="fa fa-spinner fa-spin"></i>Loading
+                <i className="fa fa-spinner fa-spin"></i> Loading
               </button>
     );
 };

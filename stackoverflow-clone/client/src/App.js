@@ -5,6 +5,7 @@ import HomePage from "./containers/HomePage/HomePage";
 import axios from "axios";
 import AskQuestion from "./components/AskQuestion/AskQuestion";
 import AuthModal from "./containers/Auth/AuthModal/AuthModal";
+import QuestionHP from "./components/Questions/QuestionHP/QuestionHP";
 import {Route, Switch} from "react-router-dom";
 import {UserContext} from "./UserContext";
 
@@ -21,8 +22,22 @@ const App = () => {
   const [errorAuth, setErrorAuth] = useState("")
   //Open close the modal
   const [user, setUser] = useState(null)
+  //store the posts
+  const [posts, setPosts] = useState(null);
 
+
+  //context provider for the user
   const providerValue = useMemo(() => ({user, setUser}), [user, setUser])
+
+  //Fetch all the posts
+  useEffect(() => {
+    axios.get("http://localhost:5000/post")
+        .then(resp => {
+          console.log(resp.data)
+            setPosts(resp.data)
+        })
+}, []);
+
 
   const showModalHandler = (type) => {
     setShowModal(!showModal)
@@ -137,7 +152,7 @@ const App = () => {
           >
           {authModal}
             <Route exact path="/">
-                <HomePage/>
+                <HomePage posts={posts}/>
             </Route>
           </MainLayout>
         </Switch>

@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import "./HomePage.css";
 import QuestionHP from "../../components/Questions/QuestionHP/QuestionHP";
-import axios from "axios";
-const HomePage = () => {
-    const [posts, setPosts] = useState(null);
-
-    useEffect(() => {
-        axios.get("http://localhost:5000/post")
-            .then(resp => {
-                console.log(resp)
-            })
-    }, []);
+const HomePage = (props) => {
 
     return (
         <>
-            <QuestionHP/>
+            {props.posts ? props.posts.map((post, index) => {
+                    console.log()
+                return  <QuestionHP 
+                            key={post._id}
+                            point={post.point}
+                            answer={post.answer}
+                            title={post.title}
+                            content={post.content}
+                        />
+            }): null}
+            <QuestionHP />
         </>
     );
 };
