@@ -5,7 +5,7 @@ import HomePage from "./containers/HomePage/HomePage";
 import axios from "axios";
 import AskQuestion from "./components/AskQuestion/AskQuestion";
 import AuthModal from "./containers/Auth/AuthModal/AuthModal";
-import QuestionHP from "./components/Questions/QuestionHP/QuestionHP";
+import DetailsPage from "./containers/DetailsPage/DetailsPage";
 import {Route, Switch} from "react-router-dom";
 import {UserContext} from "./UserContext";
 
@@ -152,6 +152,9 @@ const App = () => {
           {authModal}
             <Route exact path="/">
                 <HomePage posts={posts}/>
+            </Route>
+            <Route exact path="/question/:id">
+                <DetailsPage/>
             </Route>
           </MainLayout>
         </Switch>

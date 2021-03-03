@@ -2,6 +2,7 @@ import React from 'react';
 import "./QuestionHP.css";
 import Tags from "../../Tag/Tag";
 import UserInfo from "../../UI/UserInfo/UserInfo";
+import {Link} from "react-router-dom"
 const QuestionHP = (props) => {
     return (
         <div className="QuestionHP">
@@ -18,7 +19,10 @@ const QuestionHP = (props) => {
             </div>
             <div className="QuestionHP__info">
                 <div className="QuestionHP__text">
-                    <h3>{props.title}</h3>
+                    <Link to={`/question/${props.id}`}>
+                        <h3>{props.title}</h3>
+                    </Link>
+
                     <p>{props.content}</p>
                 </div>
                 <div className="QuestionHP__tagsProfile">
