@@ -6,16 +6,16 @@ const HomePage = (props) => {
     return (
         <>
             {props.posts ? props.posts.sort((posta, postb) => new Date(postb.time) - new Date(posta.time)).map((post, index) => {
-                    console.log()
                 return  <QuestionHP 
                             key={post._id}
                             point={post.point}
                             answer={post.answer}
                             title={post.title}
                             content={post.content}
+                            creator={post.creator}
+                            time={String(new Date(post.time))}
                         />
             }): null}
-            <QuestionHP />
         </>
     );
 };

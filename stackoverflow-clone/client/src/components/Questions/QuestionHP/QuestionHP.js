@@ -26,7 +26,7 @@ const QuestionHP = (props) => {
                         <Tags label="c#"/>
                         <Tags label="javascript"/>
                     </div>
-                    <UserInfo/>
+                    <UserInfo pseudo={props.creator.pseudo} time={props.time}/>
                 </div>
             </div>
         </div>

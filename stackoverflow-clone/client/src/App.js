@@ -33,7 +33,6 @@ const App = () => {
   useEffect(() => {
     axios.get("http://localhost:5000/post")
         .then(resp => {
-          console.log(resp.data)
             setPosts(resp.data)
         })
 }, []);
@@ -110,11 +109,11 @@ const App = () => {
           break;
     } 
   }
-
+  console.log(document.cookie)
   //Logout Handler
   const logoutHandler = () => {
     setUser(null);
-    axios.get('http://localhost:5000/logout')
+    axios.post('http://localhost:5000/logout')
   }
 
   const authModal = (

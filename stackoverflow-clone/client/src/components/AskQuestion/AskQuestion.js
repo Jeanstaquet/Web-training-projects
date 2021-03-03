@@ -18,10 +18,9 @@ const AskQuestion = (props) => {
 
     //Acces to the context of the user
     const {user} = useContext(UserContext);
-
     //Redirect 
     let history = useHistory();
-
+    console.log(user)
     //Handle the state of the button
     const btnHandler = (e) => {
         e.preventDefault();
@@ -33,19 +32,21 @@ const AskQuestion = (props) => {
             history.push("/")
         }, 3000)
     }
+    console.log(!(user && true))
 
     const askQuestionHandler = () => {
         const data = {
             title: title,
             body: body,
-            tags: tags
+            tags: tags,
+            userId: user._id
         }
         axios.post('http://localhost:5000/ask', data, {
             headers: {
               'Content-Type': 'application/json'
             }, withCredentials: true})
             .then(resp => {
-                console.log(resp.data)
+                
             })
     }
     return (
@@ -86,7 +87,7 @@ const AskQuestion = (props) => {
                 <Button onClick={(e) => {
                     askQuestionHandler()
                     btnHandler(e)}} 
-                        disabled={user && true}
+                        disabled={!(user && true)}
                         loading={btnLoad}
                         askQuestionHandler={askQuestionHandler}
                         btnOk={!btnOk}>Review your question

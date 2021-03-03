@@ -14,3 +14,7 @@
 .btn:hover {
     background-color: #0077cc !important;
 }
+
+.btn[disabled] {
+    background-color: lightgray !important;
+}

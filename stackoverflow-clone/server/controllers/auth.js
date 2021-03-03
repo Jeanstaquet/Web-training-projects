@@ -40,7 +40,7 @@ exports.postSignIn = (req, res, next) => {
             if(!user) {
                 return res.send("User not found")
             }
-
+            console.log(req.session.user._id, user._id)
             if(user.password === password) {
                 req.session.isLoggedIn = true
                 req.session.user = user

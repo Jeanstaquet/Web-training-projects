@@ -3,6 +3,8 @@
     width: 165.5px;
     height: 100vh;
     border-right: 1px solid lightgray;
+    background-color: #ffffff;
+    z-index: 100;
 }
 
 .leftMenu__content {
