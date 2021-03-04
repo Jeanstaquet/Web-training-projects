@@ -9,11 +9,11 @@ const MainTitle = (props) => {
         <div className="MainTitle">
             <div className="MainTitle__Questions">
                 <h1>All Questions</h1>
-                <p>20,895, 410 quesyions</p>
+                <p>20,895, 410 question</p>
             </div>
             <div className="MainTitle__controls">
                 <Link to='/ask'><Button btnOk={true}>Ask Question</Button></Link>
-                <Filter/>
+                {props.title ? null :<Filter/>}
             </div>
         </div>
     );

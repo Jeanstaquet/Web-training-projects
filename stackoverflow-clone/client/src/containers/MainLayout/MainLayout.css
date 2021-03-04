@@ -1,35 +1,33 @@
 .MainLayout {
-    position: relative;
+  position: relative;
 }
 
 .MainLayout__content {
-    margin-top: 5.2vh;
-    height: 100vh;
-    position: absolute;
-    right: 0;
-    width: calc(98.6vw - 164px);
-
-    display: flex;
-    justify-content: space-between;
-    padding: 24px;
-    padding-bottom: 0;
-    padding-left: 0;
+  margin-top: 5.2vh;
+  height: 100vh;
+  position: absolute;
+  right: 0;
+  width: calc(98.6vw - 164px);
+  display: flex;
+  justify-content: space-between;
+  padding: 24px;
+  padding-bottom: 0;
+  padding-left: 0;
 }
 
 .MainLayout__Title {
-    width: 100%;
-    background-color:lightsalmon;
-    height: 150px;
+  width: 100%;
+  background-color: lightsalmon;
+  height: 150px;
 }
 
 .MainLayout__questions {
-    flex: 1;
-    min-width: 454px;
+  flex: 1;
+  min-width: 454px;
 }
 
 .MainLayout__tags {
-    margin-left: 24px;
-    display: flex;
-    flex-direction: column;
-    background-color: lightpink;
+  margin-left: 24px;
+  display: flex;
+  flex-direction: column;
 }
