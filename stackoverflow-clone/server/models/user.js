@@ -1,59 +1,59 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     email: {
         type: String,
-        required: true
+        required: true,
     },
     password: {
         type: String,
-        required: true
+        required: true,
     },
     pseudo: {
         type: String,
-        required: true
+        required: true,
     },
-    post: [{
-                postId: {
-                    type: Schema.Types.ObjectId,
-                    ref: "Post",
-                    required: true
-                }
-            }],
-    answer: [{
-                answerId: {
-                    type: Schema.Types.ObjectId,
-                    ref: "Answer",
-                    required: true
-                }
-            }],
+    post: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Post",
+            required: true,
+        },
+    ],
+    answer: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Answer",
+            required: true,
+        },
+    ],
     points: {
         type: Number,
-        required: true
+        required: true,
     },
-    upVotedPost: [{
-        postId: {
+    upVotedPost: [
+        {
             type: Schema.Types.ObjectId,
             ref: "Post",
-            required: true
-        }
-    }],
-    downVotedPost: [{
-        postId: {
+            required: true,
+        },
+    ],
+    downVotedPost: [
+        {
             type: Schema.Types.ObjectId,
             ref: "Post",
-            required: true
-        }
-    }],
-    comment: [{
-        commentId: {
+            required: true,
+        },
+    ],
+    comment: [
+        {
             type: Schema.Types.ObjectId,
             ref: "Comment",
-            required: true
-        }
-    }]
+            required: true,
+        },
+    ],
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);
