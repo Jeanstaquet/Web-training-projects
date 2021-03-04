@@ -17,11 +17,9 @@ const postSchema = new Schema({
             required: true
         },
     answer: [{
-        answerId: {
             type: Schema.Types.ObjectId,
             ref: "Answer",
             required: true
-        }
     }],
 
     tag: [{

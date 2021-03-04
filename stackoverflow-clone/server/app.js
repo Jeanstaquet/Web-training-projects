@@ -37,7 +37,7 @@ app.use(
   );
 
 app.use((req, res, next) => {
-
+  
   next()
 })
 app.use(postsRoutes);
