@@ -17,6 +17,7 @@ const answerSchema = new Schema({
     type: String,
     required: true,
   },
+  time: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model("Answer", answerSchema);

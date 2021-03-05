@@ -7,12 +7,12 @@ const Answer = () => {
     return (
         <div className="Answer">
             <div className="Anwser__voteBtn">
-                <ChangeHistoryIcon />
+                <ChangeHistoryIcon className="Answer__voteUp"/>
                 <p>0</p>
                 <DetailsIcon />
             </div>
             <div className="Answer__mainContent">
-                <div className="Content">
+                <div className="Answer__Content">
                     <p>
                         I would like to automatically format TypeScript code
                         using the build-in formatter when I save a file in
