@@ -47,14 +47,25 @@ exports.postAnswer = (req, res, next) => {
                 post: post,
                 author: user,
                 content: answer,
+                comment: [],
             });
             newAnswer.save();
-            post.answer.push(newAnswer._id)
-            return post.save()
+            post.answer.push(newAnswer._id);
+            return post.save();
         })
         .then((result) => {
-            
             res.send("Added");
+        })
+        .catch((err) => console.log(err));
+};
+
+exports.getAnswsers = (req, res, next) => {
+    const id = req.params.postId;
+    console.log(id);
+    Answer.find({ post: id })
+        .populate("author")
+        .then((answer) => {
+            return res.send(answer);
         })
         .catch((err) => console.log(err));
 };

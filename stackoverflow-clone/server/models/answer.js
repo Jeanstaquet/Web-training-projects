@@ -17,6 +17,11 @@ const answerSchema = new Schema({
     type: String,
     required: true,
   },
+  comment: [{
+    type: Schema.Types.ObjectId,
+    ref: "Comment",
+    required: true
+  }],
   time: { type: Date, default: Date.now },
 });
 
