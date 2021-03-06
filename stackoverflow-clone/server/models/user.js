@@ -33,17 +33,17 @@ const userSchema = new Schema({
         type: Number,
         required: true,
     },
-    upVotedPost: [
+    upVotedAnswer: [
         {
             type: Schema.Types.ObjectId,
-            ref: "Post",
+            ref: "Answer",
             required: true,
         },
     ],
-    downVotedPost: [
+    downVotedAnswer: [
         {
             type: Schema.Types.ObjectId,
-            ref: "Post",
+            ref: "Answer",
             required: true,
         },
     ],

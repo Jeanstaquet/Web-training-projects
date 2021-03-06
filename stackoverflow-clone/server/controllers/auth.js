@@ -17,8 +17,8 @@ exports.postSignUp = (req, res, next) => {
                     post: [],
                     answer: [],
                     points: 0,
-                    upVotedPost: [],
-                    downVotedPost: [],
+                    upVotedAnswer: [],
+                    downVotedAnswer: [],
                     comment: []
                 });
                 req.session.isLoggedIn = true

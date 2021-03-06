@@ -11,7 +11,7 @@ const DetailsPage = (props) => {
     //Store all the answers of the post
     const [answers, setAnswers] = useState([]);
     //Resp of the server
-    const [resp, setResp] = useState("")
+    const [resp, setResp] = useState("");
 
     const {
         _id,
@@ -36,21 +36,35 @@ const DetailsPage = (props) => {
             .then((res) => setAnswers(res.data));
     }, [answers.values, resp]);
 
-
     //Post an answer to the db
     const postAnswer = () => {
         const data = {
             answer: yourAnswer,
             postId: _id,
         };
-        axios.post("http://localhost:5000/answer", data, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            withCredentials: true,
-        })
-        .then(resp => setResp(resp))
-        .catch(err => setResp(err))
+        axios
+            .post("http://localhost:5000/answer", data, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                withCredentials: true,
+            })
+            .then((resp) => setResp(resp))
+            .catch((err) => setResp(err));
+    };
+
+    //Change the points of a post
+    const changePoints = (id, method) => {
+        const data = { answerId: id, method: method };
+        axios
+            .post("http://localhost:5000/point", data, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                withCredentials: true,
+            })
+            .then((resp) => setResp(resp))
+            .catch((err) => setResp(err));
     };
 
     return (
@@ -69,17 +83,22 @@ const DetailsPage = (props) => {
                 <h2>Answer(s)</h2>
                 <Filter />
             </div>
-            {answers.map(({ author, content, comment, time }, index) => {
-                return (
-                    <Answer
-                        key={index}
-                        author={author}
-                        content={content}
-                        comment={comment}
-                        time={time}
-                    />
-                );
-            })}
+            {answers.map(
+                ({ _id, author, content, comment, time, point }, index) => {
+                    return (
+                        <Answer
+                            id={_id}
+                            key={_id}
+                            author={author}
+                            point={point}
+                            content={content}
+                            comment={comment}
+                            time={time}
+                            changePoints={changePoints}
+                        />
+                    );
+                }
+            )}
             <YourAnswer
                 postAnswer={postAnswer}
                 yourAnswer={yourAnswer}
