@@ -18,7 +18,7 @@ const Answer = (props) => {
                     </p>
                 </div>
                 <div className="Answer__user">
-                    <UserInfo pseudo={props.pseudo}/>
+                    <UserInfo pseudo={props.author.pseudo} time={props.time}/>
                 </div>
                 <div className="Answer__comment">
                     <p>
