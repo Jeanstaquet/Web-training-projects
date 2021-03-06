@@ -139,7 +139,6 @@ const App = () => {
     />
   );
 
-  console.log(selectedPost);
   return (
     <div>
       <UserContext.Provider value={providerValue}>

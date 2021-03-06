@@ -3,7 +3,7 @@ import "./Answer.css";
 import ChangeHistoryIcon from "@material-ui/icons/ChangeHistory";
 import DetailsIcon from "@material-ui/icons/Details";
 import UserInfo from "../../UI/UserInfo/UserInfo";
-const Answer = () => {
+const Answer = (props) => {
     return (
         <div className="Answer">
             <div className="Anwser__voteBtn">
@@ -14,22 +14,11 @@ const Answer = () => {
             <div className="Answer__mainContent">
                 <div className="Answer__Content">
                     <p>
-                        I would like to automatically format TypeScript code
-                        using the build-in formatter when I save a file in
-                        Visual Studio Code.I would like to automatically format
-                        TypeScript code using the build-in formatter when I save
-                        a file in Visual Studio Code.I would like to
-                        automatically format TypeScript code using the build-in
-                        formatter when I save a file in Visual Studio Code.I
-                        would like to automatically format TypeScript code using
-                        the build-in formatter when I save a file in Visual
-                        Studio Code.I would like to automatically format
-                        TypeScript code using the build-in formatter when I save
-                        a file in Visual Studio Code.
+                        {props.content}
                     </p>
                 </div>
                 <div className="Answer__user">
-                    <UserInfo />
+                    <UserInfo pseudo={props.pseudo}/>
                 </div>
                 <div className="Answer__comment">
                     <p>

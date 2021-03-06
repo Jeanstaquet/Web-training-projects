@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Answer from "../../components/Answers/Answer/Answer";
 import YourAnswer from "../../components/Answers/YourAnswer/YourAnswer";
 import QuestionHP from "../../components/Questions/QuestionHP/QuestionHP";
@@ -6,20 +6,12 @@ import Filter from "../../components/UI/Filter/Filter";
 import axios from "axios";
 import "./DetailsPage.css";
 const DetailsPage = (props) => {
+    //User current answer
     const [yourAnswer, setYourAnswer] = useState("");
-
-    const postAnswer = () => {
-        const data = {
-            answer: yourAnswer,
-            postId: _id,
-        };
-        axios.post("http://localhost:5000/answer", data, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            withCredentials: true,
-        });
-    };
+    //Store all the answers of the post
+    const [answers, setAnswers] = useState([]);
+    //Resp of the server
+    const [resp, setResp] = useState("")
 
     const {
         _id,
@@ -31,6 +23,36 @@ const DetailsPage = (props) => {
         time,
         title,
     } = props.selectedPost;
+
+    //Get the answers the post
+    useEffect(() => {
+        axios
+            .get(`http://localhost:5000/answers/${_id}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                withCredentials: true,
+            })
+            .then((res) => setAnswers(res.data));
+    }, [answers.values, resp]);
+
+
+    //Post an answer to the db
+    const postAnswer = () => {
+        const data = {
+            answer: yourAnswer,
+            postId: _id,
+        };
+        axios.post("http://localhost:5000/answer", data, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            withCredentials: true,
+        })
+        .then(resp => setResp(resp))
+        .catch(err => setResp(err))
+    };
+
     return (
         <>
             <QuestionHP
@@ -47,7 +69,17 @@ const DetailsPage = (props) => {
                 <h2>Answer(s)</h2>
                 <Filter />
             </div>
-            <Answer />
+            {answers.map(({ author, content, comment, time }, index) => {
+                return (
+                    <Answer
+                        key={index}
+                        author={author}
+                        content={content}
+                        comment={comment}
+                        time={time}
+                    />
+                );
+            })}
             <YourAnswer
                 postAnswer={postAnswer}
                 yourAnswer={yourAnswer}
