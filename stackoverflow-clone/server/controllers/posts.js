@@ -73,37 +73,62 @@ exports.getAnswsers = (req, res, next) => {
         .catch((err) => res.send(err));
 };
 
-// exports.postPoint = (req, res, next) => {
-//     const answerId = req.body.answerId;
-//     const method = req.body.method;
-//     const user = req.session.user;
-//     User.findById(user._id)
-//         .then((user) => {
-//             const upVoted = user.upVotedAnswer.includes(ObjectId(answerId));
-//             const downVoted = user.downVotedAnswer.includes(ObjectId(answerId));
-//             return { upVoted: upVoted, downVoted: downVoted, user: user };
-//         })
-//         .then(({ upVoted, downVoted, user }) => {
-//             upVoted && res.send("Exist");
-//             downVoted && res.send("Exist");
-//             if (upVoted || downVoted) {
-//                 return res.send("Exist");
-//             } else {
-//                 Answer.findById(answerId)
-//                     .then((answer) => {
-//                         method === "up"
-//                             ? ((answer.point = answer.point + 1),
-//                               user.upVotedAnswer.push(ObjectId(answerId)))
-//                             : ((answer.point = answer.point - 1),
-//                               user.downVotedAnswer.push(ObjectId(answerId)));
-//                         answer.save();
-//                         user.save();
-//                          res.send("go");
-//                          return
-//                     })
-        
-//             }
-//         })
-
-// };
+exports.postPoint = (req, res, next) => {
+    // const answerId = req.body.answerId;
+    // const method = req.body.method;
+    // const user = req.session.user;
+    // User.findById(user._id)
+    //     .then((user) => {
+    //         const upVoted = user.upVotedAnswer.includes(ObjectId(answerId));
+    //         const downVoted = user.downVotedAnswer.includes(ObjectId(answerId));
+    //         console.log("1")
+    //         return { upVoted: upVoted, downVoted: downVoted, user: user };
+    //     })
+    //     .then(({ upVoted, downVoted, user }) => {
+    //         console.log("2")
+    //         if (upVoted || downVoted) {
+    //             console.log("ok")
+    //             if(downVoted && method === "up" && !upVoted) {
+    //                 console.log("3")
+    //                 Answer.findById(answerId).
+    //                     then((answer) => {
+    //                         console.log("4")
+    //                         answer.point = answer.point + 1;
+    //                         user.upVotedAnswer.push(ObjectId(answerId))
+    //                         //user.downVotedAnswer.pop(ObjectId(answerId))
+    //                         answer.save();
+    //                         user.save();
+    //                         return res.send("updated")
+    //                     })
+    //                     .catch(err => res.send(err))
+    //             } else if (upVoted && method === "down" && !downVoted) {
+    //                 Answer.findById(answerId).
+    //                 then((answer) => {
+    //                     console.log("4")
+    //                     answer.point = answer.point + 1;
+    //                     user.downVoted.push(ObjectId(answerId))
+    //                     //user.downVotedAnswer.pop(ObjectId(answerId))
+    //                     answer.save();
+    //                     user.save();
+    //                     return res.send("updated")
+    //                 })
+    //             }
+    //         } else {
+    //             Answer.findById(answerId)
+    //                 .then((answer) => {
+    //                     method === "up"
+    //                         ? ((answer.point = answer.point + 1),
+    //                           user.upVotedAnswer.push(ObjectId(answerId)))
+    //                         : ((answer.point = answer.point - 1),
+    //                           user.downVotedAnswer.push(ObjectId(answerId)));
+    //                     answer.save();
+    //                     user.save();
+                        
+    //                 }).catch(err => res.send(err))
+    //         }
+    //         return res.send("go");
+    //     })
+    //     .catch(err => res.send(err))
+    res.send(" ")
+};
  

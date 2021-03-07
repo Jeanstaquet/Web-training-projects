@@ -3,6 +3,7 @@ import "./Answer.css";
 import ChangeHistoryIcon from "@material-ui/icons/ChangeHistory";
 import DetailsIcon from "@material-ui/icons/Details";
 import UserInfo from "../../UI/UserInfo/UserInfo";
+import CommentInput from "./CommentInput/CommentInput";
 const Answer = (props) => {
     return (
         <div className="Answer">
@@ -25,6 +26,7 @@ const Answer = (props) => {
                         is there a way to exclude some files? i.e I want to only
                         format .js files not .html files
                     </p>
+                    <CommentInput setComment={props.setComment}/>
                 </div>
             </div>
         </div>

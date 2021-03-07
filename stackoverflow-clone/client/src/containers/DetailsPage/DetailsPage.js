@@ -12,7 +12,8 @@ const DetailsPage = (props) => {
     const [answers, setAnswers] = useState([]);
     //Resp of the server
     const [resp, setResp] = useState("");
-
+    //Comment
+    const [comment, setComment] = useState("")
     const {
         _id,
         content,
@@ -95,6 +96,7 @@ const DetailsPage = (props) => {
                             comment={comment}
                             time={time}
                             changePoints={changePoints}
+                            setComment={setComment}
                         />
                     );
                 }
