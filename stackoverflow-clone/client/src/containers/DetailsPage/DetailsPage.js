@@ -13,7 +13,7 @@ const DetailsPage = (props) => {
     //Resp of the server
     const [resp, setResp] = useState("");
     //Comment
-    const [comment, setComment] = useState("")
+    const [comment, setComment] = useState("");
     const {
         _id,
         content,
@@ -53,7 +53,7 @@ const DetailsPage = (props) => {
             .then((resp) => setResp(resp))
             .catch((err) => setResp(err));
     };
-
+console.log(answers)
     //Change the points of a post
     const changePoints = (id, method) => {
         const data = { answerId: id, method: method };
@@ -68,6 +68,23 @@ const DetailsPage = (props) => {
             .catch((err) => setResp(err));
     };
 
+    //Send a comment to a post
+    const commentHandler = (e, id) => {
+        e.preventDefault();
+        const data = {
+            answerId: id,
+            comment: comment,
+        };
+        axios
+            .post("http://localhost:5000/comment", data, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                withCredentials: true,
+            })
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+    };
     return (
         <>
             <QuestionHP
@@ -88,6 +105,7 @@ const DetailsPage = (props) => {
                 ({ _id, author, content, comment, time, point }, index) => {
                     return (
                         <Answer
+                            commentHandler={commentHandler}
                             id={_id}
                             key={_id}
                             author={author}

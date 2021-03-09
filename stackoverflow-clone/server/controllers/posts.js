@@ -1,6 +1,6 @@
 const Post = require("../models/post");
 const Answer = require("../models/answer");
-const User = require("../models/user");
+const Comment = require("../models/comment");
 const { ObjectId } = require("bson");
 
 //Post a post in the db
@@ -67,6 +67,7 @@ exports.getAnswsers = (req, res, next) => {
     const id = req.params.postId;
     Answer.find({ post: id })
         .populate("author")
+        .populate("comment")
         .then((answer) => {
             return res.send(answer);
         })
@@ -132,3 +133,24 @@ exports.postPoint = (req, res, next) => {
     res.send(" ")
 };
  
+exports.postComment = (req, res, next) => {
+    const comment = req.body.comment;
+    const answerId = req.body.answerId;
+    const user = req.session.user;
+    Answer.findById(answerId)
+    .then(answer => {
+        const com = new Comment({
+            author: user,
+            content: comment,
+        })
+        answer.comment.push(com._id)
+        answer.save()
+        com.save()
+    })
+
+    .then(() => {
+        res.send("Comment added")
+    })
+    .catch((err) => res.send(err))
+    
+}

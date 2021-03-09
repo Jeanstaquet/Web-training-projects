@@ -13,5 +13,6 @@ router.post("/answer", postController.postAnswer);
 router.get("/answers/:postId", postController.getAnswsers);
 //Modify answer's points
 router.post("/point", postController.postPoint);
-
+//Post a new comment
+router.post("/comment", postController.postComment);
 module.exports = router;
